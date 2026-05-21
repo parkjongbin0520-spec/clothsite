@@ -70,4 +70,14 @@ dlwjsbtn.addEventListener('click', () => {
     resetSlideInterval(); //사용자 조작시 타이머 리셋
 });
 
-
+  const mainApp = document.getElementById('mainApp');
+      const seasonButtons = document.querySelectorAll('.season-btn');
+      seasonButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          seasonButtons.forEach(btn => btn.classList.remove('active-season'));
+          button.classList.add('active-season');
+          const selectedSeason = button.getAttribute('data-season');
+          mainApp.classList.remove('spring', 'summer', 'autumn', 'winter');
+          mainApp.classList.add(selectedSeason);
+        });
+      });
