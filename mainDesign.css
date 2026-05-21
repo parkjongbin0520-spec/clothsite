@@ -114,6 +114,8 @@ body {
     display: none;
   }
 
+  
+
   .slider {
     display: flex;
     overflow-x: auto;
@@ -221,12 +223,18 @@ body {
 }
 .tabs span {
   border: 2px solid #888;
-  border-bottom: none;
-  padding: 10px 30px;
-  border-radius: 10px 10px 0 0;
+  padding: 10px 24px;
+  border-radius: 30px;
   background: #fff;
   font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.tabs span:hover { background-color: #888; color: #fff !important; transform: translateY(-2px); }
+.tabs span.active { background: #888; color: #fff; }
+
 .card-row {
   display: flex;
   gap: 15px;
@@ -234,10 +242,10 @@ body {
   border-top: 2px solid #888;
   padding-top: 20px;
 }
-.card-row .card {
-  min-width: 150px;
-  height: 150px;
-}
+
+
+.card-row .card { min-width: 150px; height: 150px; transition: transform 0.2s; }
+.card-row .card:hover { transform: translateY(-4px); }
 
 /* ---------------------------------
            스크롤 03 영역 (목록 및 필터)
@@ -292,3 +300,36 @@ body {
   color: #f77f00;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.main-app { position: relative; transition: background-color 0.4s ease; }
+.main-app.spring { background-color: #fff0f5; }
+.main-app.summer { background-color: #f0f8ff; }
+.main-app.autumn { background-color: #faf0e6; }
+.main-app.winter { background-color: #f5f5f5; }
+
+.theme-switch { 
+display: flex; 
+gap: 6px; 
+border: 2px solid #888; 
+border-radius: 25px; 
+padding: 4px 8px; 
+background: #fff; 
+} 
+.theme-switch button { 
+background: none; 
+border: none; 
+padding: 4px 12px; 
+font-weight: bold; 
+font-size: 0.9rem; 
+cursor: pointer; 
+border-radius: 15px; 
+transition: all 0.2s ease; 
+color: #888; 
+} 
+.theme-switch button:hover { 
+background-color: #f0f0f0; 
+} 
+.theme-switch button.active-season { 
+background-color: #f77f00; 
+color: #fff; 
+} 
