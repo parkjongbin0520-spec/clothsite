@@ -12,28 +12,29 @@
       <h1>기온 및 날씨<br />정보</h1>
     </section>
 
-    <div class="main-app">
+    <div id="mainApp" class="main-app spring">
       <header class="app-header">
         <div class="left-info">
           <span>로고</span>
           <span>날씨 정보 (간략히)</span>
         </div>
-        <div class="theme-switch">UI 색상 스위치(봄 여름 가을 겨울)</div>
+        <div class="theme-switch">
+          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
+          <button type="button" class="season-btn" data-season="summer">여름</button>
+          <button type="button" class="season-btn" data-season="autumn">가을</button>
+          <button type="button" class="season-btn" data-season="winter">겨울</button>
+        </div>
       </header>
 
       <section class="screen-02">
-
         <div class="top-content">
-
-          <div class="box" id="box"> <! -- 여기 class,id 수정 -- >
-            <!-- 모델사진 -->
+          <div class="box" id="box">
             <div class="slider">
               <div class="adimage"><img src="https://lovely-orange-ebdppdfd7q.edgeone.app/9k.png" alt="모델사진1" /></div>
               <div class="adimage"><img src="https://oral-peach-qcbkbuypef.edgeone.app/9k%E3%85%8F.png" alt="모델사진2" /></div>
               <div class="adimage"><img src="https://objective-rose-ecp2k6ir6t.edgeone.app/2Q.png" alt="모델사진3" /></div>
               <div class="adimage"><img src="https://mammoth-amaranth-buzithtol8.edgeone.app/f20560451a4b49a4982de16283a8bddf.png" alt="모델사진4" /></div>
             </div>
-            <!-- 이전,다음 버튼-->
             <button class="btn-left" id="dlwjsbtn" aria-label="이전 사진">&#10094;</button> 
             <button class="btn-right" id="ekdmabtn" aria-label="다음 사진">&#10095;</button>
           </div>
@@ -48,18 +49,10 @@
               <div class="border-box box"></div>
               <div class="border-box box"></div>
             </div>
-
-            <p class="item-desc">
-              의류? 아이템 설명<br />가격이라던가 이름이라던가 특징이라던가
-            </p>
-
+            <p class="item-desc">의류? 아이템 설명<br />가격이라던가 이름이라던가 특징이라던가</p>
           </div>
-
         </div>
     
-      <script src="slideSetUp.js"></script>
-
-      <section class="screen-02">
         <div class="bottom-content">
           <div class="tabs">
             <span>상의</span>
@@ -88,25 +81,27 @@
           <div class="border-box card">카드</div>
           <div class="border-box card">카드</div>
           <div class="border-box card">카드</div>
-          <div class="border-box card highlight">
-            아래로<br />스크롤시 해당<br />영역만 움직임
-          </div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
+          <div class="border-box card highlight">아래로<br />스크롤시 해당<br />영역만 움직임</div>
           <div class="border-box card">카드</div>
           <div class="border-box card">카드</div>
         </div>
-
         <div class="border-box floating-nav">네비게이션 바</div>
       </section>
     </div>
+
+    <script src="slideSetUp.js"></script>
+    <script>
+      const mainApp = document.getElementById('mainApp');
+      const seasonButtons = document.querySelectorAll('.season-btn');
+      seasonButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          seasonButtons.forEach(btn => btn.classList.remove('active-season'));
+          button.classList.add('active-season');
+          const selectedSeason = button.getAttribute('data-season');
+          mainApp.classList.remove('spring', 'summer', 'autumn', 'winter');
+          mainApp.classList.add(selectedSeason);
+        });
+      });
+    </script>
   </body>
 </html>
