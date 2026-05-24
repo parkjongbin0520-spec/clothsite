@@ -74,7 +74,44 @@ body {
   color: #f77f00;
   font-weight: bold;
 }
+/* --- 본문까지 확장되는 계절 그라데이션 엔진 --- */
+.app-header, .screen-02, .screen-03, .tabs .tab-btn, .card-row {
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+.main-app.spring .app-header, .main-app.spring .screen-02, .main-app.spring .screen-03 {
+  background: linear-gradient(180deg, #f0fdf4 0%, #fce7f3 50%, #e0f2fe 100%) !important;
+}
+.main-app.spring .tabs .tab-btn, .main-app.spring .card-row { background: transparent !important; }
+.main-app.spring .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
 
+.main-app.summer .app-header, .main-app.summer .screen-02, .main-app.summer .screen-03 {
+  background: linear-gradient(180deg, #e0f2fe 0%, #e0e7ff 50%, #ccfbf1 100%) !important;
+}
+.main-app.summer .tabs .tab-btn, .main-app.summer .card-row { background: transparent !important; }
+.main-app.summer .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+
+.main-app.autumn .app-header, .main-app.autumn .screen-02, .main-app.autumn .screen-03 {
+  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 40%, #ffedd5 100%) !important;
+}
+.main-app.autumn .tabs .tab-btn, .main-app.autumn .card-row { background: transparent !important; }
+.main-app.autumn .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+
+.main-app.winter .app-header, .main-app.winter .screen-02, .main-app.winter .screen-03 {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
+}
+.main-app.winter .tabs .tab-btn, .main-app.winter .card-row { background: transparent !important; }
+.main-app.winter .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+
+/* 계절 선택 우측 스위치 박스 디자인 */
+.season-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
 /* ---------------------------------
            스크롤 02 영역 (간략 추천)
         --------------------------------- */
@@ -187,6 +224,7 @@ body {
 
   .btn-right {
     right: 8px;
+
   }
 }
 .today-recommend {
@@ -242,10 +280,74 @@ body {
   border-top: 2px solid #888;
   padding-top: 20px;
 }
+.card-row .card {
+  min-width: 150px;
+  height: 150px;
+}
+.bottom-content {
+  margin-top: 15px;
+}
 
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 2;
+}
 
-.card-row .card { min-width: 150px; height: 150px; transition: transform 0.2s; }
-.card-row .card:hover { transform: translateY(-4px); }
+.tabs .tab-btn {
+  background: #fff;
+  border: 2px solid #888;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs .tab-btn:hover {
+  background: #f5f5f5;
+  color: #333;
+  border-color: #555;
+}
+
+.tabs .tab-btn.active-tab {
+  background: #fff;
+  border-color: #000;
+  border-bottom: 2px solid #fff; /* 아래 회색선을 하얗게 덮어주는 핵심 코드 */
+  color: #f77f00;
+  padding-bottom: 11px;
+}
+
+.card-row {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  border-top: 2px solid #888;
+  padding-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-row::-webkit-scrollbar {
+  height: 6px;
+}
+.card-row::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.card-row .card {
+  min-width: 150px;
+  height: 150px;
+  background: #fff;
+}
 
 /* ---------------------------------
            스크롤 03 영역 (목록 및 필터)
@@ -266,6 +368,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background-color: #ffffff !important; /* ★ 224번 줄 위치에 이 코드를 추가 */
 }
 .sidebar .side-box {
   flex: 1;
@@ -281,6 +384,7 @@ body {
 }
 .scroll-content .card {
   height: 250px;
+  background-color: #ffffff !important; 
 }
 .scroll-content .card.highlight {
   color: #f77f00;
