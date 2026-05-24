@@ -91,23 +91,59 @@
           </div>
         </div>
 
-        <div class="bottom-content">
+       <div class="bottom-content">
           <div class="tabs" id="categoryTabs">
-          <button type="button" class="tab-btn active-tab">상의</button>
-          <button type="button" class="tab-btn">팬츠</button>
-          <button type="button" class="tab-btn">셋업</button>
-          <button type="button" class="tab-btn">아우터</button>
-          <button type="button" class="tab-btn">언더웨어</button>
-        </div>
-          <div class="card-row">
-            <div class="border-box card">카드</div>
-            <div class="border-box card">카드</div>
-            <div class="border-box card">카드</div>
-            <div class="border-box card">카드</div>
-            <div class="border-box card">카드</div>
+          <button type="button" class="tab-btn active-tab" data-target="cardTop">상의</button>
+          <button type="button" class="tab-btn" data-target="cardBottom">팬츠</button>
+          <button type="button" class="tab-btn" data-target="cardHood">셋업</button>
+          <button type="button" class="tab-btn" data-target="cardSet">아우터</button>
+          <button type="button" class="tab-btn" data-target="cardUnderwear">언더웨어</button>
+          </div>
+
+          <!-- 상의 -->
+          <div class="card-row" id="cardTop">
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
+          </div>
+
+          <!-- 하의 -->
+          <div class="card-row" id="cardBottom" style="display: none;">
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
+            
+          </div>
+
+          <!-- 후드티 -->
+          <div class="card-row" id="cardHood" style="display: none;">
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
+            
+          </div>
+
+          <!-- 상하의 -->
+          <div class="card-row" id="cardSet" style="display: none;">
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
+            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
+          </div>
+
+            <!-- 언더웨어 -->
+          <div class="card-row" id="cardUnderwear" style="display: none;">
+            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
+            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
+            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
+            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
           </div>
         </div>
       </section>
+
 
       <section class="screen-03">
         <aside class="sidebar">
