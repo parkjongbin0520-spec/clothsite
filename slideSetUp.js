@@ -132,20 +132,7 @@ async function getWeather() {
 getWeather();
 
 
-//사계절 구분 js
-        const month = new Date().getMonth() + 1;
-
-        let season;
-        if (month >= 3 && month <= 5) {
-             season = 'spring';
-        } else if (month >= 6 && month <= 8) {
-            season = 'summer';
-        } else if (month >= 9 && month <= 11) {
-            season = 'autumn';
-        } else {
-            season = 'winter';
-        }
-// 구매한 웹사이트로 넘어가게 하는 기능 .buy-btn은 변수명, if문은 사이트가 사계절에 따라서 다른 사이트로 이동하게 하는 코드
+//사이트로 넘어가게 하는 기능 .buy-btn은 변수명, if문은 사이트가 사계절에 따라서 다른 사이트로 이동하게 하는 코드
 document.querySelectorAll('.buy-btn').forEach(buybtn => {
     buybtn.addEventListener('click', () => {
 
