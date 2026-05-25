@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-const API_KEY = "bb0457981f2b694451311d428255fc15";
+const API_KEY = "8576ca6cc1758255ca9250ce92660339";
 
 async function getWeather() {
 
