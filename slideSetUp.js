@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-const API_KEY = "8576ca6cc1758255ca9250ce92660339";
+const API_KEY = "8576ca6cc1758255ca9250ce92660339"; //날씨 api 키
 
 async function getWeather() {
 
@@ -126,6 +126,13 @@ async function getWeather() {
     } catch (err) {
         console.log(err.response?.data || err.message);
     }
-}
+}//날씨 api 작동시스템
 
 getWeather();
+
+document.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const link = btn.dataset.link;
+        window.open(link, '_blank');
+    });
+});// 구매한 웹사이트로 넘어가게 하는 기능 .buy-btn은 변수명
