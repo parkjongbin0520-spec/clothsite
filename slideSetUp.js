@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 const API_KEY = "8576ca6cc1758255ca9250ce92660339"; //날씨 api 키
 
-//사계절 구분 js
+//날씨 api 작동 코드
 async function getWeather() {
 
     const url =
@@ -146,8 +146,8 @@ getWeather();
             season = 'winter';
         }
 // 구매한 웹사이트로 넘어가게 하는 기능 .buy-btn은 변수명, if문은 사이트가 사계절에 따라서 다른 사이트로 이동하게 하는 코드
-document.querySelectorAll('.buy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+document.querySelectorAll('.buy-btn').forEach(buybtn => {
+    buybtn.addEventListener('click', () => {
 
         const season = document
             .querySelector('.active-season')
