@@ -108,3 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+const API_KEY = "8576ca6cc1758255ca9250ce92660339";
+
+async function getWeather() {
+
+    const url =
+    `https://api.openweathermap.org/data/2.5/forecast?lat=37.5665&lon=126.9780&appid=${API_KEY}&units=metric&lang=kr`;
+
+    const response = await axios.get(url);
+
+    console.log(response.data);
+}
+
+getWeather();
