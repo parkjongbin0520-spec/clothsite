@@ -248,7 +248,20 @@ body {
   font-size: 0.9rem;
   color: #888;
 }
+/*구매 버튼*/
+.buy-btn {
+  margin-top: 15px;
+  padding: 10px 18px;
 
+  background-color: #f77f00;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  cursor: pointer;
+}
 /* 하단: 탭 & 가로 스크롤 카드 */
 .bottom-content {
   margin-top: 10px;
