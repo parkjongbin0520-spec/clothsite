@@ -117,9 +117,9 @@ async function getWeather() {
     `https://api.openweathermap.org/data/2.5/weather?lat=37.5665&lon=126.9780&appid=${API_KEY}&units=metric&lang=kr`;
 
     try {
-        const response = await axios.get(url);
-        
-        const temp = response.data.main.temp;
+        const response = await fetch(url);
+
+        const data = await response.json();
 
         const weather = response.data.weather[0].description;
         
