@@ -133,6 +133,8 @@ async function getWeather() {
 
     } catch (err) {
         console.log(err.response?.data || err.message);
+        document.getElementById('weather').textContent =
+        '날씨 불러오기 실패';
     }
 }
 
