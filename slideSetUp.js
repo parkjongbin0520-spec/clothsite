@@ -121,7 +121,7 @@ async function getWeather() {
 
         const data = await response.json();
 
-        const weather = response.data.weather[0].description;
+        const weather = data.weather[0].description;
         
         console.log(response.data);
 
