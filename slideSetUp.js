@@ -123,11 +123,14 @@ async function getWeather() {
 
         const weather = data.weather[0].description;
         
-        console.log(response.data);
+        const temp = data.main.temp;
 
-        console.log("온도:", response.data.main.temp);
-        console.log("날씨:", response.data.weather[0].description);
+        console.log(data);
 
+        console.log("온도:", data.main.temp);
+
+        console.log("날씨:", data.weather[0].description);
+        
         document.getElementById('weather').textContent =
             `${temp}°C · ${weather}`;
 
