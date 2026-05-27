@@ -155,3 +155,9 @@ document.querySelectorAll('.buy-btn').forEach(buybtn => {
         window.open(link, '_blank');
     });
 });
+//날씨 정보 간략히 설명하는 곳
+const temp = response.data.main.temp;
+const weather = response.data.weather[0].description;
+
+document.getElementById('weather').textContent =
+    `${temp}°C · ${weather}`;
