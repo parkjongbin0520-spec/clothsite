@@ -118,7 +118,11 @@ async function getWeather() {
 
     try {
         const response = await axios.get(url);
+        
+        const temp = response.data.main.temp;
 
+        const weather = response.data.weather[0].description;
+        
         console.log(response.data);
 
         console.log("온도:", response.data.main.temp);
