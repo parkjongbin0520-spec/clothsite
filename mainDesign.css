@@ -360,7 +360,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #ffffff !important; /* ★ 224번 줄 위치에 이 코드를 추가 */
+  background-color: #ffffff !important; 
 }
 .sidebar .side-box {
   flex: 1;
