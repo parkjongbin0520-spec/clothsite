@@ -73,12 +73,4 @@ dlwjsbtn.addEventListener('click', () => {
 // 'categoryTabs' 안에 있는 모든 탭 버튼(.tab-btn)을 선택합니다.
 const tabButtons = document.querySelectorAll('#categoryTabs .tab-btn');
 
-tabButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // 1. 기존에 다른 버튼에 붙어있던 'active-tab' 클래스를 전부 지워서 초기화합니다.
-    tabButtons.forEach(btn => btn.classList.remove('active-tab'));
-    
-    // 2. 방금 사용자가 클릭한 그 버튼에만 'active-tab' 클래스를 쏙 넣어줍니다.
-    button.classList.add('active-tab');
-  });
-});
+
