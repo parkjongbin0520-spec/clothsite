@@ -9,7 +9,33 @@
   <body>
     <section class="screen-01">
       <div class="top-logo">로고</div>
-      <h1>기온 및 날씨<br />정보</h1>
+      <div class="s1-hero">
+        <span id="s1-icon" class="s1-weather-icon">⛅</span>
+        <span id="s1-temp" class="s1-temp-text">--°C</span>
+        <p id="s1-desc" class="s1-desc-text">날씨 불러오는 중...</p>
+      </div>
+      <div class="s1-briefing">
+        <div class="s1-brief-item">
+          <span class="s1-brief-label">체감온도</span>
+          <span id="s1-feels" class="s1-brief-value">--°C</span>
+        </div>
+        <div class="s1-brief-item">
+          <span class="s1-brief-label">최저/최고</span>
+          <span id="s1-minmax" class="s1-brief-value">-- / --</span>
+        </div>
+        <div class="s1-brief-item">
+          <span class="s1-brief-label">습도</span>
+          <span id="s1-humidity" class="s1-brief-value">--%</span>
+        </div>
+        <div class="s1-brief-item">
+          <span class="s1-brief-label">풍속</span>
+          <span id="s1-wind" class="s1-brief-value">--m/s</span>
+        </div>
+        <div class="s1-brief-item">
+          <span class="s1-brief-label">위치</span>
+          <span id="s1-location" class="s1-brief-value">--</span>
+        </div>
+      </div>
     </section>
 
     <div id="mainApp" class="main-app spring">
@@ -252,5 +278,6 @@
     <script src="data/coordinateData.js"></script>
     <script src="js/api.js"></script>
     <script src="js/dom.js"></script>
+    <script src="js/scroll.js"></script>
   </body>
 </html>

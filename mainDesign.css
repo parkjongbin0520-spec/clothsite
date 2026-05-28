@@ -24,20 +24,89 @@ body {
         --------------------------------- */
 .screen-01 {
   position: relative;
-  height: 100vh; /* 화면 꽉 차게 */
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 120px; /* 하단 브리핑 공간 확보 → 히어로가 중앙 위로 올라감 */
 }
 .screen-01 .top-logo {
   position: absolute;
   top: 20px;
   font-size: 1.2rem;
 }
-.screen-01 h1 {
-  font-size: 4rem;
-  line-height: 1.4;
-  color: #888;
+
+/* 중앙 날씨 히어로 */
+.s1-hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.s1-weather-icon {
+  font-size: 5.5rem;
+  line-height: 1;
+}
+.s1-temp-text {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: -3px;
+}
+.s1-desc-text {
+  font-size: 1.05rem;
+  color: #777;
+  max-width: 340px;
+  line-height: 1.7;
+}
+
+/* 하단 날씨 브리핑 카드 — absolute로 화면 하단에 고정 */
+.s1-briefing {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - 40px);
+}
+.s1-brief-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1.5px solid #ddd;
+  border-radius: 14px;
+  padding: 10px 18px;
+  min-width: 82px;
+  backdrop-filter: blur(4px);
+}
+.s1-brief-label {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-bottom: 5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.s1-brief-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* GPU 레이어 힌트 — scroll.js 애니메이션 대상 */
+.s1-hero,
+.s1-briefing,
+.screen-01 .top-logo,
+.app-header,
+.floating-nav {
+  will-change: opacity, transform;
 }
 
 /* ---------------------------------
@@ -688,8 +757,29 @@ body {
    모바일 반응형 (≤430px)
    ========================================== */
 @media (max-width: 430px) {
-  .screen-01 h1 {
-    font-size: 2.4rem;
+  .s1-weather-icon {
+    font-size: 4rem;
+  }
+  .s1-temp-text {
+    font-size: 3.5rem;
+  }
+  .s1-desc-text {
+    font-size: 0.92rem;
+    max-width: 90vw;
+  }
+  .s1-briefing {
+    bottom: 24px;
+    gap: 7px;
+  }
+  .s1-brief-item {
+    padding: 8px 12px;
+    min-width: 70px;
+  }
+  .s1-brief-value {
+    font-size: 0.88rem;
+  }
+  .s1-brief-label {
+    font-size: 0.62rem;
   }
   .app-header {
     flex-direction: column;
@@ -762,8 +852,8 @@ body {
    소형 모바일 (≤375px)
    ========================================== */
 @media (max-width: 375px) {
-  .screen-01 h1 {
-    font-size: 2rem;
+  .s1-temp-text {
+    font-size: 3rem;
   }
   .theme-switch {
     padding: 3px 6px;
