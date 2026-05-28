@@ -45,6 +45,7 @@ body {
         --------------------------------- */
 .main-app {
   position: relative;
+  transition: background-color 0.4s ease;
 }
 
 /* 공통 헤더 (스크롤 시 상단 고정) */
@@ -74,32 +75,81 @@ body {
   font-weight: bold;
 }
 /* --- 본문까지 확장되는 계절 그라데이션 엔진 --- */
-.app-header, .screen-02, .screen-03, .tabs .tab-btn, .card-row {
-  transition: background 0.5s ease, border-color 0.5s ease;
+.app-header,
+.screen-02,
+.avatar-section,
+.card-row {
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease;
 }
-.main-app.spring .app-header, .main-app.spring .screen-02, .main-app.spring .screen-03 {
-  background: linear-gradient(180deg, #f0fdf4 0%, #fce7f3 50%, #e0f2fe 100%) !important;
+.main-app.spring {
+  background-color: #fff0f5;
 }
-.main-app.spring .tabs .tab-btn, .main-app.spring .card-row { background: transparent !important; }
-.main-app.spring .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+.main-app.spring .app-header,
+.main-app.spring .screen-02,
+.main-app.spring .avatar-section {
+  background: linear-gradient(
+    180deg,
+    #f0fdf4 0%,
+    #fce7f3 50%,
+    #e0f2fe 100%
+  ) !important;
+}
+.main-app.spring .card-row {
+  background: transparent !important;
+}
 
-.main-app.summer .app-header, .main-app.summer .screen-02, .main-app.summer .screen-03 {
-  background: linear-gradient(180deg, #e0f2fe 0%, #e0e7ff 50%, #ccfbf1 100%) !important;
+.main-app.summer {
+  background-color: #f0f8ff;
 }
-.main-app.summer .tabs .tab-btn, .main-app.summer .card-row { background: transparent !important; }
-.main-app.summer .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+.main-app.summer .app-header,
+.main-app.summer .screen-02,
+.main-app.summer .avatar-section {
+  background: linear-gradient(
+    180deg,
+    #e0f2fe 0%,
+    #e0e7ff 50%,
+    #ccfbf1 100%
+  ) !important;
+}
+.main-app.summer .card-row {
+  background: transparent !important;
+}
 
-.main-app.autumn .app-header, .main-app.autumn .screen-02, .main-app.autumn .screen-03 {
-  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 40%, #ffedd5 100%) !important;
+.main-app.autumn {
+  background-color: #faf0e6;
 }
-.main-app.autumn .tabs .tab-btn, .main-app.autumn .card-row { background: transparent !important; }
-.main-app.autumn .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+.main-app.autumn .app-header,
+.main-app.autumn .screen-02,
+.main-app.autumn .avatar-section {
+  background: linear-gradient(
+    180deg,
+    #fffbeb 0%,
+    #fef3c7 40%,
+    #ffedd5 100%
+  ) !important;
+}
+.main-app.autumn .card-row {
+  background: transparent !important;
+}
 
-.main-app.winter .app-header, .main-app.winter .screen-02, .main-app.winter .screen-03 {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
+.main-app.winter {
+  background-color: #f5f5f5;
 }
-.main-app.winter .tabs .tab-btn, .main-app.winter .card-row { background: transparent !important; }
-.main-app.winter .tabs .tab-btn.active-tab { background: rgba(255, 255, 255, 0.6) !important; border-bottom-color: transparent !important; }
+.main-app.winter .app-header,
+.main-app.winter .screen-02,
+.main-app.winter .avatar-section {
+  background: linear-gradient(
+    180deg,
+    #f8fafc 0%,
+    #f1f5f9 50%,
+    #e2e8f0 100%
+  ) !important;
+}
+.main-app.winter .card-row {
+  background: transparent !important;
+}
 
 /* 계절 선택 우측 스위치 박스 디자인 */
 .season-btn {
@@ -118,7 +168,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
 /* 상단: 전체 코디 & 추천 코디 */
 .top-content {
@@ -149,8 +199,6 @@ body {
   .border-box main-outfit::-webkit-scrollbar {
     display: none;
   }
-
-  
 
   .slider {
     display: flex;
@@ -223,17 +271,33 @@ body {
 
   .btn-right {
     right: 8px;
-
   }
 }
 .today-recommend {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 15px;
 }
 .today-recommend h3 {
+  margin-bottom: 10px;
+}
+
+/* AI 추천하기 버튼 스타일 */
+.ai-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
   margin-bottom: 15px;
+  transition: background-color 0.2s;
+}
+.ai-btn:hover {
+  background-color: #0056b3;
 }
 .item-grid {
   display: grid;
@@ -242,29 +306,50 @@ body {
   margin-bottom: 20px;
 }
 .item-grid .box {
-  aspect-ratio: 1; /* 정사각형 */
+  aspect-ratio: 1;
+  font-size: 0.85rem;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
 }
 .item-desc {
   font-size: 0.9rem;
-  color: #888;
+  color: #666;
+  min-height: 40px;
 }
-/*구매 버튼*/
 .buy-btn {
-  margin-top: 15px;
-  padding: 10px 18px;
-
+  margin-top: 10px;
+  padding: 12px 18px;
   background-color: #f77f00;
   color: white;
-
   border: none;
   border-radius: 8px;
-
   font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
 }
-/* 하단: 탭 & 가로 스크롤 카드 */
+/* 브랜드 관 카테고리 분리형 칸 구조 */
 .bottom-content {
-  margin-top: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.clothing-zone {
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid #888;
+  border-radius: 12px;
+  padding: 20px;
+}
+.clothing-zone h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #f77f00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .tabs {
   display: flex;
@@ -282,19 +367,30 @@ body {
   transition: all 0.2s ease;
 }
 
-.tabs span:hover { background-color: #888; color: #fff !important; transform: translateY(-2px); }
-.tabs span.active { background: #888; color: #fff; }
+.tabs span:hover {
+  background-color: #888;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+.tabs span.active {
+  background: #888;
+  color: #fff;
+}
 
 .card-row {
   display: flex;
   gap: 15px;
-  overflow-x: auto; /* 가로 스크롤 */
-  border-top: 2px solid #888;
-  padding-top: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 1;
 }
-.card-row .card {
-  min-width: 150px;
-  height: 150px;
+.card-row::-webkit-scrollbar {
+  height: 6px;
+}
+.card-row::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
 }
 .bottom-content {
   margin-top: 15px;
@@ -347,28 +443,18 @@ body {
   z-index: 1;
 }
 
-.card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-    display: block;
-}
-
-.card-row::-webkit-scrollbar {
-  height: 6px;
-}
-.card-row::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-
 .card-row .card {
   min-width: 150px;
   height: 150px;
   background: #fff;
   overflow: hidden;
   padding: 0;
+  border-radius: 8px;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* ---------------------------------
@@ -406,7 +492,7 @@ body {
 }
 .scroll-content .card {
   height: 250px;
-  background-color: #ffffff !important; 
+  background-color: #ffffff !important;
 }
 .scroll-content .card.highlight {
   color: #f77f00;
@@ -427,35 +513,158 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.main-app { position: relative; transition: background-color 0.4s ease; }
-.main-app.spring { background-color: #fff0f5; }
-.main-app.summer { background-color: #f0f8ff; }
-.main-app.autumn { background-color: #faf0e6; }
-.main-app.winter { background-color: #f5f5f5; }
+.main-app {
+  position: relative;
+  transition: background-color 0.4s ease;
+}
+.main-app.spring {
+  background-color: #fff0f5;
+}
+.main-app.summer {
+  background-color: #f0f8ff;
+}
+.main-app.autumn {
+  background-color: #faf0e6;
+}
+.main-app.winter {
+  background-color: #f5f5f5;
+}
 
-.theme-switch { 
-display: flex; 
-gap: 6px; 
-border: 2px solid #888; 
-border-radius: 25px; 
-padding: 4px 8px; 
-background: #fff; 
-} 
-.theme-switch button { 
-background: none; 
-border: none; 
-padding: 4px 12px; 
-font-weight: bold; 
-font-size: 0.9rem; 
-cursor: pointer; 
-border-radius: 15px; 
-transition: all 0.2s ease; 
-color: #888; 
-} 
-.theme-switch button:hover { 
-background-color: #f0f0f0; 
-} 
-.theme-switch button.active-season { 
-background-color: #f77f00; 
-color: #fff; 
-} 
+.theme-switch {
+  display: flex;
+  gap: 6px;
+  border: 2px solid #888;
+  border-radius: 25px;
+  padding: 4px 8px;
+  background: #fff;
+}
+.theme-switch button {
+  background: none;
+  border: none;
+  padding: 4px 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.2s ease;
+  color: #888;
+}
+.theme-switch button:hover {
+  background-color: #f0f0f0;
+}
+.theme-switch button.active-season {
+  background-color: #f77f00;
+  color: #fff;
+}
+
+/* ==========================================
+   [핵심 수정] 새롭게 설계된 아바타 피팅 룸 영역
+   ========================================== */
+.avatar-section {
+  padding: 40px 20px;
+  border-top: 2px solid #888;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+.avatar-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #444;
+  text-align: center;
+}
+/* 성별 토글 스위치 */
+.gender-selector {
+  display: flex;
+  gap: 15px;
+}
+.gender-btn {
+  padding: 12px 35px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 2px solid #888;
+  background: #fff;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gender-btn.active-gender {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* 피팅 마네킹 디스플레이 구조 */
+.fitting-container {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid #888;
+  border-radius: 16px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아바타 기본 마네킹 박스 */
+.avatar-display {
+  width: 260px;
+  height: 420px;
+  border: 3px dashed #aaa;
+  border-radius: 12px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: relative;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
+}
+.avatar-gender-label {
+  position: absolute;
+  top: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+}
+
+/* 아바타가 옷을 실시간으로 입는 옷 레이어 정보창 */
+.avatar-clothes-spec {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.spec-layer {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 60px;
+}
+.spec-label {
+  background: #888;
+  color: #fff;
+  width: 90px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+.spec-value {
+  padding: 0 15px;
+  font-weight: bold;
+  color: #333;
+  font-size: 1.05rem;
+}
