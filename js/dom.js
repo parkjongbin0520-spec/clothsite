@@ -125,27 +125,33 @@ if (aiRecommendBtn) {
             outfit = { ...outfit, bottom: "남성 5부 반바지" };
         }
 
-        if (document.getElementById('rec-item-1')) {
-            document.getElementById('rec-item-1').innerText = outfit.top;
-            document.getElementById('rec-item-2').innerText = outfit.bottom;
-            document.getElementById('rec-item-3').innerText = outfit.outer;
-            document.getElementById('rec-item-4').innerText = outfit.shoes;
-            document.getElementById('rec-item-5').innerText = outfit.bag;
-            document.getElementById('rec-item-6').innerText = outfit.acc;
-            document.getElementById('recommendDesc').innerHTML = `<strong>🤖 AI 추천 결과:</strong><br>${outfit.desc}`;
-        }
+        // 페이드아웃 → DOM 업데이트 → 페이드인
+        mainApp.classList.add('recommend-updating');
+        setTimeout(() => {
+            if (document.getElementById('rec-item-1')) {
+                document.getElementById('rec-item-1').innerText = outfit.top;
+                document.getElementById('rec-item-2').innerText = outfit.bottom;
+                document.getElementById('rec-item-3').innerText = outfit.outer;
+                document.getElementById('rec-item-4').innerText = outfit.shoes;
+                document.getElementById('rec-item-5').innerText = outfit.bag;
+                document.getElementById('rec-item-6').innerText = outfit.acc;
+                document.getElementById('recommendDesc').innerHTML = `<strong>🤖 AI 추천 결과:</strong><br>${outfit.desc}`;
+            }
 
-        if (document.getElementById('fitOuter')) {
-            document.getElementById('fitOuter').innerText = outfit.outer;
-            document.getElementById('fitTop').innerText = outfit.top;
-            document.getElementById('fitBottom').innerText = outfit.bottom;
-            document.getElementById('fitShoes').innerText = outfit.shoes;
-            document.getElementById('fitAcc').innerText = outfit.acc;
-        }
+            if (document.getElementById('fitOuter')) {
+                document.getElementById('fitOuter').innerText = outfit.outer;
+                document.getElementById('fitTop').innerText = outfit.top;
+                document.getElementById('fitBottom').innerText = outfit.bottom;
+                document.getElementById('fitShoes').innerText = outfit.shoes;
+                document.getElementById('fitAcc').innerText = outfit.acc;
+            }
 
-        if (avatarGraphic) {
-            avatarGraphic.innerText = selectedGender === "female" ? "🙋‍♀️" : "🙋‍♂️";
-        }
+            if (avatarGraphic) {
+                avatarGraphic.innerText = selectedGender === "female" ? "🙋‍♀️" : "🙋‍♂️";
+            }
+
+            mainApp.classList.remove('recommend-updating');
+        }, 250);
     });
 }
 
@@ -160,6 +166,7 @@ const seasonLinks = {
 document.querySelectorAll('.buy-btn').forEach(buybtn => {
     buybtn.addEventListener('click', () => {
         const season = document.querySelector('.active-season').dataset.season;
-        window.open(seasonLinks[season] || seasonLinks.spring, '_blank');
+        const link = seasonLinks[season] || seasonLinks.spring;
+        window.open(link, '_blank', 'noopener,noreferrer');
     });
 });
