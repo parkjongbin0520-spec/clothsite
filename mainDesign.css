@@ -667,4 +667,116 @@ body {
   font-weight: bold;
   color: #333;
   font-size: 1.05rem;
+  transition: opacity 0.25s ease;
+}
+
+/* ==========================================
+   코디 추천 전환 효과 (fade out → in)
+   ========================================== */
+.item-grid .box,
+.item-desc,
+.spec-value {
+  transition: opacity 0.25s ease;
+}
+.recommend-updating .item-grid .box,
+.recommend-updating .item-desc,
+.recommend-updating .spec-value {
+  opacity: 0;
+}
+
+/* ==========================================
+   모바일 반응형 (≤430px)
+   ========================================== */
+@media (max-width: 430px) {
+  .screen-01 h1 {
+    font-size: 2.4rem;
+  }
+  .app-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .app-header .left-info {
+    gap: 10px;
+    font-size: 1rem;
+  }
+  .screen-02 {
+    padding: 14px;
+    gap: 20px;
+  }
+  .top-content {
+    flex-direction: column;
+    height: auto;
+    gap: 20px;
+  }
+  .box {
+    height: 280px;
+  }
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .clothing-zone {
+    padding: 14px;
+  }
+  .clothing-zone h3 {
+    font-size: 1.1rem;
+  }
+  .card-row .card {
+    min-width: 120px;
+    height: 120px;
+  }
+  .avatar-section {
+    padding: 24px 14px;
+  }
+  .avatar-title {
+    font-size: 1.3rem;
+  }
+  .gender-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  .fitting-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px;
+  }
+  .avatar-display {
+    width: 100%;
+    max-width: 240px;
+    height: 320px;
+  }
+  .spec-label {
+    width: 80px;
+    font-size: 0.85rem;
+  }
+  .spec-value {
+    font-size: 0.95rem;
+  }
+  .floating-nav {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+/* ==========================================
+   소형 모바일 (≤375px)
+   ========================================== */
+@media (max-width: 375px) {
+  .screen-01 h1 {
+    font-size: 2rem;
+  }
+  .theme-switch {
+    padding: 3px 6px;
+  }
+  .theme-switch button {
+    padding: 3px 8px;
+    font-size: 0.8rem;
+  }
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .box {
+    height: 240px;
+  }
 }
