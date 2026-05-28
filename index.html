@@ -15,8 +15,8 @@
     <div id="mainApp" class="main-app spring">
       <header class="app-header">
         <div class="left-info">
-          <span>로고</span>
-          <span id="weather">날씨 불러오는 중...</span> <!--날씨 정보간략히-->
+          <span class="logo-text">로고</span>
+          <span id="weather">날씨 불러오는 중...</span>
         </div>
         <div class="theme-switch">
           <button
@@ -77,101 +77,178 @@
 
           <div class="border-box today-recommend">
             <h3>오늘의 추천 코디</h3>
+
+            <button type="button" id="aiRecommendBtn" class="ai-btn">
+              ⚡ AI 날씨 맞춤 추천받기
+            </button>
+
             <div class="item-grid">
-              <div class="border-box box"></div>
-              <div class="border-box box"></div>
-              <div class="border-box box"></div>
-              <div class="border-box box"></div>
-              <div class="border-box box"></div>
-              <div class="border-box box"></div>
+              <div class="border-box box" id="rec-item-1">상의</div>
+              <div class="border-box box" id="rec-item-2">하의</div>
+              <div class="border-box box" id="rec-item-3">아우터</div>
+              <div class="border-box box" id="rec-item-4">신발</div>
+              <div class="border-box box" id="rec-item-5">가방</div>
+              <div class="border-box box" id="rec-item-6">소품</div>
             </div>
-            <p class="item-desc">
-              의류? 아이템 설명<br />가격이라던가 이름이라던가 특징이라던가
+            <p class="item-desc" id="recommendDesc">
+              위의 버튼을 누르면 현재 기온에 맞는 추천 의류 정보가 이곳에
+              나타납니다.
             </p>
-            <!-- 구매하기 버튼 -->
-            <button
-              class="buy-btn"
-              data-link="https://www.musinsa.com"
->
-                추천 코디 구매하기
+            <button class="buy-btn" data-link="https://www.musinsa.com">
+              추천 코디 구매하기
             </button>
           </div>
         </div>
 
-       <div class="bottom-content">
-          <div class="tabs" id="categoryTabs">
-          <button type="button" class="tab-btn active-tab" data-target="cardTop">상의</button>
-          <button type="button" class="tab-btn" data-target="cardBottom">팬츠</button>
-          <button type="button" class="tab-btn" data-target="cardHood">셋업</button>
-          <button type="button" class="tab-btn" data-target="cardSet">아우터</button>
-          <button type="button" class="tab-btn" data-target="cardUnderwear">언더웨어</button>
+        <div class="bottom-content">
+          <div class="clothing-zone">
+            <h3>👕 TOP (상의)</h3>
+            <div class="card-row" id="cardTop">
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
+                  alt="상의"
+                />
+              </div>
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
+                  alt="상의"
+                />
+              </div>
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
+                  alt="상의"
+                />
+              </div>
+            </div>
           </div>
 
-          <!-- 상의 -->
-          <div class="card-row" id="cardTop">
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"></div>
+          <div class="clothing-zone">
+            <h3>👖 PANTS (팬츠)</h3>
+            <div class="card-row" id="cardBottom">
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png"
+                  alt="하의"
+                />
+              </div>
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png"
+                  alt="하의"
+                />
+              </div>
+            </div>
           </div>
 
-          <!-- 하의 -->
-          <div class="card-row" id="cardBottom" style="display: none;">
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"></div>
-            
+          <div class="clothing-zone">
+            <h3>👔 SETUP (셋업)</h3>
+            <div class="card-row" id="cardSet">
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png"
+                  alt="후드티"
+                />
+              </div>
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png"
+                  alt="후드티"
+                />
+              </div>
+            </div>
           </div>
 
-          <!-- 후드티 -->
-          <div class="card-row" id="cardHood" style="display: none;">
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="후드티"></div>
-            
-          </div>
-
-          <!-- 상하의 -->
-          <div class="card-row" id="cardSet" style="display: none;">
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
-            <div class="border-box card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="상하의"></div>
-          </div>
-
-            <!-- 언더웨어 -->
-          <div class="card-row" id="cardUnderwear" style="display: none;">
-            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
-            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
-            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
-            <div class="border-box card"><img class="card-img" src="https://pbs.twimg.com/media/FFHe7WQagAA8PO8?format=png&name=900x900" alt="언더웨어"></div>
+          <div class="clothing-zone">
+            <h3>🧥 OUTER (아우터)</h3>
+            <div class="card-row" id="cardOuter">
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png"
+                  alt="상하의"
+                />
+              </div>
+              <div class="border-box card">
+                <img
+                  class="card-img"
+                  src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png"
+                  alt="상하의"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      <section class="avatar-section">
+        <h2 class="avatar-title">🤖 AI 실시간 스마트 아바타 피팅룸</h2>
 
-      <section class="screen-03">
-        <aside class="sidebar">
-          <div class="border-box side-box">의류 카테고리</div>
-          <div class="border-box side-box">검색 필터</div>
-        </aside>
-
-        <div class="scroll-content">
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card highlight">
-            아래로<br />스크롤시 해당<br />영역만 움직임
-          </div>
-          <div class="border-box card">카드</div>
-          <div class="border-box card">카드</div>
+        <div class="gender-selector">
+          <button type="button" class="gender-btn active-gender" id="btnFemale">
+            여성 아바타
+          </button>
+          <button type="button" class="gender-btn" id="btnMale">
+            남성 아바타
+          </button>
         </div>
+
+        <div class="fitting-container">
+          <div class="avatar-display" id="avatarModel">
+            <span class="avatar-gender-label" id="avatarGenderText"
+              >여성 모델 기본값</span
+            >
+            <div id="avatarGraphic" style="font-size: 5rem">👩</div>
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #888">
+              피팅 대기 중
+            </div>
+          </div>
+
+          <div class="avatar-clothes-spec">
+            <div class="spec-layer">
+              <div class="spec-label" style="background: #e63946">
+                착용 아우터
+              </div>
+              <div class="spec-value" id="fitOuter">선택 안 됨</div>
+            </div>
+            <div class="spec-layer">
+              <div class="spec-label" style="background: #457b9d">
+                착용 상의
+              </div>
+              <div class="spec-value" id="fitTop">선택 안 됨</div>
+            </div>
+            <div class="spec-layer">
+              <div class="spec-label" style="background: #2a9d8f">
+                착용 하의
+              </div>
+              <div class="spec-value" id="fitBottom">선택 안 됨</div>
+            </div>
+            <div class="spec-layer">
+              <div class="spec-label" style="background: #f4a261">
+                착용 슈즈
+              </div>
+              <div class="spec-value" id="fitShoes">선택 안 됨</div>
+            </div>
+            <div class="spec-layer">
+              <div class="spec-label" style="background: #6d597a">악세사리</div>
+              <div class="spec-value" id="fitAcc">선택 안 됨</div>
+            </div>
+          </div>
+        </div>
+
         <div class="border-box floating-nav">네비게이션 바</div>
       </section>
     </div>
-    
+
     <script src="slideSetUp.js"></script>
   </body>
 </html>
