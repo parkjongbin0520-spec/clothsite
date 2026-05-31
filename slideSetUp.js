@@ -134,11 +134,9 @@ async function getWeather() {
         
         document.getElementById('weather').textContent =
             `${temp}°C · ${weather}`;
-        const recommend = coordinateData.find(item =>
-        temp >= item.minTemp &&
-        temp < item.maxTemp);
+       
         
-        console.log(recommend);
+       
 
 
     } catch (err) {
