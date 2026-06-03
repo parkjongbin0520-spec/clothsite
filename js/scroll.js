@@ -48,7 +48,7 @@
             const p = rangeProgress(raw, 0, 0.45);
             briefing.style.opacity = String(1 - p);
             // CSS base: translateX(-50%), 여기서 Y축만 추가 이동
-            briefing.style.transform = `translateX(-50%) translateY(${p * 20}px)`;
+            briefing.style.transform = `translateY(${p * 20}px)`;
         }
 
         // --- s1-hero: 위로 올라가며 페이드아웃 ---
