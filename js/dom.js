@@ -171,14 +171,16 @@ document.querySelectorAll('.buy-btn').forEach(buybtn => {
     });
 });
 // 계절 화면 바꾸는 버튼
+const seasonButtons = document.querySelectorAll('.season-btn');
+const seasonImage = document.querySelector('.season-image');
+
+
 const seasonImages = {
-  spring: 'img/spring.png',
+  spring: 'img/739a64e3e3fb42ea.png',
   summer: 'img/summer.png',
   autumn: 'img/autumn.png',
   winter: 'img/winter.png'
 };
-
-const seasonImage = document.getElementById('seasonImage');
 
 seasonButtons.forEach(button => {
   button.addEventListener('click', () => {
