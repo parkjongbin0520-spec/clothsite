@@ -24,10 +24,16 @@ const HAIR_MAP = {
 };
 
 async function loadAvatar() {
-  const res = await fetch(AVATAR_API);
-  const avatar = await res.json();
+  // 레이어 이미지 요소가 없으면(현재 이모지 아바타 사용) 불필요한 호출 생략
+  if (!skinEl && !hairEl && !topEl && !bottomEl && !outerEl && !accEl) return;
 
-  renderAvatar(avatar);
+  try {
+    const res = await fetch(AVATAR_API);
+    const avatar = await res.json();
+    renderAvatar(avatar);
+  } catch (err) {
+    /* 아바타 API 실패는 무시 (피팅룸은 이모지 + 스펙 텍스트로 동작) */
+  }
 }
 
 function renderAvatar(a) {
