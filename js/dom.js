@@ -1,6 +1,6 @@
 // --- 슬라이더 ---
 const box = document.getElementById('box');
-const slider = box.querySelector('.slider');
+const slider = document.getElementById('slider') || box.querySelector('.slider');
 const dlwjsbtn = document.getElementById('dlwjsbtn');
 const ekdmabtn = document.getElementById('ekdmabtn');
 
