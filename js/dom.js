@@ -1,6 +1,6 @@
 // --- 슬라이더 ---
 const box = document.getElementById('box');
-const slider = box.querySelector('.slider');
+const slider = document.getElementById('slider') || box.querySelector('.slider');
 const dlwjsbtn = document.getElementById('dlwjsbtn');
 const ekdmabtn = document.getElementById('ekdmabtn');
 
@@ -59,12 +59,18 @@ dlwjsbtn.addEventListener('click', () => { prevSlide(); resetSlideInterval(); })
 // --- 계절 버튼 ---
 const mainApp = document.getElementById('mainApp');
 const seasonButtons = document.querySelectorAll('.season-btn');
+const SEASONS = ['spring', 'summer', 'autumn', 'winter'];
+
 seasonButtons.forEach(button => {
     button.addEventListener('click', () => {
         seasonButtons.forEach(btn => btn.classList.remove('active-season'));
         button.classList.add('active-season');
         const selectedSeason = button.getAttribute('data-season');
-        mainApp.classList.remove('spring', 'summer', 'autumn', 'winter');
+        // html 요소에 계절 클래스 적용 → screen-01 포함 전체 상속
+        document.documentElement.classList.remove(...SEASONS);
+        document.documentElement.classList.add(selectedSeason);
+        // mainApp 하위 호환 유지
+        mainApp.classList.remove(...SEASONS);
         mainApp.classList.add(selectedSeason);
     });
 });

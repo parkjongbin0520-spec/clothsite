@@ -1,7 +1,7 @@
 /* ==========================================
    디자인 토큰 (CSS 변수)
    ========================================== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;480;500;540;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
   /* --- 색상: 기본 --- */
@@ -83,29 +83,29 @@
   --transition-slow: 0.5s ease;
 }
 
-/* --- 계절 변수 오버라이드 --- */
-.spring {
+/* --- 계절 변수 오버라이드 (html 요소 기준 → 전체 상속) --- */
+html.spring, .spring {
   --color-season-block: var(--color-spring-block);
   --color-season-block-sub: var(--color-spring-block-sub);
   --color-season-bg: var(--color-spring-bg);
   --color-season-btn-active-bg: var(--color-spring-block);
   --color-season-btn-active-text: var(--color-ink);
 }
-.summer {
+html.summer, .summer {
   --color-season-block: var(--color-summer-block);
   --color-season-block-sub: var(--color-summer-block-sub);
   --color-season-bg: var(--color-summer-bg);
   --color-season-btn-active-bg: var(--color-summer-block);
   --color-season-btn-active-text: var(--color-ink);
 }
-.autumn {
+html.autumn, .autumn {
   --color-season-block: var(--color-autumn-block);
   --color-season-block-sub: var(--color-autumn-block-sub);
   --color-season-bg: var(--color-autumn-bg);
   --color-season-btn-active-bg: var(--color-autumn-block);
   --color-season-btn-active-text: var(--color-ink);
 }
-.winter {
+html.winter, .winter {
   --color-season-block: var(--color-winter-block);
   --color-season-block-sub: var(--color-winter-block-sub);
   --color-season-bg: var(--color-winter-bg);
@@ -143,141 +143,146 @@ body {
    ========================================== */
 .screen-01 {
   position: relative;
-  height: 80vh;
+  min-height: 88vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-surface-soft);
-  padding: var(--space-xl);
+  align-items: stretch;
+
+  /* 계절 파스텔 블록 — html 클래스에서 변수 상속 */
+  background-color: var(--color-season-block);
+  transition: background-color var(--transition-slow);
+
+  padding: var(--space-xxl);
   gap: var(--space-xl);
   box-sizing: border-box;
+  max-width: 100%;
 }
 
-.screen-01 .top-logo {
-  position: absolute;
-  top: var(--space-md);
-  font-size: var(--font-size-body-lg);
-}
-
-.left-image-container,
-.right-image-container {
-  flex: 1;
+/* 좌측: 계절 이미지 */
+.left-image-container {
+  flex: 1.1;
   display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  min-height: 0;
 }
 
 .left-image {
   width: 100%;
-  height: 90%;
-  background-color: var(--color-canvas);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-float);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  background-color: transparent;
+  /* 섀도우 제거 — 색상 블록이 깊이 장치 역할 */
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+  transition: transform var(--transition-slow);
 }
 
-.spring-image {
+.left-image:hover {
+  transform: translateY(-6px);
+}
+
+.season-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+/* 우측: 날씨 정보 (카드 없이 투명 배경) */
+.right-image-container {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
 }
 
 .right-image {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 90%;
-  background-color: var(--color-canvas);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-float);
-  overflow: visible;
-  padding: var(--space-xxl) var(--space-lg);
-  gap: 30px;
-  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+  gap: var(--space-xxl);
+
+  /* 카드·섀도우 제거 */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: var(--space-xl) var(--space-lg);
 }
 
-.left-image:hover,
-.right-image:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-card-hover);
-}
-
-/* 날씨 히어로 */
+/* ── 날씨 히어로 (아이콘 + 기온 + 설명) ── */
 .s1-hero {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;   /* 좌정렬 — 에디토리얼 */
   gap: var(--space-xs);
-  text-align: center;
-  margin-top: auto;
-  margin-bottom: 10px;
 }
 
 .s1-weather-icon {
-  font-size: 5.5rem;
+  font-size: 3.5rem;
   line-height: 1;
+  margin-bottom: var(--space-xxs);
 }
 
+/* display-lg 스펙: 64px / weight 340 / tracking -0.96px */
 .s1-temp-text {
-  font-size: 5rem;
-  font-weight: var(--font-weight-bold);
+  font-size: clamp(3rem, 6vw, 4rem);
+  font-weight: 340;
   color: var(--color-ink);
-  letter-spacing: -3px;
+  letter-spacing: -0.96px;
+  line-height: 1.1;
 }
 
+/* body 스펙: 18px / weight 330 */
 .s1-desc-text {
-  font-size: var(--font-size-body);
-  color: var(--color-ink-muted);
-  max-width: 340px;
-  line-height: 1.7;
+  font-size: var(--font-size-body-lg);
+  font-weight: 330;
+  color: var(--color-ink);          /* 회색 텍스트 금지 — weight로 위계 */
+  max-width: 360px;
+  line-height: 1.55;
 }
 
-/* 날씨 상세 브리핑 */
+/* ── 날씨 상세 브리핑 (수평 스트립) ── */
 .s1-briefing {
   display: flex;
-  gap: 10px;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  gap: 0;
   width: 100%;
-  max-width: 440px;
-  margin-top: var(--space-md);
-  margin-bottom: auto;
-  padding: 0 10px;
-  box-sizing: border-box;
 }
 
 .s1-brief-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-lg);
-  padding: 10px var(--space-sm);
-  backdrop-filter: blur(4px);
-  flex: 1 1 calc(33.33% - 10px);
-  min-width: 85px;
-  box-sizing: border-box;
+  align-items: flex-start;
+  padding: var(--space-xs) var(--space-md) var(--space-xs) 0;
+
+  /* 유리 카드 → 구분선 스타일 */
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  margin-right: var(--space-md);
+
+  flex: 0 0 auto;
 }
 
+.s1-brief-item:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+/* CAPTION 스펙: 12px / weight 400 / 대문자 */
 .s1-brief-label {
   font-size: var(--font-size-caption);
-  color: var(--color-ink-muted);
-  margin-bottom: 5px;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.03em;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-ink);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  opacity: 0.55;
 }
 
 .s1-brief-value {
@@ -289,7 +294,6 @@ body {
 /* GPU 레이어 힌트 */
 .s1-hero,
 .s1-briefing,
-.screen-01 .top-logo,
 .app-header,
 .floating-nav {
   will-change: opacity, transform;
@@ -344,219 +348,287 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-sm) var(--space-lg);
+  padding: 0 var(--space-xl);
   border-bottom: 1px solid var(--color-hairline);
   height: 56px;
 }
 
+/* 좌측: 로고 + 구분선 + 날씨 */
 .app-header .left-info {
   display: flex;
-  gap: var(--space-lg);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-bold);
+  align-items: center;
+  gap: var(--space-sm);
 }
 
-/* 계절 탭 컨테이너 */
-.theme-switch {
+/* 브랜드 로고 */
+.logo-text {
+  font-size: var(--font-size-card-title);  /* 20px */
+  font-weight: var(--font-weight-bold);    /* 700 */
+  letter-spacing: -0.5px;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+/* 로고 ↔ 날씨 구분선 */
+.header-divider {
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: var(--color-hairline);
+  flex-shrink: 0;
+}
+
+/* 헤더 날씨 묶음 */
+.header-weather {
   display: flex;
-  gap: var(--space-xxs);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-pill);
-  padding: var(--space-xxs) var(--space-xs);
-  background: var(--color-canvas);
+  align-items: center;
+  gap: 4px;
 }
 
-.season-btn {
-  background: transparent;
-  border: none;
-  padding: var(--space-xxs) var(--space-sm);
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  font-weight: var(--font-weight-medium);
+.header-weather-icon {
+  font-size: var(--font-size-body);
+  line-height: 1;
+}
+
+.header-weather-text {
   font-size: var(--font-size-body-sm);
-  color: var(--color-ink-muted);
-  transition: all var(--transition-fast);
-}
-
-.season-btn:hover {
-  background-color: var(--color-surface-soft);
+  font-weight: var(--font-weight-regular);
   color: var(--color-ink);
 }
 
+/* ==========================================
+   계절 탭 버튼
+   ========================================== */
+
+/* 컨테이너: 보더 없는 플랫 flex */
+.theme-switch {
+  display: flex;
+  gap: var(--space-xxs);
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+/* 개별 pill 버튼 */
+.season-btn {
+  background: var(--color-surface-soft);
+  border: none;
+  padding: 6px var(--space-md);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-ink);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast),
+    font-weight var(--transition-fast);
+  user-select: none;
+}
+
+.season-btn:hover {
+  background-color: var(--color-hairline);
+  transform: translateY(-1px);
+}
+
+/* 선택된 계절 → 파스텔 배경 */
 .season-btn.active-season {
   background-color: var(--color-season-btn-active-bg);
   color: var(--color-season-btn-active-text);
+  font-weight: var(--font-weight-bold);
+  transform: translateY(-1px);
 }
 
 /* ==========================================
    스크롤 02 영역 (메인 콘텐츠)
    ========================================== */
 .screen-02 {
-  padding: var(--space-lg);
+  padding: var(--space-section) var(--space-xxl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-section);
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  /* 부모 .main-app 에서 계절 배경 상속 */
 }
 
-/* 상단: 슬라이더 + 추천 코디 */
+/* ── 상단: 슬라이더 + 추천 코디 ── */
 .top-content {
   display: flex;
-  gap: var(--space-lg);
-  height: 400px;
+  gap: var(--space-xl);
+  height: 440px;
   width: 100%;
 }
 
-/* 슬라이더 박스 */
-.box {
+/* ── 슬라이더 컨테이너 ── */
+.slider-box {
+  flex: 1.2;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-width: 0;
+  background: var(--color-surface-soft);
+}
+
+.slider {
   display: flex;
-  overflow-x: auto;
   width: 100%;
   height: 100%;
-  gap: var(--space-md);
-  padding: var(--space-md) 0;
-  position: relative;
-  transform-style: preserve-3d;
-  flex: 1;
-  min-width: 0;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-
-  .slider {
-    display: flex;
-    overflow-x: auto;
-    width: 100%;
-    height: calc(100% - 40px);
-    padding: var(--space-md) 0;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-  }
-
-  .slider::-webkit-scrollbar {
-    display: none;
-  }
-
-  .adimage {
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-md);
-    object-fit: contain;
-    display: block;
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .adimage img {
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-md);
-    object-fit: contain;
-    display: block;
-  }
-
-  /* 슬라이더 이전/다음 버튼 */
-  .btn-left,
-  .btn-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    border-radius: var(--radius-full);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    box-shadow: var(--shadow-card);
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
-    z-index: 999;
-  }
-
-  .btn-left:hover,
-  .btn-right:hover {
-    background-color: var(--color-canvas);
-  }
-
-  .btn-left { left: var(--space-xs); }
-  .btn-right { right: var(--space-xs); }
+  overflow-x: auto;
 }
 
-/* 오늘의 추천 코디 */
+.slider::-webkit-scrollbar { display: none; }
+
+.adimage {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.adimage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 슬라이더 화살표 버튼 */
+.btn-left,
+.btn-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-surface-soft);
+  border: none;
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-card);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  z-index: 10;
+}
+
+.btn-left:hover,
+.btn-right:hover {
+  background-color: var(--color-canvas);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.btn-left { left: var(--space-sm); }
+.btn-right { right: var(--space-sm); }
+
+/* ── 오늘의 추천 코디 박스 ── */
 .today-recommend {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: var(--space-md);
+  padding: var(--space-lg);
   border-radius: var(--radius-lg);
   background-color: var(--color-season-block-sub);
-  border: none;
+  transition: background-color var(--transition-slow);
+  min-width: 0;
 }
 
-.today-recommend h3 {
-  margin-bottom: var(--space-xs);
+/* 에이보브 레이블 */
+.recommend-eyebrow {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: var(--space-xxs);
+}
+
+/* 섹션 타이틀 */
+.recommend-title {
   font-size: var(--font-size-headline);
   font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.26px;
+  margin-bottom: var(--space-md);
 }
 
-/* AI 추천 버튼 */
+/* Primary 버튼 */
 .ai-btn {
   background-color: var(--color-ink);
   color: var(--color-canvas);
   border: none;
   border-radius: var(--radius-pill);
   padding: 10px var(--space-lg);
+  font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-body-sm);
   cursor: pointer;
   margin-bottom: var(--space-md);
   transition: opacity var(--transition-fast);
+  align-self: flex-start;
 }
 
-.ai-btn:hover {
-  opacity: 0.8;
-}
+.ai-btn:hover { opacity: 0.75; }
 
+/* 아이템 그리드 */
 .item-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: var(--space-lg);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  flex: 1;
 }
 
-.item-grid .box {
+/* 개별 추천 아이템 셀 */
+.recommend-item {
   aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-size: var(--font-size-body-sm);
-  padding: var(--space-xxs);
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-xxs);
+  transition: background var(--transition-fast);
+}
+
+.recommend-item:not(:empty):not([data-empty]) {
+  font-weight: var(--font-weight-bold);
 }
 
 .item-desc {
   font-size: var(--font-size-body-sm);
-  color: var(--color-ink-muted);
-  min-height: 40px;
+  font-weight: 330;
+  color: var(--color-ink);
+  min-height: 36px;
+  margin-bottom: var(--space-xs);
+  line-height: 1.55;
 }
 
-/* 구매하기 버튼 */
+/* Secondary 버튼 */
 .buy-btn {
-  margin-top: var(--space-xs);
   padding: 10px var(--space-lg);
   background-color: var(--color-canvas);
   color: var(--color-ink);
   border: 1px solid var(--color-ink);
   border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
   font-size: var(--font-size-body-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
+  align-self: flex-start;
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
@@ -565,85 +637,69 @@ body {
   color: var(--color-canvas);
 }
 
-/* ==========================================
-   의류 카드 섹션 (TOP / PANTS / SETUP / OUTER)
-   ========================================== */
+/* ── 의류 카드 섹션 (TOP / PANTS / SETUP / OUTER) ── */
 .bottom-content {
-  margin-top: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-xxl);
 }
 
 .clothing-zone {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
 }
 
-.clothing-zone h3 {
+/* 카테고리 타이틀: 영문 굵게 + 한글 서브레이블 */
+.zone-title {
   font-size: var(--font-size-body-lg);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.1px;
   color: var(--color-ink);
+  margin-bottom: var(--space-md);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-xs);
 }
 
-/* 탭 */
+.zone-label {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
+
+/* 탭 (레거시 — 사용 시 유지) */
 .tabs {
   display: flex;
   gap: var(--space-xs);
-  margin-bottom: -2px;
   position: relative;
   z-index: 2;
+  margin-bottom: var(--space-sm);
 }
 
-.tabs span {
-  border: 1px solid var(--color-hairline);
-  padding: 10px var(--space-lg);
-  border-radius: var(--radius-pill);
-  background: var(--color-canvas);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-body-sm);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.tabs span:hover {
-  background-color: var(--color-ink);
-  color: var(--color-canvas);
-  transform: translateY(-2px);
-}
-
-.tabs span.active {
-  background: var(--color-ink);
-  color: var(--color-canvas);
-}
-
+.tabs span,
 .tabs .tab-btn {
-  background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
+  padding: 6px var(--space-md);
   border-radius: var(--radius-pill);
-  padding: 10px var(--space-lg);
-  font-size: var(--font-size-body-sm);
+  background: var(--color-canvas);
+  font-family: var(--font-sans);
   font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
   outline: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
+.tabs span:hover,
 .tabs .tab-btn:hover {
-  background: var(--color-surface-soft);
-  color: var(--color-ink);
+  background-color: var(--color-surface-soft);
   border-color: var(--color-ink);
 }
 
+.tabs span.active,
 .tabs .tab-btn.active-tab {
   background: var(--color-ink);
   color: var(--color-canvas);
@@ -655,41 +711,41 @@ body {
   display: flex;
   gap: var(--space-sm);
   overflow-x: auto;
-  padding-bottom: 10px;
-  border-top: 1px solid var(--color-hairline);
-  padding-top: var(--space-lg);
+  padding-bottom: var(--space-xs);
+  padding-top: var(--space-md);
   position: relative;
-  z-index: 1;
 }
 
-.card-row::-webkit-scrollbar {
-  height: 6px;
-}
-
+.card-row::-webkit-scrollbar { height: 4px; }
 .card-row::-webkit-scrollbar-thumb {
   background: var(--color-hairline);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
 }
 
-.card-row .card {
-  min-width: 150px;
-  height: 150px;
+/* 흑백 카드 시스템 */
+.card {
+  flex: 0 0 auto;
+  min-width: 160px;
+  height: 200px;
   background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
   overflow: hidden;
   padding: 0;
-  border-radius: var(--radius-md);
-  transition: box-shadow var(--transition-fast);
+  /* 섀도우 없음 — hover시에만 */
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-.card-row .card:hover {
+.card:hover {
   box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
 }
 
 .card-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  display: block;
 }
 
 /* ==========================================
@@ -865,22 +921,63 @@ body {
    모바일 반응형 (≤ 768px)
    ========================================== */
 @media (max-width: 768px) {
+  /* screen-01: 상하 배치, 컬러 블록 full-bleed (라운드 제거) */
   .screen-01 {
     flex-direction: column;
-    height: auto;
-    padding: var(--space-lg);
+    min-height: auto;
+    padding: var(--space-xl) var(--space-lg);
     gap: var(--space-lg);
+    border-radius: 0;   /* 모바일: full-bleed */
   }
 
-  .left-image-container,
+  .left-image-container {
+    width: 100%;
+    height: 280px;
+    flex: none;
+  }
+
   .right-image-container {
     width: 100%;
-    height: 260px;
+    flex: none;
   }
 
-  .left-image,
   .right-image {
-    height: 100%;
+    gap: var(--space-lg);
+    padding: var(--space-sm) 0;
+  }
+
+  .s1-hero {
+    align-items: center;
+    text-align: center;
+  }
+
+  .s1-desc-text {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .s1-briefing {
+    justify-content: center;
+  }
+
+  .s1-brief-item {
+    align-items: center;
+    padding: var(--space-xs) var(--space-sm);
+    margin-right: 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    flex: 1 1 calc(33.33% - var(--space-sm));
+    min-width: 80px;
+  }
+
+  .s1-brief-item:last-child {
+    border-bottom: none;
+  }
+
+  /* screen-02 */
+  .screen-02 {
+    padding: var(--space-xxl) var(--space-lg);
+    gap: var(--space-xxl);
   }
 
   .top-content {
@@ -889,48 +986,61 @@ body {
     gap: var(--space-lg);
   }
 
-  .box {
-    height: 280px;
-  }
+  .slider-box { height: 300px; }
 
-  .today-recommend {
-    border-radius: var(--radius-lg);
-  }
+  .today-recommend { width: 100%; }
+
+  .card { min-width: 130px; height: 160px; }
 }
 
 /* ==========================================
    모바일 반응형 (≤ 560px)
    ========================================== */
 @media (max-width: 560px) {
-  .s1-weather-icon { font-size: 4rem; }
-  .s1-temp-text { font-size: 3.5rem; }
-  .s1-desc-text { font-size: var(--font-size-body-sm); max-width: 90vw; }
+  .s1-weather-icon { font-size: 2.8rem; }
+  .s1-temp-text { font-size: 3rem; letter-spacing: -0.5px; }
+  .s1-desc-text { font-size: var(--font-size-body-sm); }
 
-  .s1-briefing { gap: 7px; }
-  .s1-brief-item { padding: var(--space-xs) var(--space-sm); min-width: 70px; }
+  .s1-brief-item { flex: 1 1 calc(50% - var(--space-xs)); }
   .s1-brief-value { font-size: var(--font-size-body-sm); }
   .s1-brief-label { font-size: 0.62rem; }
 
   .app-header {
     flex-direction: column;
     gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-xs) var(--space-md);
     height: auto;
   }
 
-  .app-header .left-info {
-    gap: var(--space-xs);
-    font-size: var(--font-size-body-sm);
+  .logo-text {
+    font-size: var(--font-size-body);
+  }
+
+  .header-weather-text {
+    font-size: var(--font-size-caption);
+  }
+
+  .theme-switch {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xxs);
+  }
+
+  .season-btn {
+    padding: 5px var(--space-sm);
+    font-size: var(--font-size-caption);
   }
 
   .screen-02 { padding: var(--space-sm); gap: var(--space-lg); }
 
   .item-grid { grid-template-columns: repeat(2, 1fr); }
-  .box { height: 240px; }
+  .slider-box { height: 240px; }
 
   .clothing-zone { padding: var(--space-sm); }
-  .clothing-zone h3 { font-size: var(--font-size-body); }
-  .card-row .card { min-width: 120px; height: 120px; }
+  .zone-title { font-size: var(--font-size-body); }
+  .card { min-width: 110px; height: 140px; }
+
+  .ai-btn, .buy-btn { width: 100%; text-align: center; }
 
   .avatar-section { padding: var(--space-lg) var(--space-sm); }
   .avatar-title { font-size: var(--font-size-body-lg); }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="spring">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,77 +8,72 @@
   </head>
   <body>
     <section class="screen-01">
-      <div class="top-logo">로고</div>
 
-    <div class = "left-image-container">  
-      <div class = "left-image weather-picture">
-        <img src = "img/739a64e3e3fb42ea.png" alt = "계절 이미지" class = "spring-image season-image"> <!-- 보기편하게 img폴더에 있는 이미지 추가해 놨습니다 나중에 작업하시는 분이 수정해 주세요. -->
+      <div class="left-image-container">
+        <div class="left-image weather-picture">
+          <img src="img/739a64e3e3fb42ea.png" alt="계절 이미지" class="spring-image season-image">
+        </div>
       </div>
-    </div>
 
-  <div class = "right-image-container">
-    <div class = "right-image weather-info">
-      <div class="s1-hero">
-        <span id="s1-icon" class="s1-weather-icon">⛅</span>
-        <span id="s1-temp" class="s1-temp-text">--°C</span>
-        <p id="s1-desc" class="s1-desc-text">날씨 불러오는 중...</p>
+      <div class="right-image-container">
+        <div class="right-image weather-info">
+
+          <div class="s1-hero">
+            <span id="s1-icon" class="s1-weather-icon">⛅</span>
+            <span id="s1-temp" class="s1-temp-text">--°C</span>
+            <p id="s1-desc" class="s1-desc-text">날씨 불러오는 중...</p>
+          </div>
+
+          <div class="s1-briefing">
+            <div class="s1-brief-item">
+              <span class="s1-brief-label">체감온도</span>
+              <span id="s1-feels" class="s1-brief-value">--°C</span>
+            </div>
+            <div class="s1-brief-item">
+              <span class="s1-brief-label">최저/최고</span>
+              <span id="s1-minmax" class="s1-brief-value">-- / --</span>
+            </div>
+            <div class="s1-brief-item">
+              <span class="s1-brief-label">습도</span>
+              <span id="s1-humidity" class="s1-brief-value">--%</span>
+            </div>
+            <div class="s1-brief-item">
+              <span class="s1-brief-label">풍속</span>
+              <span id="s1-wind" class="s1-brief-value">--m/s</span>
+            </div>
+            <div class="s1-brief-item">
+              <span class="s1-brief-label">위치</span>
+              <span id="s1-location" class="s1-brief-value">--</span>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="s1-briefing">
-        <div class="s1-brief-item">
-          <span class="s1-brief-label">체감온도</span>
-          <span id="s1-feels" class="s1-brief-value">--°C</span>
-        </div>
-        <div class="s1-brief-item">
-          <span class="s1-brief-label">최저/최고</span>
-          <span id="s1-minmax" class="s1-brief-value">-- / --</span>
-        </div>
-        <div class="s1-brief-item">
-          <span class="s1-brief-label">습도</span>
-          <span id="s1-humidity" class="s1-brief-value">--%</span>
-        </div>
-        <div class="s1-brief-item">
-          <span class="s1-brief-label">풍속</span>
-          <span id="s1-wind" class="s1-brief-value">--m/s</span>
-        </div>
-        <div class="s1-brief-item">
-          <span class="s1-brief-label">위치</span>
-          <span id="s1-location" class="s1-brief-value">--</span>
-        </div>
-      </div>
-    </div>
-  </div>
+
     </section>
 
     <div id="mainApp" class="main-app spring">
       <header class="app-header">
         <div class="left-info">
-          <span class="logo-text">로고</span>
-          <span id="weather">날씨 불러오는 중...</span>
+          <span class="logo-text">입을만해</span>
+          <span class="header-divider" aria-hidden="true"></span>
+          <span class="header-weather">
+            <span class="header-weather-icon" id="headerIcon">⛅</span>
+            <span class="header-weather-text" id="weather">날씨 불러오는 중...</span>
+          </span>
         </div>
         <div class="theme-switch">
-          <button
-            type="button"
-            class="season-btn active-season"
-            data-season="spring"
-          >
-            봄
-          </button>
-          <button type="button" class="season-btn" data-season="summer">
-            여름
-          </button>
-          <button type="button" class="season-btn" data-season="autumn">
-            가을
-          </button>
-          <button type="button" class="season-btn" data-season="winter">
-            겨울
-          </button>
+          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
+          <button type="button" class="season-btn" data-season="summer">여름</button>
+          <button type="button" class="season-btn" data-season="autumn">가을</button>
+          <button type="button" class="season-btn" data-season="winter">겨울</button>
         </div>
       </header>
 
       <section class="screen-02">
         <div class="top-content">
-          <div class="box" id="box">
-            <div class="slider">
+          <div class="slider-box" id="box">
+            <div class="slider" id="slider">
               <div class="adimage">
                 <img
                   src="https://lovely-orange-ebdppdfd7q.edgeone.app/9k.png"
@@ -112,116 +107,61 @@
             </button>
           </div>
 
-          <div class="border-box today-recommend">
-            <h3>오늘의 추천 코디</h3>
+          <div class="today-recommend">
+            <p class="recommend-eyebrow">TODAY'S PICK</p>
+            <h3 class="recommend-title">오늘의 추천 코디</h3>
 
             <button type="button" id="aiRecommendBtn" class="ai-btn">
-              ⚡ AI 날씨 맞춤 추천받기
+              AI 날씨 맞춤 추천받기
             </button>
 
             <div class="item-grid">
-              <div class="border-box box" id="rec-item-1">상의</div>
-              <div class="border-box box" id="rec-item-2">하의</div>
-              <div class="border-box box" id="rec-item-3">아우터</div>
-              <div class="border-box box" id="rec-item-4">신발</div>
-              <div class="border-box box" id="rec-item-5">가방</div>
-              <div class="border-box box" id="rec-item-6">소품</div>
+              <div class="recommend-item" id="rec-item-1">상의</div>
+              <div class="recommend-item" id="rec-item-2">하의</div>
+              <div class="recommend-item" id="rec-item-3">아우터</div>
+              <div class="recommend-item" id="rec-item-4">신발</div>
+              <div class="recommend-item" id="rec-item-5">가방</div>
+              <div class="recommend-item" id="rec-item-6">소품</div>
             </div>
+
             <p class="item-desc" id="recommendDesc">
-              위의 버튼을 누르면 현재 기온에 맞는 추천 의류 정보가 이곳에
-              나타납니다.
+              위의 버튼을 누르면 현재 기온에 맞는 추천 의류 정보가 이곳에 나타납니다.
             </p>
-            <button class="buy-btn" data-link="https://www.musinsa.com">
-              추천 코디 구매하기
-            </button>
+            <button class="buy-btn">추천 코디 구매하기</button>
           </div>
         </div>
 
         <div class="bottom-content">
           <div class="clothing-zone">
-            <h3>👕 TOP (상의)</h3>
+            <h3 class="zone-title">TOP <span class="zone-label">상의</span></h3>
             <div class="card-row" id="cardTop">
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
-                  alt="상의"
-                />
-              </div>
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
-                  alt="상의"
-                />
-              </div>
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png"
-                  alt="상의"
-                />
-              </div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
             </div>
           </div>
 
           <div class="clothing-zone">
-            <h3>👖 PANTS (팬츠)</h3>
+            <h3 class="zone-title">PANTS <span class="zone-label">팬츠</span></h3>
             <div class="card-row" id="cardBottom">
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png"
-                  alt="하의"
-                />
-              </div>
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png"
-                  alt="하의"
-                />
-              </div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"/></div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"/></div>
             </div>
           </div>
 
           <div class="clothing-zone">
-            <h3>👔 SETUP (셋업)</h3>
+            <h3 class="zone-title">SETUP <span class="zone-label">셋업</span></h3>
             <div class="card-row" id="cardSet">
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png"
-                  alt="후드티"
-                />
-              </div>
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png"
-                  alt="후드티"
-                />
-              </div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="셋업"/></div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="셋업"/></div>
             </div>
           </div>
 
           <div class="clothing-zone">
-            <h3>🧥 OUTER (아우터)</h3>
+            <h3 class="zone-title">OUTER <span class="zone-label">아우터</span></h3>
             <div class="card-row" id="cardOuter">
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png"
-                  alt="상하의"
-                />
-              </div>
-              <div class="border-box card">
-                <img
-                  class="card-img"
-                  src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png"
-                  alt="상하의"
-                />
-              </div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="아우터"/></div>
+              <div class="card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="아우터"/></div>
             </div>
           </div>
         </div>
