@@ -4,233 +4,250 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="mainDesign.css" />
-    <title>입을만해</title>
+    <title>입을만해 — 오늘 뭐 입지?</title>
   </head>
   <body>
-    <section class="screen-01">
+    <!-- ==========================================================
+         SECTION 01 — 날씨 히어로 (풍경 배경 + 글래스모피즘 패널)
+         README 유저플로우 1단계: 현재 위치 온도 + 날씨 + 추천 진입
+         ========================================================== -->
+    <section class="section_01">
+      <img
+        src="img/739a64e3e3fb42ea.png"
+        alt=""
+        class="season-image season-bg"
+        aria-hidden="true"
+      />
 
-      <div class="left-image-container">
-        <div class="left-image weather-picture">
-          <img src="img/739a64e3e3fb42ea.png" alt="계절 이미지" class="spring-image season-image">
+      <span class="top-logo">입을만해</span>
+
+      <!-- 프로스티드 글라스 패널 -->
+      <div class="hero-glass">
+        <div class="s1-hero">
+          <span id="s1-icon" class="s1-weather-icon">⛅</span>
+          <span id="s1-temp" class="s1-temp-text">--°C</span>
+          <p id="s1-desc" class="s1-desc-text">날씨를 불러오는 중입니다…</p>
         </div>
-      </div>
 
-      <div class="right-image-container">
-        <div class="right-image weather-info">
-
-          <div class="s1-hero">
-            <span id="s1-icon" class="s1-weather-icon">⛅</span>
-            <span id="s1-temp" class="s1-temp-text">--°C</span>
-            <p id="s1-desc" class="s1-desc-text">날씨 불러오는 중...</p>
+        <div class="s1-briefing">
+          <div class="s1-brief-item">
+            <span class="s1-brief-label">체감</span>
+            <span id="s1-feels" class="s1-brief-value">--°</span>
           </div>
-
-          <div class="s1-briefing">
-            <div class="s1-brief-item">
-              <span class="s1-brief-label">체감온도</span>
-              <span id="s1-feels" class="s1-brief-value">--°C</span>
-            </div>
-            <div class="s1-brief-item">
-              <span class="s1-brief-label">최저/최고</span>
-              <span id="s1-minmax" class="s1-brief-value">-- / --</span>
-            </div>
-            <div class="s1-brief-item">
-              <span class="s1-brief-label">습도</span>
-              <span id="s1-humidity" class="s1-brief-value">--%</span>
-            </div>
-            <div class="s1-brief-item">
-              <span class="s1-brief-label">풍속</span>
-              <span id="s1-wind" class="s1-brief-value">--m/s</span>
-            </div>
-            <div class="s1-brief-item">
-              <span class="s1-brief-label">위치</span>
-              <span id="s1-location" class="s1-brief-value">--</span>
-            </div>
+          <div class="s1-brief-item">
+            <span class="s1-brief-label">최저 / 최고</span>
+            <span id="s1-minmax" class="s1-brief-value">-- / --</span>
           </div>
-
+          <div class="s1-brief-item">
+            <span class="s1-brief-label">습도</span>
+            <span id="s1-humidity" class="s1-brief-value">--%</span>
+          </div>
+          <div class="s1-brief-item">
+            <span class="s1-brief-label">바람</span>
+            <span id="s1-wind" class="s1-brief-value">--m/s</span>
+          </div>
+          <div class="s1-brief-item">
+            <span class="s1-brief-label">위치</span>
+            <span id="s1-location" class="s1-brief-value">--</span>
+          </div>
         </div>
-      </div>
 
+        <a href="#ootd" class="scroll-cue">
+          오늘의 추천 코디 보기 <span aria-hidden="true">↓</span>
+        </a>
+      </div>
     </section>
 
     <div id="mainApp" class="main-app spring">
+      <!-- ==========================================================
+           HEADER — 글래스모피즘 네비게이션 (로고 + 날씨 + 계절 버튼)
+           scroll.js 가 스크롤 시 노출 제어
+           ========================================================== -->
       <header class="app-header">
         <div class="left-info">
           <span class="logo-text">입을만해</span>
           <span class="header-divider" aria-hidden="true"></span>
           <span class="header-weather">
             <span class="header-weather-icon" id="headerIcon">⛅</span>
-            <span class="header-weather-text" id="weather">날씨 불러오는 중...</span>
+            <span class="header-weather-text" id="weather">날씨 불러오는 중…</span>
           </span>
         </div>
-        <div class="theme-switch">
+        <nav class="theme-switch" aria-label="계절 테마 선택">
           <button type="button" class="season-btn active-season" data-season="spring">봄</button>
           <button type="button" class="season-btn" data-season="summer">여름</button>
           <button type="button" class="season-btn" data-season="autumn">가을</button>
           <button type="button" class="season-btn" data-season="winter">겨울</button>
-        </div>
+        </nav>
       </header>
 
-      <section class="screen-02">
-        <div class="top-content">
-          <div class="slider-box" id="box">
-            <div class="slider" id="slider">
-              <div class="adimage">
-                <img
-                  src="https://lovely-orange-ebdppdfd7q.edgeone.app/9k.png"
-                  alt="모델사진1"
-                />
-              </div>
-              <div class="adimage">
-                <img
-                  src="https://oral-peach-qcbkbuypef.edgeone.app/9k%E3%85%8F.png"
-                  alt="모델사진2"
-                />
-              </div>
-              <div class="adimage">
-                <img
-                  src="https://objective-rose-ecp2k6ir6t.edgeone.app/2Q.png"
-                  alt="모델사진3"
-                />
-              </div>
-              <div class="adimage">
-                <img
-                  src="https://mammoth-amaranth-buzithtol8.edgeone.app/f20560451a4b49a4982de16283a8bddf.png"
-                  alt="모델사진4"
-                />
-              </div>
-            </div>
-            <button class="btn-left" id="dlwjsbtn" aria-label="이전 사진">
-              &#10094;
-            </button>
-            <button class="btn-right" id="ekdmabtn" aria-label="다음 사진">
-              &#10095;
-            </button>
-          </div>
-
-          <div class="today-recommend">
-            <p class="recommend-eyebrow">TODAY'S PICK</p>
-            <h3 class="recommend-title">오늘의 추천 코디</h3>
-
-            <button type="button" id="aiRecommendBtn" class="ai-btn">
-              AI 날씨 맞춤 추천받기
-            </button>
-
-            <div class="item-grid">
-              <div class="recommend-item" id="rec-item-1">상의</div>
-              <div class="recommend-item" id="rec-item-2">하의</div>
-              <div class="recommend-item" id="rec-item-3">아우터</div>
-              <div class="recommend-item" id="rec-item-4">신발</div>
-              <div class="recommend-item" id="rec-item-5">가방</div>
-              <div class="recommend-item" id="rec-item-6">소품</div>
-            </div>
-
-            <p class="item-desc" id="recommendDesc">
-              위의 버튼을 누르면 현재 기온에 맞는 추천 의류 정보가 이곳에 나타납니다.
+      <main class="section_02">
+        <!-- ======================================================
+             A. 오늘의 추천 코디 — README 핵심기능 ① 기온별 OOTD
+             ====================================================== -->
+        <section class="ootd" id="ootd">
+          <header class="section-head">
+            <p class="eyebrow">TODAY'S PICK</p>
+            <h2 class="section-title">오늘의 추천 코디</h2>
+            <p class="section-sub">
+              지금 기온에 딱 맞는 표준 코디예요. 고민 말고 그대로 입어보세요.
             </p>
-            <button class="buy-btn">추천 코디 구매하기</button>
-          </div>
-        </div>
+          </header>
 
-        <div class="bottom-content">
-          <div class="clothing-zone">
-            <h3 class="zone-title">TOP <span class="zone-label">상의</span></h3>
-            <div class="card-row" id="cardTop">
-              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
-              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
-              <div class="card"><img class="card-img" src="https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png" alt="상의"/></div>
+          <div class="ootd-grid">
+            <!-- 좌: 룩북 슬라이더 -->
+            <div class="slider-box" id="box">
+              <div class="slider" id="slider">
+                <div class="adimage">
+                  <img src="https://lovely-orange-ebdppdfd7q.edgeone.app/9k.png" alt="추천 룩 1" />
+                </div>
+                <div class="adimage">
+                  <img src="https://oral-peach-qcbkbuypef.edgeone.app/9k%E3%85%8F.png" alt="추천 룩 2" />
+                </div>
+                <div class="adimage">
+                  <img src="https://objective-rose-ecp2k6ir6t.edgeone.app/2Q.png" alt="추천 룩 3" />
+                </div>
+                <div class="adimage">
+                  <img src="https://mammoth-amaranth-buzithtol8.edgeone.app/f20560451a4b49a4982de16283a8bddf.png" alt="추천 룩 4" />
+                </div>
+              </div>
+              <button class="slider-arrow btn-left" id="dlwjsbtn" aria-label="이전 사진">&#10094;</button>
+              <button class="slider-arrow btn-right" id="ekdmabtn" aria-label="다음 사진">&#10095;</button>
+            </div>
+
+            <!-- 우: 추천 결과 패널 -->
+            <div class="today-recommend">
+              <button type="button" id="aiRecommendBtn" class="btn-primary ai-btn">
+                ✨ 현재 기온으로 코디 추천받기
+              </button>
+
+              <ul class="item-grid" aria-label="추천 아이템">
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">상의</span>
+                  <span class="recommend-item__name" id="rec-item-1">—</span>
+                </li>
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">하의</span>
+                  <span class="recommend-item__name" id="rec-item-2">—</span>
+                </li>
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">아우터</span>
+                  <span class="recommend-item__name" id="rec-item-3">—</span>
+                </li>
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">신발</span>
+                  <span class="recommend-item__name" id="rec-item-4">—</span>
+                </li>
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">가방</span>
+                  <span class="recommend-item__name" id="rec-item-5">—</span>
+                </li>
+                <li class="recommend-item">
+                  <span class="recommend-item__cat">소품</span>
+                  <span class="recommend-item__name" id="rec-item-6">—</span>
+                </li>
+              </ul>
+
+              <p class="item-desc" id="recommendDesc">
+                위 버튼을 누르면 현재 기온에 맞는 코디가 여기에 나타납니다.
+              </p>
+
+              <!-- README 핵심기능 ③ 원클릭 커머스 -->
+              <button type="button" class="btn-secondary buy-btn">
+                이 코디로 내 옷장 채우기 →
+              </button>
             </div>
           </div>
+        </section>
 
-          <div class="clothing-zone">
-            <h3 class="zone-title">PANTS <span class="zone-label">팬츠</span></h3>
-            <div class="card-row" id="cardBottom">
-              <div class="card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"/></div>
-              <div class="card"><img class="card-img" src="https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png" alt="하의"/></div>
-            </div>
+        <!-- ======================================================
+             B. 카테고리별 상세 가이드 — README 유저플로우 2단계
+             카드는 data/productData.js 의 Product 클래스가 렌더링
+             ====================================================== -->
+        <section class="catalog">
+          <header class="section-head">
+            <p class="eyebrow">STYLE GUIDE</p>
+            <h2 class="section-title">카테고리별 상세 가이드</h2>
+            <p class="section-sub">
+              집에 없는 아이템이 있다면, 비슷한 무드로 골라 채워보세요.
+            </p>
+          </header>
+
+          <div class="bottom-content">
+            <article class="clothing-zone">
+              <h3 class="zone-title">TOP <span class="zone-label">상의</span></h3>
+              <div class="card-row" id="cardTop"></div>
+            </article>
+
+            <article class="clothing-zone">
+              <h3 class="zone-title">PANTS <span class="zone-label">팬츠</span></h3>
+              <div class="card-row" id="cardBottom"></div>
+            </article>
+
+            <article class="clothing-zone">
+              <h3 class="zone-title">SETUP <span class="zone-label">셋업</span></h3>
+              <div class="card-row" id="cardSet"></div>
+            </article>
+
+            <article class="clothing-zone">
+              <h3 class="zone-title">OUTER <span class="zone-label">아우터</span></h3>
+              <div class="card-row" id="cardOuter"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ======================================================
+             C. 아바타 피팅룸 — 사이트 고유 정체성 (이모지 기반)
+             ====================================================== -->
+        <section class="avatar-section">
+          <header class="section-head section-head--center">
+            <p class="eyebrow">FITTING ROOM</p>
+            <h2 class="section-title">아바타 피팅룸</h2>
+            <p class="section-sub">추천 코디를 아바타에게 그대로 입혀봐요.</p>
+          </header>
+
+          <div class="gender-selector" role="group" aria-label="아바타 성별">
+            <button type="button" class="gender-btn active-gender" id="btnFemale">여성 아바타</button>
+            <button type="button" class="gender-btn" id="btnMale">남성 아바타</button>
           </div>
 
-          <div class="clothing-zone">
-            <h3 class="zone-title">SETUP <span class="zone-label">셋업</span></h3>
-            <div class="card-row" id="cardSet">
-              <div class="card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="셋업"/></div>
-              <div class="card"><img class="card-img" src="https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png" alt="셋업"/></div>
+          <div class="fitting-container">
+            <div class="avatar-display">
+              <span class="avatar-gender-label" id="avatarGenderText">여성 모델 기본값</span>
+              <span class="avatar-graphic" id="avatarGraphic" aria-hidden="true">👩</span>
             </div>
+
+            <ul class="avatar-clothes-spec">
+              <li class="spec-layer">
+                <span class="spec-label">아우터</span>
+                <span class="spec-value" id="fitOuter">—</span>
+              </li>
+              <li class="spec-layer">
+                <span class="spec-label">상의</span>
+                <span class="spec-value" id="fitTop">—</span>
+              </li>
+              <li class="spec-layer">
+                <span class="spec-label">하의</span>
+                <span class="spec-value" id="fitBottom">—</span>
+              </li>
+              <li class="spec-layer">
+                <span class="spec-label">슈즈</span>
+                <span class="spec-value" id="fitShoes">—</span>
+              </li>
+              <li class="spec-layer">
+                <span class="spec-label">악세서리</span>
+                <span class="spec-value" id="fitAcc">—</span>
+              </li>
+            </ul>
           </div>
-
-          <div class="clothing-zone">
-            <h3 class="zone-title">OUTER <span class="zone-label">아우터</span></h3>
-            <div class="card-row" id="cardOuter">
-              <div class="card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="아우터"/></div>
-              <div class="card"><img class="card-img" src="https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png" alt="아우터"/></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="avatar-section">
-        <h2 class="avatar-title">🤖 AI 실시간 스마트 아바타 피팅룸</h2>
-
-        <div class="gender-selector">
-          <button type="button" class="gender-btn active-gender" id="btnFemale">
-            여성 아바타
-          </button>
-          <button type="button" class="gender-btn" id="btnMale">
-            남성 아바타
-          </button>
-        </div>
-
-        <div class="fitting-container">
-          <div class="avatar-display" id="avatarModel">
-            <span class="avatar-gender-label" id="avatarGenderText"
-              >여성 모델 기본값</span
-            >
-            <div class="avatar-stage" id="avatarStage">
-
-            <img id="layer-skin" class="layer skin" />
-            <img id="layer-hair" class="layer hair" />
-            <img id="layer-top" class="layer top" />
-            <img id="layer-bottom" class="layer bottom" />
-            <img id="layer-outer" class="layer outer" />
-            <img id="layer-acc" class="layer acc" />
-
-        </div>
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #888">
-              피팅 대기 중
-            </div>
-          </div>
-
-          <div class="avatar-clothes-spec">
-            <div class="spec-layer">
-              <div class="spec-label">착용 아우터</div>
-              <div class="spec-value" id="fitOuter">선택 안 됨</div>
-            </div>
-            <div class="spec-layer">
-              <div class="spec-label">착용 상의</div>
-              <div class="spec-value" id="fitTop">선택 안 됨</div>
-            </div>
-            <div class="spec-layer">
-              <div class="spec-label">착용 하의</div>
-              <div class="spec-value" id="fitBottom">선택 안 됨</div>
-            </div>
-            <div class="spec-layer">
-              <div class="spec-label">착용 슈즈</div>
-              <div class="spec-value" id="fitShoes">선택 안 됨</div>
-            </div>
-            <div class="spec-layer">
-              <div class="spec-label">악세사리</div>
-              <div class="spec-value" id="fitAcc">선택 안 됨</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-box floating-nav">네비게이션 바</div>
-      </section>
+        </section>
+      </main>
     </div>
 
     <script src="data/coordinateData.js"></script>
+    <script src="data/productData.js"></script>
     <script src="js/api.js"></script>
     <script src="js/dom.js"></script>
     <script src="js/scroll.js"></script>
-    <script src="js/char.js"></script>
+    <script src="js/avatar.js"></script>
   </body>
 </html>

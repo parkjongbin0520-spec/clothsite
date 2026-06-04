@@ -1,7 +1,7 @@
 (function () {
     const hero     = document.querySelector('.s1-hero');
     const briefing = document.querySelector('.s1-briefing');
-    const s1Logo   = document.querySelector('.screen-01 .top-logo');
+    const s1Logo   = document.querySelector('.section_01 .top-logo');
     const header   = document.querySelector('.app-header');
     const nav      = document.querySelector('.floating-nav');
 
