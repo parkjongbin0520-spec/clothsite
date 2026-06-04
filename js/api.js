@@ -42,6 +42,9 @@ async function getWeather() {
         const headerEl = document.getElementById('weather');
         if (headerEl) headerEl.textContent = `${currentTemp.toFixed(1)}°C · ${weather.description}`;
 
+        const headerIcon = document.getElementById('headerIcon');
+        if (headerIcon) headerIcon.textContent = getWeatherIcon(weather.id);
+
         const s1Icon = document.getElementById('s1-icon');
         const s1Temp = document.getElementById('s1-temp');
         const s1Desc = document.getElementById('s1-desc');
