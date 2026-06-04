@@ -176,10 +176,9 @@ document.querySelectorAll('.buy-btn').forEach(buybtn => {
         window.open(link, '_blank', 'noopener,noreferrer');
     });
 });
-// 계절 화면 바꾸는 버튼
-const seasonButtons = document.querySelectorAll('.season-btn');
+// --- 계절 비주얼 이미지 교체 ---
+// 주의: seasonButtons 는 위에서 이미 선언됨 (재선언 시 SyntaxError 로 파일 전체가 죽음)
 const seasonImage = document.querySelector('.season-image');
-
 
 const seasonImages = {
   spring: 'img/739a64e3e3fb42ea.png',
@@ -188,10 +187,18 @@ const seasonImages = {
   winter: 'img/winter.png'
 };
 
-seasonButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const selectedSeason = button.dataset.season;
-
-    seasonImage.src = seasonImages[selectedSeason];
+if (seasonImage) {
+  // 해당 계절 이미지 파일이 아직 없으면 봄 이미지로 폴백 (깨진 이미지 아이콘 방지)
+  seasonImage.addEventListener('error', () => {
+    if (seasonImage.src.indexOf(seasonImages.spring) === -1) {
+      seasonImage.src = seasonImages.spring;
+    }
   });
-});
+
+  seasonButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const selectedSeason = button.dataset.season;
+      seasonImage.src = seasonImages[selectedSeason] || seasonImages.spring;
+    });
+  });
+}
