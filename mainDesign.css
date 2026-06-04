@@ -1,49 +1,167 @@
-/* 기본 초기화 */
+/* ==========================================
+   디자인 토큰 (CSS 변수)
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;480;500;540;700&display=swap');
+
+:root {
+  /* --- 색상: 기본 --- */
+  --color-ink: #000000;
+  --color-canvas: #ffffff;
+  --color-surface-soft: #f7f7f5;
+  --color-hairline: #e6e6e6;
+  --color-hairline-soft: #f1f1f1;
+  --color-ink-muted: #888888;       /* 보조 텍스트, 점진적으로 줄여갈 것 */
+
+  /* --- 색상: 계절 파스텔 블록 (기본값: 봄) --- */
+  --color-season-block: #efd4d4;
+  --color-season-block-sub: #f4ecd6;
+  --color-season-bg: #fff8f8;
+  --color-season-btn-active-bg: #efd4d4;
+  --color-season-btn-active-text: #000000;
+
+  /* --- 색상: 계절별 정의 --- */
+  --color-spring-block: #efd4d4;
+  --color-spring-block-sub: #f4ecd6;
+  --color-spring-bg: #fff8f8;
+
+  --color-summer-block: #c8e6cd;
+  --color-summer-block-sub: #dceeb1;
+  --color-summer-bg: #f5fbf6;
+
+  --color-autumn-block: #f3c9b6;
+  --color-autumn-block-sub: #f4ecd6;
+  --color-autumn-bg: #fdf6f2;
+
+  --color-winter-block: #c5b0f4;
+  --color-winter-block-sub: #e8e4f8;
+  --color-winter-bg: #f8f7ff;
+
+  /* --- 타이포그래피 --- */
+  --font-sans: 'Inter', 'Malgun Gothic', sans-serif;
+
+  --font-size-display: 3rem;          /* 48px: 히어로 헤드라인 */
+  --font-size-headline: 1.625rem;     /* 26px: 섹션 타이틀 */
+  --font-size-card-title: 1.25rem;    /* 20px: 카드 제목 */
+  --font-size-body-lg: 1.125rem;      /* 18px: 본문 크게 */
+  --font-size-body: 1rem;             /* 16px: 기본 본문 */
+  --font-size-body-sm: 0.875rem;      /* 14px: 작은 본문 */
+  --font-size-caption: 0.75rem;       /* 12px: 캡션/레이블 */
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 480;
+  --font-weight-semibold: 540;
+  --font-weight-bold: 700;
+
+  /* --- 테두리 반경 (Border Radius) --- */
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 50px;
+  --radius-full: 9999px;
+
+  /* --- 간격 (Spacing) --- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 80px;
+
+  /* --- 그림자 (Elevation) --- */
+  --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+
+  /* --- 트랜지션 --- */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* --- 계절 변수 오버라이드 --- */
+.spring {
+  --color-season-block: var(--color-spring-block);
+  --color-season-block-sub: var(--color-spring-block-sub);
+  --color-season-bg: var(--color-spring-bg);
+  --color-season-btn-active-bg: var(--color-spring-block);
+  --color-season-btn-active-text: var(--color-ink);
+}
+.summer {
+  --color-season-block: var(--color-summer-block);
+  --color-season-block-sub: var(--color-summer-block-sub);
+  --color-season-bg: var(--color-summer-bg);
+  --color-season-btn-active-bg: var(--color-summer-block);
+  --color-season-btn-active-text: var(--color-ink);
+}
+.autumn {
+  --color-season-block: var(--color-autumn-block);
+  --color-season-block-sub: var(--color-autumn-block-sub);
+  --color-season-bg: var(--color-autumn-bg);
+  --color-season-btn-active-bg: var(--color-autumn-block);
+  --color-season-btn-active-text: var(--color-ink);
+}
+.winter {
+  --color-season-block: var(--color-winter-block);
+  --color-season-block-sub: var(--color-winter-block-sub);
+  --color-season-bg: var(--color-winter-bg);
+  --color-season-btn-active-bg: var(--color-winter-block);
+  --color-season-btn-active-text: var(--color-ink);
+}
+
+/* ==========================================
+   기본 초기화
+   ========================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Malgun Gothic", sans-serif;
-  color: #555;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
 }
+
 body {
-  background-color: #fff;
+  background-color: var(--color-canvas);
 }
-/* 공통 유틸리티 */
+
+/* 임시 유틸 클래스 — Phase 2~5에서 개별 컴포넌트 스타일로 교체 예정 */
 .border-box {
-  border: 2px solid #888;
+  border: 1px solid var(--color-hairline);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
-/* ---------------------------------
-           스크롤 01 영역 (첫 화면)
-        --------------------------------- */
+/* ==========================================
+   스크롤 01 영역 (날씨 히어로)
+   ========================================== */
 .screen-01 {
   position: relative;
   height: 80vh;
   display: flex;
-  flex-direction: row; /* 세로 정렬을 가로 정렬로 바꿈 */
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* padding-bottom: 120px;  하단 브리핑 공간 확보 → 히어로가 중앙 위로 올라감 */
-  background-color: #f0f0f0;
-  padding: 40px;
-  gap: 40px;
+  background-color: var(--color-surface-soft);
+  padding: var(--space-xl);
+  gap: var(--space-xl);
   box-sizing: border-box;
 }
 
 .screen-01 .top-logo {
   position: absolute;
-  top: 20px;
-  font-size: 1.2rem;
+  top: var(--space-md);
+  font-size: var(--font-size-body-lg);
 }
 
-/* 좌우 이미지 박스 추가 */
-.left-image-container, .right-image-container {
+.left-image-container,
+.right-image-container {
   flex: 1;
   display: flex;
   height: 100%;
@@ -51,19 +169,17 @@ body {
   justify-content: center;
 }
 
-/*좌측 이미지 */
 .left-image {
   width: 100%;
-  height: 90%; 
-  background-color: #fff;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  height: 90%;
+  background-color: var(--color-canvas);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
 }
 
 .spring-image {
@@ -72,7 +188,6 @@ body {
   object-fit: cover;
 }
 
-/* 오른쪽 날씨 정보 */
 .right-image {
   flex: 1;
   display: flex;
@@ -81,30 +196,28 @@ body {
   justify-content: center;
   width: 100%;
   height: 90%;
-  background-color: #ffffff;
-  border-radius: 24px; 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  background-color: var(--color-canvas);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
   overflow: visible;
-  padding: 40px 24px;
-  overflow: visible;
+  padding: var(--space-xxl) var(--space-lg);
   gap: 30px;
-  
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
 }
 
-/* 좌우측 이미지 호버 */
-.left-image:hover, .right-image:hover {
+.left-image:hover,
+.right-image:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card-hover);
 }
 
-/* 중앙 날씨 히어로 */
+/* 날씨 히어로 */
 .s1-hero {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs);
   text-align: center;
   margin-top: auto;
   margin-bottom: 10px;
@@ -117,27 +230,20 @@ body {
 
 .s1-temp-text {
   font-size: 5rem;
-  font-weight: 700;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
   letter-spacing: -3px;
 }
 
 .s1-desc-text {
-  font-size: 1.05rem;
-  color: #777;
+  font-size: var(--font-size-body);
+  color: var(--color-ink-muted);
   max-width: 340px;
   line-height: 1.7;
 }
 
-/* 하단 날씨 브리핑 카드 — absolute로 화면 하단에 고정 */
+/* 날씨 상세 브리핑 */
 .s1-briefing {
-  /*
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  오른쪽 박스 쪽으로 붙어서 주석 처리 했는데 마음에 안드시면 수정해 주세요.
-  */
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -145,7 +251,7 @@ body {
   align-items: center;
   width: 100%;
   max-width: 440px;
-  margin-top: 20px;
+  margin-top: var(--space-md);
   margin-bottom: auto;
   padding: 0 10px;
   box-sizing: border-box;
@@ -157,9 +263,9 @@ body {
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.78);
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  padding: 10px 12px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: 10px var(--space-sm);
   backdrop-filter: blur(4px);
   flex: 1 1 calc(33.33% - 10px);
   min-width: 85px;
@@ -167,19 +273,20 @@ body {
 }
 
 .s1-brief-label {
-  font-size: 0.7rem;
-  color: #aaa;
+  font-size: var(--font-size-caption);
+  color: var(--color-ink-muted);
   margin-bottom: 5px;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.03em;
 }
+
 .s1-brief-value {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #333;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
 }
 
-/* GPU 레이어 힌트 — scroll.js 애니메이션 대상 */
+/* GPU 레이어 힌트 */
 .s1-hero,
 .s1-briefing,
 .screen-01 .top-logo,
@@ -188,173 +295,139 @@ body {
   will-change: opacity, transform;
 }
 
-/* ---------------------------------
-           앱 메인 컨테이너 (스크롤 02, 03 포함)
-        --------------------------------- */
+/* ==========================================
+   앱 메인 컨테이너
+   ========================================== */
 .main-app {
   position: relative;
-  transition: background-color 0.4s ease;
+  transition: background-color var(--transition-slow);
 }
 
-/* 공통 헤더 (스크롤 시 상단 고정) */
-.app-header {
-  position: sticky;
-  top: 0;
-  background: #fff;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-top: 2px solid #888;
-  border-bottom: 2px solid #888;
-}
-.app-header .left-info {
-  display: flex;
-  gap: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-.app-header .theme-switch {
-  border: 2px solid #888;
-  border-radius: 20px;
-  padding: 5px 15px;
-  color: #f77f00;
-  font-weight: bold;
-}
-/* --- 본문까지 확장되는 계절 그라데이션 엔진 --- */
+/* 계절별 배경 (그라데이션 → 단색 파스텔) */
+.main-app.spring  { background-color: var(--color-spring-bg); }
+.main-app.summer  { background-color: var(--color-summer-bg); }
+.main-app.autumn  { background-color: var(--color-autumn-bg); }
+.main-app.winter  { background-color: var(--color-winter-bg); }
+
+/* 계절 전환 애니메이션 대상 */
 .app-header,
 .screen-02,
 .avatar-section,
 .card-row {
-  transition:
-    background 0.5s ease,
-    border-color 0.5s ease;
+  transition: background var(--transition-slow), border-color var(--transition-slow);
 }
-.main-app.spring {
-  background-color: #fff0f5;
-}
+
+/* 계절 배경: 각 섹션에 별도 그라데이션 없이 투명으로 통일 */
 .main-app.spring .app-header,
 .main-app.spring .screen-02,
-.main-app.spring .avatar-section {
-  background: linear-gradient(
-    180deg,
-    #f0fdf4 0%,
-    #fce7f3 50%,
-    #e0f2fe 100%
-  ) !important;
-}
-.main-app.spring .card-row {
-  background: transparent !important;
-}
-
-.main-app.summer {
-  background-color: #f0f8ff;
-}
+.main-app.spring .avatar-section,
 .main-app.summer .app-header,
 .main-app.summer .screen-02,
-.main-app.summer .avatar-section {
-  background: linear-gradient(
-    180deg,
-    #e0f2fe 0%,
-    #e0e7ff 50%,
-    #ccfbf1 100%
-  ) !important;
-}
-.main-app.summer .card-row {
-  background: transparent !important;
-}
-
-.main-app.autumn {
-  background-color: #faf0e6;
-}
+.main-app.summer .avatar-section,
 .main-app.autumn .app-header,
 .main-app.autumn .screen-02,
-.main-app.autumn .avatar-section {
-  background: linear-gradient(
-    180deg,
-    #fffbeb 0%,
-    #fef3c7 40%,
-    #ffedd5 100%
-  ) !important;
-}
-.main-app.autumn .card-row {
-  background: transparent !important;
-}
-
-.main-app.winter {
-  background-color: #f5f5f5;
-}
+.main-app.autumn .avatar-section,
 .main-app.winter .app-header,
 .main-app.winter .screen-02,
 .main-app.winter .avatar-section {
-  background: linear-gradient(
-    180deg,
-    #f8fafc 0%,
-    #f1f5f9 50%,
-    #e2e8f0 100%
-  ) !important;
-}
-.main-app.winter .card-row {
-  background: transparent !important;
+  background: transparent;
 }
 
-/* 계절 선택 우측 스위치 박스 디자인 */
+/* ==========================================
+   공통 헤더 (sticky)
+   ========================================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-canvas);
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-lg);
+  border-bottom: 1px solid var(--color-hairline);
+  height: 56px;
+}
+
+.app-header .left-info {
+  display: flex;
+  gap: var(--space-lg);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 계절 탭 컨테이너 */
+.theme-switch {
+  display: flex;
+  gap: var(--space-xxs);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xxs) var(--space-xs);
+  background: var(--color-canvas);
+}
+
 .season-btn {
   background: transparent;
-  border: 1px solid transparent;
-  padding: 4px 10px;
-  border-radius: 12px;
+  border: none;
+  padding: var(--space-xxs) var(--space-sm);
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-ink-muted);
+  transition: all var(--transition-fast);
 }
-/* ---------------------------------
-           스크롤 02 영역 (간략 추천)
-        --------------------------------- */
+
+.season-btn:hover {
+  background-color: var(--color-surface-soft);
+  color: var(--color-ink);
+}
+
+.season-btn.active-season {
+  background-color: var(--color-season-btn-active-bg);
+  color: var(--color-season-btn-active-text);
+}
+
+/* ==========================================
+   스크롤 02 영역 (메인 콘텐츠)
+   ========================================== */
 .screen-02 {
-  padding: 20px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: var(--space-xl);
 }
-/* 상단: 전체 코디 & 추천 코디 */
+
+/* 상단: 슬라이더 + 추천 코디 */
 .top-content {
   display: flex;
-  gap: 20px;
+  gap: var(--space-lg);
   height: 400px;
   width: 100%;
 }
 
+/* 슬라이더 박스 */
 .box {
   display: flex;
   overflow-x: auto;
   width: 100%;
   height: 100%;
-  gap: 16px;
-  padding: 16px 0;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
   position: relative;
   transform-style: preserve-3d;
   flex: 1;
   min-width: 0;
-
-  /*다음 이전 버튼 관련 */
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-
-  /*다른곳에서 불러오는 엔진*/
-  .border-box main-outfit::-webkit-scrollbar {
-    display: none;
-  }
 
   .slider {
     display: flex;
     overflow-x: auto;
     width: 100%;
     height: calc(100% - 40px);
-    /*gap: 16px;*/
-    padding: 16px 0;
+    padding: var(--space-md) 0;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -364,11 +437,10 @@ body {
     display: none;
   }
 
-  /*사진 관리*/
   .adimage {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     object-fit: contain;
     display: block;
     flex: 0 0 100%;
@@ -378,14 +450,16 @@ body {
     justify-content: center;
     overflow: hidden;
   }
+
   .adimage img {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     object-fit: contain;
     display: block;
   }
-  /*다음 이전 버튼 */
+
+  /* 슬라이더 이전/다음 버튼 */
   .btn-left,
   .btn-right {
     position: absolute;
@@ -393,7 +467,7 @@ body {
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.8);
     border: none;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     width: 40px;
     height: 40px;
     display: flex;
@@ -401,166 +475,163 @@ body {
     justify-content: center;
     cursor: pointer;
     font-size: 18px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition:
-      background-color 0.2s,
-      transform 0.2s;
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
     z-index: 999;
   }
 
-  .btn-left,
+  .btn-left:hover,
   .btn-right:hover {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: var(--color-canvas);
   }
 
-  .btn-left {
-    left: 8px;
-  }
-
-  .btn-right {
-    right: 8px;
-  }
+  .btn-left { left: var(--space-xs); }
+  .btn-right { right: var(--space-xs); }
 }
+
+/* 오늘의 추천 코디 */
 .today-recommend {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 15px;
-}
-.today-recommend h3 {
-  margin-bottom: 10px;
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-season-block-sub);
+  border: none;
 }
 
-/* AI 추천하기 버튼 스타일 */
+.today-recommend h3 {
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* AI 추천 버튼 */
 .ai-btn {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
   border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 14px;
+  border-radius: var(--radius-pill);
+  padding: 10px var(--space-lg);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-sm);
   cursor: pointer;
-  margin-bottom: 15px;
-  transition: background-color 0.2s;
+  margin-bottom: var(--space-md);
+  transition: opacity var(--transition-fast);
 }
+
 .ai-btn:hover {
-  background-color: #0056b3;
+  opacity: 0.8;
 }
+
 .item-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
 }
+
 .item-grid .box {
   aspect-ratio: 1;
-  font-size: 0.85rem;
-  padding: 5px;
+  font-size: var(--font-size-body-sm);
+  padding: var(--space-xxs);
   background: rgba(255, 255, 255, 0.5);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-hairline);
 }
+
 .item-desc {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: var(--font-size-body-sm);
+  color: var(--color-ink-muted);
   min-height: 40px;
 }
+
+/* 구매하기 버튼 */
 .buy-btn {
-  margin-top: 10px;
-  padding: 12px 18px;
-  background-color: #f77f00;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: bold;
+  margin-top: var(--space-xs);
+  padding: 10px var(--space-lg);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
-/* 브랜드 관 카테고리 분리형 칸 구조 */
+
+.buy-btn:hover {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+}
+
+/* ==========================================
+   의류 카드 섹션 (TOP / PANTS / SETUP / OUTER)
+   ========================================== */
 .bottom-content {
-  margin-top: 20px;
+  margin-top: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--space-xxl);
 }
 
 .clothing-zone {
   background: rgba(255, 255, 255, 0.4);
-  border: 2px solid #888;
-  border-radius: 12px;
-  padding: 20px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
 }
+
 .clothing-zone h3 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #f77f00;
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs);
 }
+
+/* 탭 */
 .tabs {
   display: flex;
-  gap: 10px;
-  margin-bottom: -2px; /* 겹치게 */
-}
-.tabs span {
-  border: 2px solid #888;
-  padding: 10px 24px;
-  border-radius: 30px;
-  background: #fff;
-  font-weight: bold;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tabs span:hover {
-  background-color: #888;
-  color: #fff !important;
-  transform: translateY(-2px);
-}
-.tabs span.active {
-  background: #888;
-  color: #fff;
-}
-
-.card-row {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  position: relative;
-  z-index: 1;
-}
-.card-row::-webkit-scrollbar {
-  height: 6px;
-}
-.card-row::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-.bottom-content {
-  margin-top: 15px;
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
+  gap: var(--space-xs);
   margin-bottom: -2px;
   position: relative;
   z-index: 2;
 }
 
-.tabs .tab-btn {
-  background: #fff;
-  border: 2px solid #888;
-  border-radius: 8px 8px 0 0;
-  padding: 10px 24px;
-  font-size: 1rem;
-  font-weight: bold;
+.tabs span {
+  border: 1px solid var(--color-hairline);
+  padding: 10px var(--space-lg);
+  border-radius: var(--radius-pill);
+  background: var(--color-canvas);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-sm);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
+}
+
+.tabs span:hover {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  transform: translateY(-2px);
+}
+
+.tabs span.active {
+  background: var(--color-ink);
+  color: var(--color-canvas);
+}
+
+.tabs .tab-btn {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  padding: 10px var(--space-lg);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
   outline: none;
   display: inline-flex;
   align-items: center;
@@ -568,82 +639,178 @@ body {
 }
 
 .tabs .tab-btn:hover {
-  background: #f5f5f5;
-  color: #333;
-  border-color: #555;
+  background: var(--color-surface-soft);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
 }
 
 .tabs .tab-btn.active-tab {
-  background: #fff;
-  border-color: #000;
-  border-bottom: 2px solid #fff; /* 아래 회색선을 하얗게 덮어주는 핵심 코드 */
-  color: #f77f00;
-  padding-bottom: 11px;
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  border-color: var(--color-ink);
 }
 
+/* 카드 행 */
 .card-row {
   display: flex;
-  gap: 15px;
+  gap: var(--space-sm);
   overflow-x: auto;
-  border-top: 2px solid #888;
-  padding-top: 20px;
+  padding-bottom: 10px;
+  border-top: 1px solid var(--color-hairline);
+  padding-top: var(--space-lg);
   position: relative;
   z-index: 1;
+}
+
+.card-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.card-row::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: var(--radius-md);
 }
 
 .card-row .card {
   min-width: 150px;
   height: 150px;
-  background: #fff;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
   overflow: hidden;
   padding: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition-fast);
 }
+
+.card-row .card:hover {
+  box-shadow: var(--shadow-card);
+}
+
 .card-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-/* ---------------------------------
-           스크롤 03 영역 (목록 및 필터)
-        --------------------------------- */
-.screen-03 {
+/* ==========================================
+   아바타 피팅룸 섹션
+   ========================================== */
+.avatar-section {
+  padding: var(--space-xxl) var(--space-lg);
+  border-top: 1px solid var(--color-hairline);
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.avatar-title {
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
+  text-align: center;
+}
+
+/* 성별 토글 */
+.gender-selector {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.gender-btn {
+  padding: 10px var(--space-xxl);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-hairline);
+  background: var(--color-canvas);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gender-btn.active-gender {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  border-color: var(--color-ink);
+}
+
+/* 피팅 컨테이너 */
+.fitting-container {
+  display: flex;
+  gap: var(--space-xxl);
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아바타 디스플레이 */
+.avatar-display {
+  width: 260px;
+  height: 420px;
+  border: 2px dashed var(--color-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body-lg);
   position: relative;
 }
 
-/* 좌측 사이드바 (스크롤 시 고정됨) */
-.sidebar {
-  flex: 1;
-  position: sticky;
-  top: 80px; /* 헤더 높이만큼 띄움 */
-  height: calc(100vh - 100px);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #ffffff !important; 
-}
-.sidebar .side-box {
-  flex: 1;
+.avatar-gender-label {
+  position: absolute;
+  top: var(--space-sm);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-canvas);
+  padding: var(--space-xxs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-caption);
 }
 
-/* 우측 카드 리스트 영역 (아래로 스크롤 됨) */
-.scroll-content {
-  flex: 3;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  padding-bottom: 100px; /* 네비게이션 바 공간 확보 */
+/* 아바타 옷 레이어 스펙 */
+.avatar-clothes-spec {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
-.scroll-content .card {
-  height: 250px;
-  background-color: #ffffff !important;
+
+.spec-layer {
+  display: flex;
+  align-items: center;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 60px;
 }
-.scroll-content .card.highlight {
-  color: #f77f00;
+
+/* 인라인 컬러 스타일을 대체하는 통일 토큰 */
+.spec-label {
+  background: var(--color-ink);   /* 개별 랜덤 색상 → 단일 잉크 컬러 */
+  color: var(--color-canvas);
+  width: 90px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.spec-value {
+  padding: 0 var(--space-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+  font-size: var(--font-size-body);
+  transition: opacity var(--transition-fast);
 }
 
 /* 하단 플로팅 네비게이션 바 */
@@ -654,178 +821,22 @@ body {
   transform: translateX(-50%);
   width: 300px;
   height: 50px;
-  background: #fff;
-  border: 2px solid #000;
-  border-radius: 25px;
-  color: #f77f00;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.main-app {
-  position: relative;
-  transition: background-color 0.4s ease;
-}
-.main-app.spring {
-  background-color: #fff0f5;
-}
-.main-app.summer {
-  background-color: #f0f8ff;
-}
-.main-app.autumn {
-  background-color: #faf0e6;
-}
-.main-app.winter {
-  background-color: #f5f5f5;
-}
-
-.theme-switch {
-  display: flex;
-  gap: 6px;
-  border: 2px solid #888;
-  border-radius: 25px;
-  padding: 4px 8px;
-  background: #fff;
-}
-.theme-switch button {
-  background: none;
-  border: none;
-  padding: 4px 12px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border-radius: 15px;
-  transition: all 0.2s ease;
-  color: #888;
-}
-.theme-switch button:hover {
-  background-color: #f0f0f0;
-}
-.theme-switch button.active-season {
-  background-color: #f77f00;
-  color: #fff;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==========================================
-   [핵심 수정] 새롭게 설계된 아바타 피팅 룸 영역
-   ========================================== */
-.avatar-section {
-  padding: 40px 20px;
-  border-top: 2px solid #888;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-}
-.avatar-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #444;
-  text-align: center;
-}
-/* 성별 토글 스위치 */
-.gender-selector {
-  display: flex;
-  gap: 15px;
-}
-.gender-btn {
-  padding: 12px 35px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: 2px solid #888;
-  background: #fff;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.gender-btn.active-gender {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
-
-/* 피팅 마네킹 디스플레이 구조 */
-.fitting-container {
-  display: flex;
-  gap: 40px;
-  width: 100%;
-  max-width: 900px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 2px solid #888;
-  border-radius: 16px;
-  padding: 30px;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 아바타 기본 마네킹 박스 */
-.avatar-display {
-  width: 260px;
-  height: 420px;
-  border: 3px dashed #aaa;
-  border-radius: 12px;
-  background: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  position: relative;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
-}
-.avatar-gender-label {
-  position: absolute;
-  top: 15px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 15px;
-  font-size: 0.85rem;
-}
-
-/* 아바타가 옷을 실시간으로 입는 옷 레이어 정보창 */
-.avatar-clothes-spec {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.spec-layer {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border: 2px solid #888;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 60px;
-}
-.spec-label {
-  background: #888;
-  color: #fff;
-  width: 90px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-  font-weight: bold;
-}
-.spec-value {
-  padding: 0 15px;
-  font-weight: bold;
-  color: #333;
-  font-size: 1.05rem;
-  transition: opacity 0.25s ease;
-}
-
-/* ==========================================
-   코디 추천 전환 효과 (fade out → in)
+   추천 전환 효과 (fade)
    ========================================== */
 .item-grid .box,
 .item-desc,
 .spec-value {
-  transition: opacity 0.25s ease;
+  transition: opacity var(--transition-fast);
 }
+
 .recommend-updating .item-grid .box,
 .recommend-updating .item-desc,
 .recommend-updating .spec-value {
@@ -833,122 +844,8 @@ body {
 }
 
 /* ==========================================
-   모바일 반응형 (≤430px)
+   아바타 레이어
    ========================================== */
-@media (max-width: 430px) {
-  .s1-weather-icon {
-    font-size: 4rem;
-  }
-  .s1-temp-text {
-    font-size: 3.5rem;
-  }
-  .s1-desc-text {
-    font-size: 0.92rem;
-    max-width: 90vw;
-  }
-  .s1-briefing {
-    bottom: 24px;
-    gap: 7px;
-  }
-  .s1-brief-item {
-    padding: 8px 12px;
-    min-width: 70px;
-  }
-  .s1-brief-value {
-    font-size: 0.88rem;
-  }
-  .s1-brief-label {
-    font-size: 0.62rem;
-  }
-  .app-header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 12px 14px;
-  }
-  .app-header .left-info {
-    gap: 10px;
-    font-size: 1rem;
-  }
-  .screen-02 {
-    padding: 14px;
-    gap: 20px;
-  }
-  .top-content {
-    flex-direction: column;
-    height: auto;
-    gap: 20px;
-  }
-  .box {
-    height: 280px;
-  }
-  .item-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .clothing-zone {
-    padding: 14px;
-  }
-  .clothing-zone h3 {
-    font-size: 1.1rem;
-  }
-  .card-row .card {
-    min-width: 120px;
-    height: 120px;
-  }
-  .avatar-section {
-    padding: 24px 14px;
-  }
-  .avatar-title {
-    font-size: 1.3rem;
-  }
-  .gender-btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-  .fitting-container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 18px;
-  }
-  .avatar-display {
-    width: 100%;
-    max-width: 240px;
-    height: 320px;
-  }
-  .spec-label {
-    width: 80px;
-    font-size: 0.85rem;
-  }
-  .spec-value {
-    font-size: 0.95rem;
-  }
-  .floating-nav {
-    width: 90%;
-    max-width: 300px;
-  }
-}
-
-/* ==========================================
-   소형 모바일 (≤375px)
-   ========================================== */
-@media (max-width: 375px) {
-  .s1-temp-text {
-    font-size: 3rem;
-  }
-  .theme-switch {
-    padding: 3px 6px;
-  }
-  .theme-switch button {
-    padding: 3px 8px;
-    font-size: 0.8rem;
-  }
-  .item-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-  }
-  .box {
-    height: 240px;
-  }
-}
 .avatar-stage {
   position: relative;
   width: 260px;
@@ -962,4 +859,106 @@ body {
   object-fit: contain;
   top: 0;
   left: 0;
+}
+
+/* ==========================================
+   모바일 반응형 (≤ 768px)
+   ========================================== */
+@media (max-width: 768px) {
+  .screen-01 {
+    flex-direction: column;
+    height: auto;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+
+  .left-image-container,
+  .right-image-container {
+    width: 100%;
+    height: 260px;
+  }
+
+  .left-image,
+  .right-image {
+    height: 100%;
+  }
+
+  .top-content {
+    flex-direction: column;
+    height: auto;
+    gap: var(--space-lg);
+  }
+
+  .box {
+    height: 280px;
+  }
+
+  .today-recommend {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* ==========================================
+   모바일 반응형 (≤ 560px)
+   ========================================== */
+@media (max-width: 560px) {
+  .s1-weather-icon { font-size: 4rem; }
+  .s1-temp-text { font-size: 3.5rem; }
+  .s1-desc-text { font-size: var(--font-size-body-sm); max-width: 90vw; }
+
+  .s1-briefing { gap: 7px; }
+  .s1-brief-item { padding: var(--space-xs) var(--space-sm); min-width: 70px; }
+  .s1-brief-value { font-size: var(--font-size-body-sm); }
+  .s1-brief-label { font-size: 0.62rem; }
+
+  .app-header {
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    height: auto;
+  }
+
+  .app-header .left-info {
+    gap: var(--space-xs);
+    font-size: var(--font-size-body-sm);
+  }
+
+  .screen-02 { padding: var(--space-sm); gap: var(--space-lg); }
+
+  .item-grid { grid-template-columns: repeat(2, 1fr); }
+  .box { height: 240px; }
+
+  .clothing-zone { padding: var(--space-sm); }
+  .clothing-zone h3 { font-size: var(--font-size-body); }
+  .card-row .card { min-width: 120px; height: 120px; }
+
+  .avatar-section { padding: var(--space-lg) var(--space-sm); }
+  .avatar-title { font-size: var(--font-size-body-lg); }
+
+  .gender-btn { padding: 10px var(--space-lg); }
+
+  .fitting-container {
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-md);
+  }
+
+  .avatar-display {
+    width: 100%;
+    max-width: 240px;
+    height: 320px;
+  }
+
+  .avatar-stage {
+    width: 240px;
+    height: 320px;
+  }
+
+  .spec-label { width: 80px; font-size: var(--font-size-caption); }
+  .spec-value { font-size: var(--font-size-body-sm); }
+
+  .floating-nav { width: 90%; max-width: 300px; }
+
+  .ai-btn,
+  .buy-btn { width: 100%; }
 }
