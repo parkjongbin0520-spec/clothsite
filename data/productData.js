@@ -9,7 +9,7 @@ class Product {
   /**
    * @param {Object} opt
    * @param {string} opt.id          상품 고유 ID
-   * @param {string} opt.category    카테고리 (TOP | PANTS | SETUP | OUTER)
+   * @param {string} opt.category    카테고리 (TOP | PANTS | OUTER)
    * @param {string} opt.brand       브랜드명
    * @param {string} opt.name        상품명
    * @param {number} opt.price       현재 판매가 (원)
@@ -19,11 +19,13 @@ class Product {
    * @param {number} [opt.reviewCount] 리뷰 수
    * @param {string[]} [opt.tags]    배지 태그 (예: "BEST", "무신사 랭킹")
    * @param {string} [opt.shopUrl]   구매 링크 (없으면 검색 URL 자동 생성)
+   * @param {string} [opt.avatarLayer] 아바타 합성용 투명 PNG 경로 (코디 가먼트와 공유하는 모델)
    */
   constructor({
     id, category, brand, name, price,
     originalPrice = null, imageUrl,
     rating = 0, reviewCount = 0, tags = [], shopUrl = null,
+    avatarLayer = null,
   }) {
     this.id = id;
     this.category = category;
@@ -36,6 +38,7 @@ class Product {
     this.reviewCount = reviewCount;
     this.tags = tags;
     this.shopUrl = shopUrl || Product.buildSearchUrl(brand, name);
+    this.avatarLayer = avatarLayer; // 향후 아바타 옷 입히기용 (기본 null)
   }
 
   /** 브랜드 + 상품명으로 커머스 검색 URL 생성 (원클릭 커머스 연동) */
@@ -140,22 +143,6 @@ const PRODUCTS = [
     rating: 4.7, reviewCount: 7785, tags: ["무신사 추천"],
   }),
 
-  // ── SETUP / 셋업 ──
-  new Product({
-    id: "set-01", category: "SETUP", brand: "모노그램",
-    name: "썸머 린넨 셋업 (자켓 + 팬츠)",
-    price: 89000, originalPrice: 129000,
-    imageUrl: "https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png",
-    rating: 4.9, reviewCount: 2104, tags: ["단독 할인"],
-  }),
-  new Product({
-    id: "set-02", category: "SETUP", brand: "레이블에잇",
-    name: "미니멀 져지 셋업",
-    price: 69000, originalPrice: 98000,
-    imageUrl: "https://i.ibb.co/BH7Nb0Hb/3783092-17708794030062-big.png",
-    rating: 4.7, reviewCount: 1893, tags: ["신상"],
-  }),
-
   // ── OUTER / 아우터 ──
   new Product({
     id: "outer-01", category: "OUTER", brand: "오버그라운드",
@@ -180,11 +167,13 @@ const PRODUCTS = [
   }),
 ];
 
+/** id → 카탈로그 상품 빠른 조회 (코디 추천 → 실제 상품/구매링크 연결용) */
+const productById = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
+
 /* --- 카테고리 → 카드 행 ID 매핑 --- */
 const CATALOG_ROWS = {
   cardTop: "TOP",
   cardBottom: "PANTS",
-  cardSet: "SETUP",
   cardOuter: "OUTER",
 };
 

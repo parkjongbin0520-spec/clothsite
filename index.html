@@ -114,46 +114,15 @@
               <button class="slider-arrow btn-right" id="ekdmabtn" aria-label="다음 사진">&#10095;</button>
             </div>
 
-            <!-- 우: 추천 결과 패널 -->
-            <div class="today-recommend">
-              <button type="button" id="aiRecommendBtn" class="btn-primary ai-btn">
-                ✨ 현재 기온으로 코디 추천받기
-              </button>
-
-              <ul class="item-grid" aria-label="추천 아이템">
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">상의</span>
-                  <span class="recommend-item__name" id="rec-item-1">—</span>
-                </li>
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">하의</span>
-                  <span class="recommend-item__name" id="rec-item-2">—</span>
-                </li>
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">아우터</span>
-                  <span class="recommend-item__name" id="rec-item-3">—</span>
-                </li>
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">신발</span>
-                  <span class="recommend-item__name" id="rec-item-4">—</span>
-                </li>
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">가방</span>
-                  <span class="recommend-item__name" id="rec-item-5">—</span>
-                </li>
-                <li class="recommend-item">
-                  <span class="recommend-item__cat">소품</span>
-                  <span class="recommend-item__name" id="rec-item-6">—</span>
-                </li>
-              </ul>
-
-              <p class="item-desc" id="recommendDesc">
-                위 버튼을 누르면 현재 기온에 맞는 코디가 여기에 나타납니다.
+            <!-- 우: 아바타 코디 진입 패널 (결과는 모달에서) -->
+            <div class="today-recommend today-recommend--cta">
+              <p class="eyebrow">AVATAR CODI</p>
+              <h3 class="cta-title">아바타가 대신 입어볼게요</h3>
+              <p class="item-desc">
+                버튼을 누르면 지금 기온에 딱 맞는 코디를 아바타가 직접 입은 모습으로 보여드려요.
               </p>
-
-              <!-- README 핵심기능 ③ 원클릭 커머스 -->
-              <button type="button" class="btn-secondary buy-btn">
-                이 코디로 내 옷장 채우기 →
+              <button type="button" id="aiRecommendBtn" class="btn-primary ai-btn">
+                ✨ 아바타 코디 받기
               </button>
             </div>
           </div>
@@ -179,13 +148,8 @@
             </article>
 
             <article class="clothing-zone">
-              <h3 class="zone-title">PANTS <span class="zone-label">팬츠</span></h3>
+              <h3 class="zone-title">PANTS <span class="zone-label">하의</span></h3>
               <div class="card-row" id="cardBottom"></div>
-            </article>
-
-            <article class="clothing-zone">
-              <h3 class="zone-title">SETUP <span class="zone-label">셋업</span></h3>
-              <div class="card-row" id="cardSet"></div>
             </article>
 
             <article class="clothing-zone">
@@ -195,52 +159,63 @@
           </div>
         </section>
 
-        <!-- ======================================================
-             C. 아바타 피팅룸 — 사이트 고유 정체성 (이모지 기반)
-             ====================================================== -->
-        <section class="avatar-section">
-          <header class="section-head section-head--center">
-            <p class="eyebrow">FITTING ROOM</p>
-            <h2 class="section-title">아바타 피팅룸</h2>
-            <p class="section-sub">추천 코디를 아바타에게 그대로 입혀봐요.</p>
-          </header>
+      </main>
+    </div>
 
-          <div class="gender-selector" role="group" aria-label="아바타 성별">
-            <button type="button" class="gender-btn active-gender" id="btnFemale">여성 아바타</button>
-            <button type="button" class="gender-btn" id="btnMale">남성 아바타</button>
-          </div>
+    <!-- ==========================================================
+         아바타 코디 모달 (글래스 오버레이) — 기존 피팅룸 섹션 흡수
+         aiRecommendBtn 클릭 시 dom.js 가 결과 채우고 오픈
+         ========================================================== -->
+    <div class="codi-modal" id="codiModal" aria-hidden="true">
+      <div class="codi-modal__scrim" id="codiScrim"></div>
+      <div
+        class="codi-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="codiModalTitle"
+      >
+        <button type="button" class="codi-modal__close" id="codiClose" aria-label="닫기">
+          &times;
+        </button>
 
-          <div class="fitting-container">
+        <header class="codi-modal__head">
+          <p class="eyebrow">AVATAR CODI</p>
+          <h2 class="section-title" id="codiModalTitle">아바타 코디</h2>
+          <p class="section-sub" id="recommendDesc">
+            지금 기온에 맞춰 아바타에게 코디를 입혀드릴게요.
+          </p>
+        </header>
+
+        <div class="codi-modal__body">
+          <div class="codi-avatar">
             <div class="avatar-display">
               <span class="avatar-gender-label" id="avatarGenderText">여성 모델 기본값</span>
               <span class="avatar-graphic" id="avatarGraphic" aria-hidden="true">👩</span>
             </div>
-
-            <ul class="avatar-clothes-spec">
-              <li class="spec-layer">
-                <span class="spec-label">아우터</span>
-                <span class="spec-value" id="fitOuter">—</span>
-              </li>
-              <li class="spec-layer">
-                <span class="spec-label">상의</span>
-                <span class="spec-value" id="fitTop">—</span>
-              </li>
-              <li class="spec-layer">
-                <span class="spec-label">하의</span>
-                <span class="spec-value" id="fitBottom">—</span>
-              </li>
-              <li class="spec-layer">
-                <span class="spec-label">슈즈</span>
-                <span class="spec-value" id="fitShoes">—</span>
-              </li>
-              <li class="spec-layer">
-                <span class="spec-label">악세서리</span>
-                <span class="spec-value" id="fitAcc">—</span>
-              </li>
-            </ul>
+            <div class="gender-selector" role="group" aria-label="아바타 성별">
+              <button type="button" class="gender-btn active-gender" id="btnFemale">여성</button>
+              <button type="button" class="gender-btn" id="btnMale">남성</button>
+            </div>
           </div>
-        </section>
-      </main>
+
+          <ul class="avatar-clothes-spec">
+            <li class="spec-layer">
+              <span class="spec-label">상의</span>
+              <span class="spec-value" id="fitTop">—</span>
+            </li>
+            <li class="spec-layer">
+              <span class="spec-label">하의</span>
+              <span class="spec-value" id="fitBottom">—</span>
+            </li>
+            <li class="spec-layer">
+              <span class="spec-label">아우터</span>
+              <span class="spec-value" id="fitOuter">—</span>
+            </li>
+          </ul>
+        </div>
+
+        <button type="button" class="btn-secondary buy-btn">이 코디로 옷장 채우기 →</button>
+      </div>
     </div>
 
     <script src="data/coordinateData.js"></script>
