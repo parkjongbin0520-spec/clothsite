@@ -89,6 +89,15 @@ body {
 }
 
 img { display: block; max-width: 100%; }
+
+/* Twemoji 이모지 이미지 — 텍스트 크기에 맞춰 인라인 정렬 */
+img.emoji {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+}
 ul { list-style: none; }
 a { color: inherit; text-decoration: none; }
 
@@ -490,37 +499,56 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--fs-caption);
   font-weight: var(--fw-medium);
 }
-.avatar-graphic { font-size: 8rem; line-height: 1; }
+/* Humaaans 아바타 — 사전 렌더된 전신 벡터 SVG (실제 인간 비율) */
+.avatar-display { align-items: flex-end; }
+.avatar-img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
 
-.avatar-clothes-spec { flex: 1; display: flex; flex-direction: column; gap: var(--space-xs); }
-.spec-layer {
+/* 코디 카드 (라벨 칩 + 상품 썸네일 + 코디명/가격) */
+.codi-cards { display: flex; flex-direction: column; gap: var(--space-sm); }
+.codi-card {
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  gap: var(--space-sm);
   background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-md);
-  overflow: hidden;
-  min-height: 52px;
+  padding: var(--space-xs) var(--space-sm);
 }
-/* 통일된 흑백 레이블 (랜덤 색상 금지) */
-.spec-label {
-  flex: 0 0 84px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.codi-card__cat {
+  flex: 0 0 auto;
+  align-self: flex-start;
   background: var(--color-ink);
   color: var(--color-canvas);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  padding: 3px var(--space-xs);
+  border-radius: var(--radius-pill);
+}
+.codi-card__thumb {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+}
+.codi-card__info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.codi-card__name {
   font-size: var(--fs-body-sm);
   font-weight: var(--fw-bold);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.spec-value {
-  display: flex;
-  align-items: center;
-  padding: 0 var(--space-md);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-bold);
-  transition: opacity var(--t-fast);
-}
+.codi-card__price { font-size: var(--fs-caption); font-weight: var(--fw-medium); }
 
 /* ── 섹션 A: 아바타 코디 진입 CTA 패널 ── */
 .today-recommend--cta { justify-content: center; gap: var(--space-sm); }
@@ -555,9 +583,11 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 460px;
+  max-width: 600px;
   max-height: 88vh;
   overflow-y: auto;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE / 구 Edge */
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -573,6 +603,7 @@ a { color: inherit; text-decoration: none; }
   transition: transform var(--t-base);
 }
 .codi-modal.is-open .codi-modal__panel { transform: none; }
+.codi-modal__panel::-webkit-scrollbar { display: none; } /* Chrome / Safari / Edge */
 
 .codi-modal__close {
   position: absolute;
@@ -595,10 +626,11 @@ a { color: inherit; text-decoration: none; }
 .codi-modal__close:hover { background: var(--color-hairline); }
 
 .codi-modal__head { display: flex; flex-direction: column; gap: var(--space-xxs); padding-right: var(--space-xl); }
-.codi-modal__body { display: flex; flex-direction: column; align-items: center; gap: var(--space-lg); }
-.codi-avatar { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
-.codi-modal .avatar-display { flex: 0 0 auto; }
-.codi-modal .avatar-clothes-spec { flex: none; width: 100%; }
+/* 2단 구성: 좌 아바타 / 우 코디 카드 */
+.codi-modal__body { display: flex; flex-direction: row; align-items: center; gap: var(--space-xl); }
+.codi-avatar { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); flex: 0 0 auto; }
+.codi-modal .avatar-display { flex: 0 0 auto; width: 208px; height: 300px; }
+.codi-modal .codi-cards { flex: 1; min-width: 0; }
 
 /* ==========================================================
    반응형 — 960px (태블릿): 2단 → 1단
@@ -636,5 +668,7 @@ a { color: inherit; text-decoration: none; }
   .gender-btn { padding: 10px var(--space-lg); }
   .codi-modal { padding: var(--space-sm); }
   .codi-modal__panel { padding: var(--space-xl); border-radius: 24px; }
-  .codi-modal .avatar-display { flex-basis: 200px; height: 300px; }
+  .codi-modal__body { flex-direction: column; align-items: center; gap: var(--space-lg); }
+  .codi-modal .avatar-display { width: 188px; height: 270px; }
+  .codi-modal .codi-cards { flex: none; width: 100%; }
 }

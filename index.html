@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="mainDesign.css" />
     <title>입을만해 — 오늘 뭐 입지?</title>
+
+    <!-- Twemoji: OS마다 다른 이모지를 일관된 SVG 이미지로 통일 (jdecked 유지보수 포크) -->
+    <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"></script>
+    <script>
+      // 모든 스크립트가 공유하는 이모지 → SVG 이미지 변환 헬퍼
+      window.parseEmoji = function (el) {
+        if (el && window.twemoji) twemoji.parse(el, { folder: "svg", ext: ".svg" });
+      };
+      window.addEventListener("DOMContentLoaded", function () {
+        parseEmoji(document.body); // 정적 이모지(✨ 등) 일괄 변환
+      });
+    </script>
   </head>
   <body>
     <!-- ==========================================================
@@ -189,8 +201,8 @@
         <div class="codi-modal__body">
           <div class="codi-avatar">
             <div class="avatar-display">
-              <span class="avatar-gender-label" id="avatarGenderText">여성 모델 기본값</span>
-              <span class="avatar-graphic" id="avatarGraphic" aria-hidden="true">👩</span>
+              <span class="avatar-gender-label" id="avatarGenderText">여성</span>
+              <img class="avatar-img" id="avatarImg" alt="추천 코디를 입은 아바타" />
             </div>
             <div class="gender-selector" role="group" aria-label="아바타 성별">
               <button type="button" class="gender-btn active-gender" id="btnFemale">여성</button>
@@ -198,18 +210,30 @@
             </div>
           </div>
 
-          <ul class="avatar-clothes-spec">
-            <li class="spec-layer">
-              <span class="spec-label">상의</span>
-              <span class="spec-value" id="fitTop">—</span>
+          <ul class="codi-cards">
+            <li class="codi-card">
+              <span class="codi-card__cat">상의</span>
+              <img class="codi-card__thumb" id="topThumb" alt="" />
+              <div class="codi-card__info">
+                <span class="codi-card__name" id="fitTop">—</span>
+                <span class="codi-card__price" id="topPrice"></span>
+              </div>
             </li>
-            <li class="spec-layer">
-              <span class="spec-label">하의</span>
-              <span class="spec-value" id="fitBottom">—</span>
+            <li class="codi-card">
+              <span class="codi-card__cat">하의</span>
+              <img class="codi-card__thumb" id="bottomThumb" alt="" />
+              <div class="codi-card__info">
+                <span class="codi-card__name" id="fitBottom">—</span>
+                <span class="codi-card__price" id="bottomPrice"></span>
+              </div>
             </li>
-            <li class="spec-layer">
-              <span class="spec-label">아우터</span>
-              <span class="spec-value" id="fitOuter">—</span>
+            <li class="codi-card">
+              <span class="codi-card__cat">아우터</span>
+              <img class="codi-card__thumb" id="outerThumb" alt="" />
+              <div class="codi-card__info">
+                <span class="codi-card__name" id="fitOuter">—</span>
+                <span class="codi-card__price" id="outerPrice"></span>
+              </div>
             </li>
           </ul>
         </div>
