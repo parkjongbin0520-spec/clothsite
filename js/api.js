@@ -63,6 +63,9 @@ async function getWeather() {
         if (s1Wind) s1Wind.textContent = `${data.wind.speed}m/s`;
         if (s1Location) s1Location.textContent = data.name;
 
+        // 동적으로 바뀐 날씨 이모지를 일관된 SVG 이미지로 변환
+        if (window.parseEmoji) { parseEmoji(headerIcon); parseEmoji(s1Icon); }
+
     } catch (err) {
         const headerEl = document.getElementById('weather');
         if (headerEl) headerEl.textContent = '날씨 불러오기 실패';
