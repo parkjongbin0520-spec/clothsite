@@ -88,6 +88,7 @@ if (btnFemale && btnMale) {
         selectedGender = "female";
         if (avatarGenderText) avatarGenderText.innerText = "여성 모델 기본값";
         if (avatarGraphic) avatarGraphic.innerText = "👩";
+        redressIfModalOpen();
     });
 
     btnMale.addEventListener('click', () => {
@@ -96,6 +97,7 @@ if (btnFemale && btnMale) {
         selectedGender = "male";
         if (avatarGenderText) avatarGenderText.innerText = "남성 모델 기본값";
         if (avatarGraphic) avatarGraphic.innerText = "👨";
+        redressIfModalOpen();
     });
 }
 
@@ -116,48 +118,84 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// --- 아바타 코디 모달 제어 ---
+const codiModal = document.getElementById('codiModal');
+const codiClose = document.getElementById('codiClose');
+const codiScrim = document.getElementById('codiScrim');
+let lastFocusedEl = null;
+let lastTempBand = null; // 마지막으로 추천된 기온대 (성별 토글 시 재반영용)
+
+function isModalOpen() {
+    return codiModal && codiModal.classList.contains('is-open');
+}
+
+function openCodiModal() {
+    if (!codiModal) return;
+    lastFocusedEl = document.activeElement;
+    codiModal.classList.add('is-open');
+    codiModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // 배경 스크롤 락
+    // visibility 전환 후에야 포커스 가능 → 다음 프레임에 이동
+    requestAnimationFrame(() => { if (codiClose) codiClose.focus(); });
+}
+
+function closeCodiModal() {
+    if (!codiModal) return;
+    codiModal.classList.remove('is-open');
+    codiModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocusedEl) lastFocusedEl.focus();  // 포커스 복귀
+}
+
+if (codiClose) codiClose.addEventListener('click', closeCodiModal);
+if (codiScrim) codiScrim.addEventListener('click', closeCodiModal);
+document.addEventListener('keydown', (e) => {
+    if (!isModalOpen()) return;
+    if (e.key === 'Escape') { closeCodiModal(); return; }
+    // 포커스 트랩: 모달 안에서만 Tab 순환
+    if (e.key === 'Tab') {
+        const f = codiModal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+});
+
 // --- AI 기온별 코디 추천 ---
-function getOutfitByTemp(temp) {
-    return coordinateData.find(d => temp >= d.minTemp && temp < d.maxTemp);
+/** 기온대 밴드를 resolveOutfit 으로 해석해 모달 내용을 채운다 */
+function dressAvatar(band) {
+    if (!band) return;
+    const outfit = resolveOutfit(band, selectedGender); // coordinateData.js
+
+    const fitTop = document.getElementById('fitTop');
+    if (fitTop) {
+        fitTop.textContent = outfit.top ? outfit.top.name : "—";
+        document.getElementById('fitBottom').textContent = outfit.bottom ? outfit.bottom.name : "—";
+        document.getElementById('fitOuter').textContent = outfit.outer ? outfit.outer.name : "없음";
+    }
+
+    const desc = document.getElementById('recommendDesc');
+    if (desc) desc.innerHTML = `<strong>🤖 AI 추천 결과:</strong><br>${outfit.desc}`;
+
+    if (avatarGraphic) {
+        avatarGraphic.textContent = selectedGender === "female" ? "🙋‍♀️" : "🙋‍♂️";
+    }
+}
+
+/** 성별 토글 시 모달이 열려 있으면 같은 기온대로 다시 입힌다 */
+function redressIfModalOpen() {
+    if (isModalOpen() && lastTempBand) dressAvatar(lastTempBand);
 }
 
 const aiRecommendBtn = document.getElementById('aiRecommendBtn');
 if (aiRecommendBtn) {
     aiRecommendBtn.addEventListener('click', () => {
-        let outfit = getOutfitByTemp(currentTemp);
-        if (!outfit) return;
-
-        if (selectedGender === "male" && outfit.bottom.includes("숏팬츠")) {
-            outfit = { ...outfit, bottom: "남성 5부 반바지" };
-        }
-
-        // 페이드아웃 → DOM 업데이트 → 페이드인
-        mainApp.classList.add('recommend-updating');
-        setTimeout(() => {
-            if (document.getElementById('rec-item-1')) {
-                document.getElementById('rec-item-1').innerText = outfit.top;
-                document.getElementById('rec-item-2').innerText = outfit.bottom;
-                document.getElementById('rec-item-3').innerText = outfit.outer;
-                document.getElementById('rec-item-4').innerText = outfit.shoes;
-                document.getElementById('rec-item-5').innerText = outfit.bag;
-                document.getElementById('rec-item-6').innerText = outfit.acc;
-                document.getElementById('recommendDesc').innerHTML = `<strong>🤖 AI 추천 결과:</strong><br>${outfit.desc}`;
-            }
-
-            if (document.getElementById('fitOuter')) {
-                document.getElementById('fitOuter').innerText = outfit.outer;
-                document.getElementById('fitTop').innerText = outfit.top;
-                document.getElementById('fitBottom').innerText = outfit.bottom;
-                document.getElementById('fitShoes').innerText = outfit.shoes;
-                document.getElementById('fitAcc').innerText = outfit.acc;
-            }
-
-            if (avatarGraphic) {
-                avatarGraphic.innerText = selectedGender === "female" ? "🙋‍♀️" : "🙋‍♂️";
-            }
-
-            mainApp.classList.remove('recommend-updating');
-        }, 250);
+        const band = getCoordinateByTemp(currentTemp); // coordinateData.js
+        if (!band) return;
+        lastTempBand = band;
+        dressAvatar(band);
+        openCodiModal();
     });
 }
 
