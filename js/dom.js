@@ -46,11 +46,13 @@ function prevSlide() {
     }
 }
 
-let slideInterval = setInterval(nextSlide, 5000);
+// 동작 최소화 선호 사용자는 자동 슬라이드 끔 (수동 화살표는 계속 가능)
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let slideInterval = prefersReducedMotion ? null : setInterval(nextSlide, 5000);
 
 function resetSlideInterval() {
     clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5000);
+    if (!prefersReducedMotion) slideInterval = setInterval(nextSlide, 5000);
 }
 
 ekdmabtn.addEventListener('click', () => { nextSlide(); resetSlideInterval(); });
@@ -171,61 +173,100 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// --- 코디 카드 (추천 가먼트 + 카테고리 대표 상품 썸네일·가격) ---
+// --- 코디 카드 (추천 가먼트 → 키워드로 실제 상품 매칭 + 찜) ---
 const CAT_TO_CATALOG = { top: 'TOP', bottom: 'PANTS', outer: 'OUTER' };
 const CODI_SLOTS = {
-    top:    { name: 'fitTop',    thumb: 'topThumb',    price: 'topPrice' },
-    bottom: { name: 'fitBottom', thumb: 'bottomThumb', price: 'bottomPrice' },
-    outer:  { name: 'fitOuter',  thumb: 'outerThumb',  price: 'outerPrice' },
+    top:    { name: 'fitTop',    thumb: 'topThumb',    price: 'topPrice',    link: 'topLink',    wish: 'topWish' },
+    bottom: { name: 'fitBottom', thumb: 'bottomThumb', price: 'bottomPrice', link: 'bottomLink', wish: 'bottomWish' },
+    outer:  { name: 'fitOuter',  thumb: 'outerThumb',  price: 'outerPrice',  link: 'outerLink',  wish: 'outerWish' },
 };
 
-/** 카테고리·밴드로 대표 커머스 상품 1개 선택 (썸네일/가격용) */
-function repProduct(slot, bandIdx) {
-    if (typeof PRODUCTS === 'undefined') return null;
-    const list = PRODUCTS.filter((p) => p.category === CAT_TO_CATALOG[slot]);
-    if (!list.length) return null;
-    return list[((bandIdx % list.length) + list.length) % list.length];
+// 추천 가먼트명 키워드 → 실제 카탈로그 상품 id
+const PRODUCT_KEYWORDS = {
+    'top-01': ['티셔츠', '반팔'],
+    'top-02': ['셔츠', '옥스포드'],
+    'top-03': ['맨투맨', '니트', '후드', '후디'],
+    'pants-01': ['치노', '면', '숏', '와이드', '조거', '코튼'],
+    'pants-02': ['슬랙스', '테크'],
+    'pants-03': ['청', '데님'],
+    'outer-01': ['코트', '트렌치'],
+    'outer-02': ['패딩'],
+    'outer-03': ['자켓', '가디건', '레더'],
+};
+
+/** 추천 가먼트 → 가장 잘 맞는 실제 상품 (없으면 같은 카테고리 첫 상품) */
+function matchProduct(garment) {
+    if (!garment || typeof productById === 'undefined') return null;
+    const catalogCat = CAT_TO_CATALOG[garment.category];
+    for (const [pid, kws] of Object.entries(PRODUCT_KEYWORDS)) {
+        const p = productById[pid];
+        if (p && p.category === catalogCat && kws.some((k) => garment.name.includes(k))) return p;
+    }
+    return PRODUCTS.find((p) => p.category === catalogCat) || null;
 }
 
-/** 코디 카드 1장 채우기 (가먼트 없으면 '없음' + 썸네일 숨김) */
-function fillCodiCard(slot, garment, bandIdx) {
+/** 찜 버튼 상태 동기화 */
+function updateWishBtn(btn) {
+    const on = btn.dataset.pid && window.Wishlist && Wishlist.has(btn.dataset.pid);
+    btn.classList.toggle('is-wished', !!on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? '♥' : '♡';
+}
+
+/** 코디 카드 1장 채우기 (가먼트 → 실제 상품 연결 + 찜) */
+function fillCodiCard(slot, garment) {
     const ids = CODI_SLOTS[slot];
     const nameEl = document.getElementById(ids.name);
     const thumbEl = document.getElementById(ids.thumb);
     const priceEl = document.getElementById(ids.price);
-    if (garment) {
-        const prod = repProduct(slot, bandIdx);
+    const linkEl = document.getElementById(ids.link);
+    const wishEl = document.getElementById(ids.wish);
+    const prod = garment ? matchProduct(garment) : null;
+
+    if (garment && prod) {
         if (nameEl) nameEl.textContent = garment.name;
-        if (thumbEl) {
-            if (prod) { thumbEl.src = prod.imageUrl; thumbEl.alt = prod.name; thumbEl.style.display = ''; }
-            else { thumbEl.style.display = 'none'; }
-        }
-        if (priceEl) priceEl.textContent = prod ? prod.formattedPrice : '';
+        if (thumbEl) { thumbEl.src = prod.imageUrl; thumbEl.alt = prod.name; thumbEl.style.display = ''; }
+        if (priceEl) priceEl.textContent = prod.formattedPrice;
+        if (linkEl) linkEl.href = prod.shopUrl;
+        if (wishEl) { wishEl.dataset.pid = prod.id; wishEl.hidden = false; updateWishBtn(wishEl); }
     } else {
-        if (nameEl) nameEl.textContent = '없음';
+        if (nameEl) nameEl.textContent = garment ? garment.name : '없음';
         if (thumbEl) thumbEl.style.display = 'none';
         if (priceEl) priceEl.textContent = '';
+        if (linkEl) linkEl.removeAttribute('href');
+        if (wishEl) { wishEl.hidden = true; delete wishEl.dataset.pid; }
     }
 }
+
+// 찜 버튼 클릭 (코디 카드 + 카탈로그 카드 공통, 이벤트 위임)
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.codi-card__wish, .card__wish');
+    if (!btn || btn.hidden || !btn.dataset.pid || !window.Wishlist) return;
+    Wishlist.toggle(btn.dataset.pid);
+});
+
+/** 모든 찜 버튼(코디·카탈로그) 상태를 위시리스트와 동기화 */
+function syncAllWishButtons() {
+    document.querySelectorAll('.codi-card__wish, .card__wish').forEach(updateWishBtn);
+}
+if (window.Wishlist) Wishlist.onChange(syncAllWishButtons);
+document.addEventListener('DOMContentLoaded', syncAllWishButtons);
 
 // --- AI 기온별 코디 추천 ---
 /** 기온대 밴드를 resolveOutfit 으로 해석해 모달 내용을 채운다 */
 function dressAvatar(band) {
     if (!band) return;
     const outfit = resolveOutfit(band, selectedGender); // coordinateData.js
-    const idx = COORDINATES.indexOf(band);
-
-    fillCodiCard('top', outfit.top, idx);
-    fillCodiCard('bottom', outfit.bottom, idx);
-    fillCodiCard('outer', outfit.outer, idx);
+    fillCodiCard('top', outfit.top);
+    fillCodiCard('bottom', outfit.bottom);
+    fillCodiCard('outer', outfit.outer);
 
     const desc = document.getElementById('recommendDesc');
     if (desc) {
         desc.innerHTML = `<strong>🤖 AI 추천 결과:</strong><br>${outfit.desc}`;
-        if (window.parseEmoji) parseEmoji(desc); // 🤖 이모지 통일
+        if (window.parseEmoji) parseEmoji(desc);
     }
-
-    updateAvatar(); // 코디를 입은 아바타 이미지로 갱신
+    updateAvatar();
 }
 
 /** 성별 토글 시 모달이 열려 있으면 같은 기온대로 다시 입힌다 */

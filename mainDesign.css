@@ -101,6 +101,9 @@ img.emoji {
 ul { list-style: none; }
 a { color: inherit; text-decoration: none; }
 
+/* 키보드 포커스 링 — Tab 탐색 시에만 보임. offset 으로 검정 버튼 위에서도 가시 */
+:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; border-radius: 3px; }
+
 /* ==========================================================
    공통: 버튼 시스템 (모두 pill)
    ========================================================== */
@@ -301,7 +304,7 @@ a { color: inherit; text-decoration: none; }
 .season-btn {
   background: var(--color-surface-soft);
   border: none;
-  padding: 6px var(--space-md);
+  padding: 9px var(--space-md);
   border-radius: var(--radius-pill);
   font: var(--fw-medium) var(--fs-body-sm) / 1 var(--font-sans);
   color: var(--color-ink);
@@ -313,6 +316,25 @@ a { color: inherit; text-decoration: none; }
   background: var(--color-season-btn-active-bg);
   font-weight: var(--fw-bold);
 }
+
+/* 헤더 우측 그룹 + 찜 버튼 */
+.header-right { display: flex; align-items: center; gap: var(--space-sm); }
+.wish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-surface-soft);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 6px var(--space-sm);
+  font: var(--fw-medium) var(--fs-body-sm) / 1 var(--font-sans);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background var(--t-fast), transform var(--t-fast);
+}
+.wish-btn:hover { background: var(--color-hairline); transform: translateY(-1px); }
+.wish-btn.has-items { color: #ff3d6b; }
+.wish-btn__count { font-weight: var(--fw-bold); }
 
 /* ==========================================================
    SECTION 02 — 메인 콘텐츠
@@ -346,7 +368,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   background: rgba(255, 255, 255, 0.85);
   border: none;
@@ -412,6 +434,7 @@ a { color: inherit; text-decoration: none; }
 
 /* 커머스 상품 카드 (article) */
 .card {
+  position: relative;
   flex: 0 0 auto;
   width: 200px;
   background: var(--color-canvas);
@@ -421,6 +444,31 @@ a { color: inherit; text-decoration: none; }
   transition: box-shadow var(--t-fast), transform var(--t-fast);
 }
 .card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
+
+/* 카탈로그 카드 찜 버튼 (썸네일 우상단 오버레이) */
+.card__wish {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-body);
+  line-height: 1;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.card__wish:hover { transform: scale(1.12); background: var(--color-canvas); }
+.card__wish.is-wished { color: #ff3d6b; }
 
 .card__thumb {
   position: relative;
@@ -538,17 +586,33 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-sm);
   background: var(--color-surface-soft);
 }
-.codi-card__info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.codi-card__thumb-link { flex: 0 0 48px; display: block; line-height: 0; }
+.codi-card__info { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .codi-card__name {
   font-size: var(--fs-body-sm);
   font-weight: var(--fw-bold);
   line-height: 1.25;
+  word-break: keep-all; /* 한글: 음절이 아닌 어절 단위로 줄바꿈 */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.codi-card__price { font-size: var(--fs-caption); font-weight: var(--fw-medium); }
+.codi-card__price { font-size: var(--fs-body-sm); font-weight: var(--fw-bold); white-space: nowrap; }
+.codi-card__wish {
+  flex: 0 0 auto;
+  align-self: center;
+  background: none;
+  border: none;
+  font-size: var(--fs-body-lg);
+  line-height: 1;
+  color: var(--color-ink);
+  cursor: pointer;
+  padding: 6px;
+  transition: transform var(--t-fast), color var(--t-fast);
+}
+.codi-card__wish:hover { transform: scale(1.15); }
+.codi-card__wish.is-wished { color: #ff3d6b; }
 
 /* ── 섹션 A: 아바타 코디 진입 CTA 패널 ── */
 .today-recommend--cta { justify-content: center; gap: var(--space-sm); }
@@ -605,6 +669,14 @@ a { color: inherit; text-decoration: none; }
 .codi-modal.is-open .codi-modal__panel { transform: none; }
 .codi-modal__panel::-webkit-scrollbar { display: none; } /* Chrome / Safari / Edge */
 
+/* backdrop-filter 미지원 브라우저(구 Firefox 등): 글래스를 더 불투명하게 → 가독성 유지 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-header { background: rgba(255, 255, 255, 0.92); }
+  .hero-glass { background: rgba(255, 255, 255, 0.82); }
+  .codi-modal__panel { background: rgba(255, 255, 255, 0.96); }
+  .card__wish { background: rgba(255, 255, 255, 0.95); }
+}
+
 .codi-modal__close {
   position: absolute;
   top: var(--space-md);
@@ -631,6 +703,90 @@ a { color: inherit; text-decoration: none; }
 .codi-avatar { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); flex: 0 0 auto; }
 .codi-modal .avatar-display { flex: 0 0 auto; width: 208px; height: 300px; }
 .codi-modal .codi-cards { flex: 1; min-width: 0; }
+
+/* 찜목록 패널 */
+.wish-modal .codi-modal__panel { max-width: 460px; }
+.wish-list { display: flex; flex-direction: column; gap: var(--space-sm); }
+.wish-empty { font-size: var(--fs-body-sm); font-weight: var(--fw-light); padding: var(--space-lg) 0; text-align: center; }
+.wish-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-sm);
+}
+.wish-item__thumb { flex: 0 0 56px; width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); background: var(--color-surface-soft); }
+.wish-item__info { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.wish-item__brand { font-size: var(--fs-caption); font-weight: var(--fw-bold); }
+.wish-item__name {
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-regular);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.wish-item__price { font-size: var(--fs-body-sm); font-weight: var(--fw-bold); }
+.wish-item__buy {
+  flex: 0 0 auto;
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  padding: 6px var(--space-sm);
+  border-radius: var(--radius-pill);
+}
+.wish-item__remove {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  font-size: var(--fs-body-lg);
+  line-height: 1;
+  color: var(--color-ink);
+  cursor: pointer;
+  padding: 2px 4px;
+  opacity: 0.5;
+  transition: opacity var(--t-fast);
+}
+.wish-item__remove:hover { opacity: 1; }
+
+/* ==========================================================
+   FOOTER (평면 표면 — 보더로 구분, 회색 대신 weight 위계)
+   ========================================================== */
+.site-footer { border-top: 1px solid var(--color-hairline); background: var(--color-canvas); }
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-xxl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.footer-logo { font-size: var(--fs-card-title); font-weight: var(--fw-bold); letter-spacing: -0.5px; }
+.footer-links { display: flex; gap: var(--space-md); }
+.footer-links a { font-size: var(--fs-body-sm); font-weight: var(--fw-medium); padding: 6px 0; }
+.footer-links a:hover { text-decoration: underline; }
+.footer-credits__list {
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-light);
+  line-height: 1.6;
+}
+.footer-credits__list a { font-weight: var(--fw-medium); text-decoration: underline; }
+.footer-copy { font-size: var(--fs-caption); font-weight: var(--fw-regular); }
 
 /* ==========================================================
    반응형 — 960px (태블릿): 2단 → 1단
@@ -671,4 +827,16 @@ a { color: inherit; text-decoration: none; }
   .codi-modal__body { flex-direction: column; align-items: center; gap: var(--space-lg); }
   .codi-modal .avatar-display { width: 188px; height: 270px; }
   .codi-modal .codi-cards { flex: none; width: 100%; }
+}
+
+/* ==========================================================
+   동작 최소화 선호 (멀미·전정 장애 배려)
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

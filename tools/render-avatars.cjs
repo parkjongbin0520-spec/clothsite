@@ -11,17 +11,13 @@ const H = require('react-humaaans');
 const fs = require('fs');
 const path = require('path');
 
-// coordinateData.js 와 동일한 8개 기온대 (상의/하의/아우터 이름만)
-const BANDS = [
-  { top: '린넨 반팔 티셔츠',   bottom: '린넨 숏팬츠',       outer: null },
-  { top: '세미오버핏 반팔 셔츠', bottom: '캐주얼 면바지',     outer: null },
-  { top: '오버핏 옥스포드 셔츠', bottom: '라이트 슬랙스',     outer: '가벼운 가디건' },
-  { top: '헤비웨이트 맨투맨',   bottom: '스트레이트 청바지',  outer: '미니멀 자켓' },
-  { top: '도톰한 하프넥 니트',  bottom: '테이퍼드 코튼 팬츠', outer: '클래식 트렌치코트' },
-  { top: '울 케이블 니트',      bottom: '골덴 와이드 바지',   outer: '헤비 레더 자켓' },
-  { top: '기모 맨투맨',         bottom: '웜 테크 슬랙스',     outer: '더블 브레스트 울 코트' },
-  { top: '특기모 오버 후드티',  bottom: '조거 기모 팬츠',     outer: '프리미엄 구스다운 롱패딩' },
-];
+// 단일 소스: data/coordinateData.js 에서 기온대 가먼트명을 그대로 가져온다 (중복 제거)
+const C = require(path.join(__dirname, '..', 'data', 'coordinateData.js'));
+const BANDS = C.COORDINATES.map((b) => ({
+  top: (C.garmentById[b.items.top] || {}).name || '',
+  bottom: (C.garmentById[b.items.bottom] || {}).name || '',
+  outer: b.items.outer ? ((C.garmentById[b.items.outer] || {}).name || null) : null,
+}));
 
 const shirtColor = (n) =>
   n.includes('니트') ? '#9a5b46' :

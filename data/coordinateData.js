@@ -114,3 +114,9 @@ function resolveOutfit(band, gender = "female") {
   };
   return { top: pick("top"), bottom: pick("bottom"), outer: pick("outer"), desc: band.desc };
 }
+
+/* Node 빌드 스크립트(tools/render-avatars.cjs)와 데이터를 단일 소스로 공유.
+   브라우저에선 typeof module === 'undefined' 라 무시된다. */
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { CATEGORY, GARMENTS, garmentById, COORDINATES, getCoordinateByTemp, resolveOutfit };
+}

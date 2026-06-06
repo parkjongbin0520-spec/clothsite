@@ -31,14 +31,14 @@
         aria-hidden="true"
       />
 
-      <span class="top-logo">입을만해</span>
+      <h1 class="top-logo">입을만해</h1>
 
       <!-- 프로스티드 글라스 패널 -->
       <div class="hero-glass">
         <div class="s1-hero">
           <span id="s1-icon" class="s1-weather-icon">⛅</span>
           <span id="s1-temp" class="s1-temp-text">--°C</span>
-          <p id="s1-desc" class="s1-desc-text">날씨를 불러오는 중입니다…</p>
+          <p id="s1-desc" class="s1-desc-text" aria-live="polite">날씨를 불러오는 중입니다…</p>
         </div>
 
         <div class="s1-briefing">
@@ -84,12 +84,17 @@
             <span class="header-weather-text" id="weather">날씨 불러오는 중…</span>
           </span>
         </div>
-        <nav class="theme-switch" aria-label="계절 테마 선택">
-          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
-          <button type="button" class="season-btn" data-season="summer">여름</button>
-          <button type="button" class="season-btn" data-season="autumn">가을</button>
-          <button type="button" class="season-btn" data-season="winter">겨울</button>
-        </nav>
+        <div class="header-right">
+          <nav class="theme-switch" aria-label="계절 테마 선택">
+            <button type="button" class="season-btn active-season" data-season="spring">봄</button>
+            <button type="button" class="season-btn" data-season="summer">여름</button>
+            <button type="button" class="season-btn" data-season="autumn">가을</button>
+            <button type="button" class="season-btn" data-season="winter">겨울</button>
+          </nav>
+          <button type="button" class="wish-btn" id="wishBtn" aria-label="찜목록 열기">
+            <span aria-hidden="true">♡</span><span class="wish-btn__count" id="wishCount">0</span>
+          </button>
+        </div>
       </header>
 
       <main class="section_02">
@@ -175,6 +180,32 @@
     </div>
 
     <!-- ==========================================================
+         FOOTER — 크레딧(출처) + 저작권 + 링크
+         ========================================================== -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <span class="footer-logo">입을만해</span>
+          <nav class="footer-links" aria-label="사이트 링크">
+            <a href="https://github.com/parkjongbin0520-spec/clothsite" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </nav>
+        </div>
+
+        <div class="footer-credits">
+          <p class="eyebrow">CREDITS</p>
+          <ul class="footer-credits__list">
+            <li>이모지 — <a href="https://github.com/jdecked/twemoji" target="_blank" rel="noopener noreferrer">Twemoji</a> (CC-BY 4.0)</li>
+            <li>아바타 일러스트 — <a href="https://www.humaaans.com/" target="_blank" rel="noopener noreferrer">Humaaans</a> by Pablo Stanley</li>
+            <li>날씨 데이터 — <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a></li>
+            <li>폰트 — <a href="https://rsms.me/inter/" target="_blank" rel="noopener noreferrer">Inter</a> (OFL) · 빌드 react-humaaans</li>
+          </ul>
+        </div>
+
+        <p class="footer-copy">© 2026 입을만해</p>
+      </div>
+    </footer>
+
+    <!-- ==========================================================
          아바타 코디 모달 (글래스 오버레이) — 기존 피팅룸 섹션 흡수
          aiRecommendBtn 클릭 시 dom.js 가 결과 채우고 오픈
          ========================================================== -->
@@ -193,7 +224,7 @@
         <header class="codi-modal__head">
           <p class="eyebrow">AVATAR CODI</p>
           <h2 class="section-title" id="codiModalTitle">아바타 코디</h2>
-          <p class="section-sub" id="recommendDesc">
+          <p class="section-sub" id="recommendDesc" aria-live="polite">
             지금 기온에 맞춰 아바타에게 코디를 입혀드릴게요.
           </p>
         </header>
@@ -213,27 +244,36 @@
           <ul class="codi-cards">
             <li class="codi-card">
               <span class="codi-card__cat">상의</span>
-              <img class="codi-card__thumb" id="topThumb" alt="" />
+              <a class="codi-card__thumb-link" id="topLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="topThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitTop">—</span>
                 <span class="codi-card__price" id="topPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="topWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">하의</span>
-              <img class="codi-card__thumb" id="bottomThumb" alt="" />
+              <a class="codi-card__thumb-link" id="bottomLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="bottomThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitBottom">—</span>
                 <span class="codi-card__price" id="bottomPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="bottomWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">아우터</span>
-              <img class="codi-card__thumb" id="outerThumb" alt="" />
+              <a class="codi-card__thumb-link" id="outerLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="outerThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitOuter">—</span>
                 <span class="codi-card__price" id="outerPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="outerWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
           </ul>
         </div>
@@ -242,11 +282,26 @@
       </div>
     </div>
 
+    <!-- ==========================================================
+         찜목록 모달 (글래스 오버레이 — .codi-modal 스타일 재사용)
+         ========================================================== -->
+    <div class="codi-modal wish-modal" id="wishModal" aria-hidden="true">
+      <div class="codi-modal__scrim" id="wishScrim"></div>
+      <div class="codi-modal__panel" role="dialog" aria-modal="true" aria-labelledby="wishModalTitle">
+        <button type="button" class="codi-modal__close" id="wishClose" aria-label="닫기">&times;</button>
+        <header class="codi-modal__head">
+          <p class="eyebrow">WISHLIST</p>
+          <h2 class="section-title" id="wishModalTitle">찜한 상품</h2>
+        </header>
+        <ul class="wish-list" id="wishList"></ul>
+      </div>
+    </div>
+
     <script src="data/coordinateData.js"></script>
     <script src="data/productData.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/wishlist.js"></script>
     <script src="js/dom.js"></script>
     <script src="js/scroll.js"></script>
-    <script src="js/avatar.js"></script>
   </body>
 </html>
