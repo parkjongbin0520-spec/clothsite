@@ -6,12 +6,18 @@
    ========================================================== */
 (function () {
   const KEY = "ipeumanhae-wishlist";
+  let mem = null; // localStorage 사용 불가 시(Safari 사생활 보호 등) 세션 메모리 폴백
   const read = () => {
+    if (mem) return mem;
     try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
   };
   const cbs = [];
   const emit = () => cbs.forEach((cb) => cb());
-  const write = (arr) => { localStorage.setItem(KEY, JSON.stringify(arr)); emit(); };
+  const write = (arr) => {
+    try { localStorage.setItem(KEY, JSON.stringify(arr)); mem = null; }
+    catch (e) { mem = arr; } // 영속 저장 실패 시 세션 동안 메모리에 유지 → 찜 동작은 유지
+    emit();
+  };
 
   window.Wishlist = {
     ids: read,

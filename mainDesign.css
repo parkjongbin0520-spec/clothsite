@@ -665,6 +665,14 @@ a { color: inherit; text-decoration: none; }
 .codi-modal.is-open .codi-modal__panel { transform: none; }
 .codi-modal__panel::-webkit-scrollbar { display: none; } /* Chrome / Safari / Edge */
 
+/* backdrop-filter 미지원 브라우저(구 Firefox 등): 글래스를 더 불투명하게 → 가독성 유지 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-header { background: rgba(255, 255, 255, 0.92); }
+  .hero-glass { background: rgba(255, 255, 255, 0.82); }
+  .codi-modal__panel { background: rgba(255, 255, 255, 0.96); }
+  .card__wish { background: rgba(255, 255, 255, 0.95); }
+}
+
 .codi-modal__close {
   position: absolute;
   top: var(--space-md);
