@@ -46,11 +46,13 @@ function prevSlide() {
     }
 }
 
-let slideInterval = setInterval(nextSlide, 5000);
+// 동작 최소화 선호 사용자는 자동 슬라이드 끔 (수동 화살표는 계속 가능)
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let slideInterval = prefersReducedMotion ? null : setInterval(nextSlide, 5000);
 
 function resetSlideInterval() {
     clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5000);
+    if (!prefersReducedMotion) slideInterval = setInterval(nextSlide, 5000);
 }
 
 ekdmabtn.addEventListener('click', () => { nextSlide(); resetSlideInterval(); });
