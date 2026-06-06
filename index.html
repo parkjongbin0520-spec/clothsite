@@ -84,12 +84,17 @@
             <span class="header-weather-text" id="weather">날씨 불러오는 중…</span>
           </span>
         </div>
-        <nav class="theme-switch" aria-label="계절 테마 선택">
-          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
-          <button type="button" class="season-btn" data-season="summer">여름</button>
-          <button type="button" class="season-btn" data-season="autumn">가을</button>
-          <button type="button" class="season-btn" data-season="winter">겨울</button>
-        </nav>
+        <div class="header-right">
+          <nav class="theme-switch" aria-label="계절 테마 선택">
+            <button type="button" class="season-btn active-season" data-season="spring">봄</button>
+            <button type="button" class="season-btn" data-season="summer">여름</button>
+            <button type="button" class="season-btn" data-season="autumn">가을</button>
+            <button type="button" class="season-btn" data-season="winter">겨울</button>
+          </nav>
+          <button type="button" class="wish-btn" id="wishBtn" aria-label="찜목록 열기">
+            <span aria-hidden="true">♡</span><span class="wish-btn__count" id="wishCount">0</span>
+          </button>
+        </div>
       </header>
 
       <main class="section_02">
@@ -213,27 +218,36 @@
           <ul class="codi-cards">
             <li class="codi-card">
               <span class="codi-card__cat">상의</span>
-              <img class="codi-card__thumb" id="topThumb" alt="" />
+              <a class="codi-card__thumb-link" id="topLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="topThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitTop">—</span>
                 <span class="codi-card__price" id="topPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="topWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">하의</span>
-              <img class="codi-card__thumb" id="bottomThumb" alt="" />
+              <a class="codi-card__thumb-link" id="bottomLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="bottomThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitBottom">—</span>
                 <span class="codi-card__price" id="bottomPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="bottomWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">아우터</span>
-              <img class="codi-card__thumb" id="outerThumb" alt="" />
+              <a class="codi-card__thumb-link" id="outerLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+                <img class="codi-card__thumb" id="outerThumb" alt="" />
+              </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitOuter">—</span>
                 <span class="codi-card__price" id="outerPrice"></span>
               </div>
+              <button type="button" class="codi-card__wish" id="outerWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
             </li>
           </ul>
         </div>
@@ -242,9 +256,25 @@
       </div>
     </div>
 
+    <!-- ==========================================================
+         찜목록 모달 (글래스 오버레이 — .codi-modal 스타일 재사용)
+         ========================================================== -->
+    <div class="codi-modal wish-modal" id="wishModal" aria-hidden="true">
+      <div class="codi-modal__scrim" id="wishScrim"></div>
+      <div class="codi-modal__panel" role="dialog" aria-modal="true" aria-labelledby="wishModalTitle">
+        <button type="button" class="codi-modal__close" id="wishClose" aria-label="닫기">&times;</button>
+        <header class="codi-modal__head">
+          <p class="eyebrow">WISHLIST</p>
+          <h2 class="section-title" id="wishModalTitle">찜한 상품</h2>
+        </header>
+        <ul class="wish-list" id="wishList"></ul>
+      </div>
+    </div>
+
     <script src="data/coordinateData.js"></script>
     <script src="data/productData.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/wishlist.js"></script>
     <script src="js/dom.js"></script>
     <script src="js/scroll.js"></script>
   </body>
