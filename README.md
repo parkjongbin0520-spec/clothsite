@@ -48,7 +48,7 @@ https://parkjongbin0520-spec.github.io/clothsite/
 ## 🛠️ 5. 기술 스택 및 아키텍처
 
 - **언어:** HTML5, CSS3, JavaScript (Vanilla JS)
-- **스타일링:** Tailwind CSS
+- **스타일링:** 커스텀 CSS (디자인 토큰 · 글래스모피즘, `mainDesign.css`)
 - **버전 관리 및 배포:** Git, GitHub, GitHub Pages
 - **기획 도구:** 디스코드,마크다운
 
@@ -70,3 +70,41 @@ https://parkjongbin0520-spec.github.io/clothsite/
 - **Scrum Master:** 이태윤
 - **Tech Writer:** 안진혁
 - **DevRel (Presenter):** 최서희
+
+## 🧩 7. 로컬 실행 및 빌드
+
+순수 정적 사이트라 별도 빌드 없이 동작합니다.
+
+```bash
+# 정적 서버 예시
+python -m http.server 5577   # → http://localhost:5577
+```
+
+### 아바타 에셋 재생성 (선택)
+
+모달 아바타는 `react-humaaans`로 **기온대×성별 16종을 미리 정적 SVG로 렌더**해 둔 것입니다(런타임엔 React 없음). 코디 데이터(`data/coordinateData.js`)나 피규어를 바꿨을 때만 재생성하면 됩니다.
+
+```bash
+npm install                    # 빌드 전용: react, react-dom, react-humaaans (배포엔 미포함)
+node tools/render-avatars.cjs  # → img/avatar/{female|male}-0..7.svg 생성
+```
+
+- `tools/contact-sheet.cjs`, `tools/pose-candidates.cjs` : 피규어 선택용 미리보기 생성
+- `node_modules` 는 커밋하지 않습니다 (`.gitignore`)
+
+## 🌐 8. 브라우저 지원
+
+`aspect-ratio` · `inset` · flex `gap` · `backdrop-filter` 등 2021+ 기능을 사용합니다.
+
+- 지원: 최신 **Chrome / Edge / Firefox / Safari 15+**
+- `backdrop-filter` 미지원 환경은 `@supports` 폴백(불투명 배경) 적용
+- 이모지는 Twemoji로 OS 무관 동일 렌더, 찜은 `localStorage`(사생활 모드 시 세션 폴백)
+- `prefers-reduced-motion` 존중(애니메이션·자동 슬라이드 최소화)
+
+## 📜 9. 크레딧 / 라이선스
+
+- 이모지 — [Twemoji](https://github.com/jdecked/twemoji) (CC-BY 4.0)
+- 아바타 일러스트 — [Humaaans](https://www.humaaans.com/) by Pablo Stanley
+- 날씨 데이터 — [OpenWeather](https://openweathermap.org/)
+- 폰트 — [Inter](https://rsms.me/inter/) (OFL)
+- 빌드 — [react-humaaans](https://www.npmjs.com/package/react-humaaans)
