@@ -236,13 +236,19 @@ function fillCodiCard(slot, garment) {
     }
 }
 
-// 찜 버튼 클릭 (이벤트 위임)
+// 찜 버튼 클릭 (코디 카드 + 카탈로그 카드 공통, 이벤트 위임)
 document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.codi-card__wish');
+    const btn = e.target.closest('.codi-card__wish, .card__wish');
     if (!btn || btn.hidden || !btn.dataset.pid || !window.Wishlist) return;
     Wishlist.toggle(btn.dataset.pid);
-    updateWishBtn(btn);
 });
+
+/** 모든 찜 버튼(코디·카탈로그) 상태를 위시리스트와 동기화 */
+function syncAllWishButtons() {
+    document.querySelectorAll('.codi-card__wish, .card__wish').forEach(updateWishBtn);
+}
+if (window.Wishlist) Wishlist.onChange(syncAllWishButtons);
+document.addEventListener('DOMContentLoaded', syncAllWishButtons);
 
 // --- AI 기온별 코디 추천 ---
 /** 기온대 밴드를 resolveOutfit 으로 해석해 모달 내용을 채운다 */

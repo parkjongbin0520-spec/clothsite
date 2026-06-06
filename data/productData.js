@@ -81,6 +81,7 @@ class Product {
 
     return `
       <article class="card" data-id="${this.id}">
+        <button type="button" class="card__wish" data-pid="${this.id}" aria-label="찜하기" aria-pressed="false">♡</button>
         <a class="card__thumb" href="${this.shopUrl}" target="_blank" rel="noopener noreferrer">
           <img class="card-img" src="${this.imageUrl}" alt="${this.brand} ${this.name}" loading="lazy" />
           ${tag}
