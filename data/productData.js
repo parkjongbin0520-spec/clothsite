@@ -59,7 +59,8 @@ class Product {
   }
 
   get formattedPrice() {
-    return `${this.price.toLocaleString("ko-KR")}원`;
+    // 출처 미확인 상품(가격 null)은 "가격 문의"로 표기 (toLocaleString 크래시 방지)
+    return this.price != null ? `${this.price.toLocaleString("ko-KR")}원` : "가격 문의";
   }
 
   get formattedReviewCount() {
@@ -361,8 +362,14 @@ function seasonMatch(p, season) {
   return !p.season || !p.season.length || p.season.includes(season);
 }
 
+/** 카탈로그 카드 소스 — '옷 사진들' 기반 CLOSET(closetData.js)이 있으면 그걸,
+    없으면 네이버 fetch PRODUCTS 를 사용. (closetData.js 가 이 파일 뒤에 로드됨) */
+function catalogSource() {
+  return (typeof CLOSET !== "undefined" && CLOSET.length) ? CLOSET : PRODUCTS;
+}
+
 /** CATEGORIES × 현재 계절 기준으로 카탈로그 존 동적 생성 */
-function renderCatalog(products = PRODUCTS) {
+function renderCatalog(products = catalogSource()) {
   const host = document.getElementById("catalogRows");
   if (!host || typeof CATEGORIES === "undefined") return;
   const season = currentSeason();
