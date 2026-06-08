@@ -8,6 +8,7 @@
 const CATEGORIES = [
   { id: "top",    label: "상의",   catalogKey: "TOP",   eyebrow: "TOP",   query: "남성 셔츠",   display: 20 },
   { id: "bottom", label: "하의",   catalogKey: "PANTS", eyebrow: "PANTS", query: "남성 슬랙스", display: 20 },
+  { id: "setup",  label: "셋업",   catalogKey: "SETUP", eyebrow: "SETUP", query: "셋업",        display: 20 },
   { id: "outer",  label: "아우터", catalogKey: "OUTER", eyebrow: "OUTER", query: "남성 자켓",   display: 20 },
   // 카테고리 추가 예) { id:"shoes", label:"신발", catalogKey:"SHOES", eyebrow:"SHOES", query:"스니커즈", display:20 },
 ];

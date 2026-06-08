@@ -187,13 +187,16 @@ const CODI_SLOTS = {
 /** 추천 가먼트 → 현재 계절·카테고리 풀에서 이름이 가장 잘 맞는 실제 상품
    (계절별 fetch 로 상품 id 가 바뀌어도 동작하도록 이름 토큰 기반) */
 function matchProduct(garment) {
-    if (!garment || typeof PRODUCTS === 'undefined') return null;
+    // 카탈로그와 동일한 소스('옷 사진들' CLOSET 우선)에서 매칭 → 추천 카드도 실제 출처로 연결
+    const source = (typeof catalogSource === 'function') ? catalogSource()
+        : (typeof PRODUCTS !== 'undefined' ? PRODUCTS : null);
+    if (!garment || !source) return null;
     const catalogCat = CAT_TO_CATALOG[garment.category];
     const season = (typeof currentSeason === 'function') ? currentSeason() : null;
-    let pool = PRODUCTS.filter((p) =>
+    let pool = source.filter((p) =>
         p.category === catalogCat &&
         (!season || !p.season || !p.season.length || p.season.includes(season)));
-    if (!pool.length) pool = PRODUCTS.filter((p) => p.category === catalogCat);
+    if (!pool.length) pool = source.filter((p) => p.category === catalogCat);
     if (!pool.length) return null;
 
     const toks = garment.name.split(/[\s·]+/).filter((t) => t.length > 1);
