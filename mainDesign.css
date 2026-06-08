@@ -301,6 +301,8 @@ a { color: inherit; text-decoration: none; }
 
 /* 계절 탭 (pill) */
 .theme-switch { display: flex; gap: var(--space-xxs); }
+/* 히어로 글래스 안의 계절탭 — 스크롤 시 헤더로 핸드오프(페이드) */
+.hero-theme-switch { align-self: flex-start; flex-wrap: wrap; will-change: opacity, transform; }
 .season-btn {
   background: var(--color-surface-soft);
   border: none;

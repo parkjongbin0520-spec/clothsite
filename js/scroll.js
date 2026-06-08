@@ -2,6 +2,7 @@
     const hero     = document.querySelector('.s1-hero');
     const briefing = document.querySelector('.s1-briefing');
     const s1Logo   = document.querySelector('.section_01 .top-logo');
+    const heroTabs = document.querySelector('.hero-theme-switch');
     const header   = document.querySelector('.app-header');
     const nav      = document.querySelector('.floating-nav');
 
@@ -41,6 +42,13 @@
         if (s1Logo) {
             const p = rangeProgress(raw, 0, 0.35);
             s1Logo.style.opacity = String(1 - p);
+        }
+
+        // --- 히어로 계절탭: 페이드아웃하며 위로 → 헤더 탭으로 핸드오프 ---
+        if (heroTabs) {
+            const p = rangeProgress(raw, 0, 0.5);
+            heroTabs.style.opacity = String(1 - p);
+            heroTabs.style.transform = `translateY(${-p * 24}px)`;
         }
 
         // --- s1-briefing: 아래로 사라짐 ---

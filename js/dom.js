@@ -65,9 +65,9 @@ const SEASONS = ['spring', 'summer', 'autumn', 'winter'];
 
 seasonButtons.forEach(button => {
     button.addEventListener('click', () => {
-        seasonButtons.forEach(btn => btn.classList.remove('active-season'));
-        button.classList.add('active-season');
         const selectedSeason = button.getAttribute('data-season');
+        // 두 세트(히어로 + 헤더) 동기화: 같은 계절 버튼 전부 active
+        seasonButtons.forEach(btn => btn.classList.toggle('active-season', btn.dataset.season === selectedSeason));
         // html 요소에 계절 클래스 적용 → screen-01 포함 전체 상속
         document.documentElement.classList.remove(...SEASONS);
         document.documentElement.classList.add(selectedSeason);
