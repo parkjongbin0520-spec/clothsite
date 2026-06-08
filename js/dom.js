@@ -252,6 +252,16 @@ function syncAllWishButtons() {
 if (window.Wishlist) Wishlist.onChange(syncAllWishButtons);
 document.addEventListener('DOMContentLoaded', syncAllWishButtons);
 
+// 카탈로그 "더보기" — 숨긴 카드 노출 + 새로 보인 카드 찜 상태 동기화
+document.addEventListener('click', (e) => {
+    const b = e.target.closest('.more-btn');
+    if (!b) return;
+    const zone = b.closest('.clothing-zone');
+    if (zone) zone.querySelectorAll('.card[hidden]').forEach((c) => { c.hidden = false; });
+    b.remove();
+    if (typeof syncAllWishButtons === 'function') syncAllWishButtons();
+});
+
 // --- AI 기온별 코디 추천 ---
 /** 기온대 밴드를 resolveOutfit 으로 해석해 모달 내용을 채운다 */
 function dressAvatar(band) {

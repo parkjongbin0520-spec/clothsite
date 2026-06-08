@@ -96,7 +96,10 @@ class Product {
   }
 }
 
-/* --- 상품 데이터 (커머스 사이트 구조 기반 샘플) --- */
+/* --- 상품 데이터 (샘플) ---
+   tools/fetch-products.cjs 가 네이버 쇼핑 결과로 아래 PRODUCTS 블록을 통째로 교체한다.
+   (PRODUCTS:START ~ PRODUCTS:END 마커 사이를 자동 갱신) */
+/* PRODUCTS:START */
 const PRODUCTS = [
   // ── TOP / 상의 ──
   new Product({
@@ -167,26 +170,36 @@ const PRODUCTS = [
     rating: 4.6, reviewCount: 4517, tags: ["BEST"],
   }),
 ];
+/* PRODUCTS:END */
 
 /** id → 카탈로그 상품 빠른 조회 (코디 추천 → 실제 상품/구매링크 연결용) */
 const productById = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
 
-/* --- 카테고리 → 카드 행 ID 매핑 --- */
-const CATALOG_ROWS = {
-  cardTop: "TOP",
-  cardBottom: "PANTS",
-  cardOuter: "OUTER",
-};
+const CATALOG_INITIAL = 8; // 행마다 처음 보여줄 카드 수 (나머지는 "더보기")
 
-/** 각 카드 행(card-row)에 해당 카테고리 상품 카드를 렌더링 */
+/** catalogConfig.CATEGORIES 기준으로 카탈로그 존을 동적 생성 (카테고리/카드 수 확장 자유) */
 function renderCatalog(products = PRODUCTS) {
-  Object.entries(CATALOG_ROWS).forEach(([rowId, category]) => {
-    const row = document.getElementById(rowId);
-    if (!row) return;
-    row.innerHTML = products
-      .filter((p) => p.category === category)
-      .map((p) => p.toCardHTML())
-      .join("");
+  const host = document.getElementById("catalogRows");
+  if (!host || typeof CATEGORIES === "undefined") return;
+
+  host.innerHTML = CATEGORIES.map((cat) => {
+    const items = products.filter((p) => p.category === cat.catalogKey);
+    const cards = items.map((p) => p.toCardHTML()).join("");
+    const more = items.length > CATALOG_INITIAL
+      ? `<button type="button" class="more-btn" aria-label="${cat.label} 더보기">더보기 +${items.length - CATALOG_INITIAL}</button>`
+      : "";
+    return `<article class="clothing-zone" data-cat="${cat.id}">
+        <h3 class="zone-title">${cat.eyebrow} <span class="zone-label">${cat.label}</span></h3>
+        <div class="card-row">${cards}</div>
+        ${more}
+      </article>`;
+  }).join("");
+
+  // 처음엔 CATALOG_INITIAL 개만 노출, 나머지는 숨김(더보기로 해제)
+  host.querySelectorAll(".clothing-zone").forEach((zone) => {
+    zone.querySelectorAll(".card").forEach((card, i) => {
+      if (i >= CATALOG_INITIAL) card.hidden = true;
+    });
   });
 }
 

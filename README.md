@@ -92,6 +92,19 @@ node tools/render-avatars.cjs  # → img/avatar/{female|male}-0..7.svg 생성
 - `tools/contact-sheet.cjs`, `tools/pose-candidates.cjs` : 피규어 선택용 미리보기 생성
 - `node_modules` 는 커밋하지 않습니다 (`.gitignore`)
 
+### 실제 상품 연동 (선택)
+
+카탈로그 상품은 `data/catalogConfig.js` 의 카테고리 정의를 기준으로 네이버 쇼핑 API에서 받아옵니다.
+
+```bash
+# 1) 네이버 개발자센터(developers.naver.com)에서 "검색" API 키 발급 → .env 에 저장 (.env.example 참고)
+# 2) 실제 상품으로 교체
+node tools/fetch-products.cjs   # → data/productData.js 의 PRODUCTS 블록 자동 갱신
+```
+
+- 카테고리 추가/검색어/카드 수는 `data/catalogConfig.js`(`query`·`display`)에서 조정
+- `.env`(키)는 커밋하지 않습니다 (`.gitignore`)
+
 ## 🌐 8. 브라우저 지원
 
 `aspect-ratio` · `inset` · flex `gap` · `backdrop-filter` 등 2021+ 기능을 사용합니다.

@@ -1,4 +1,5 @@
 node_modules/
+.env
 _contact.html
 _poses.html
 _avatars.html
