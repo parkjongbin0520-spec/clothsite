@@ -25,7 +25,7 @@ class Product {
     id, category, brand, name, price,
     originalPrice = null, imageUrl,
     rating = 0, reviewCount = 0, tags = [], shopUrl = null,
-    avatarLayer = null,
+    avatarLayer = null, season = [],
   }) {
     this.id = id;
     this.category = category;
@@ -39,6 +39,7 @@ class Product {
     this.tags = tags;
     this.shopUrl = shopUrl || Product.buildSearchUrl(brand, name);
     this.avatarLayer = avatarLayer; // 향후 아바타 옷 입히기용 (기본 null)
+    this.season = season;           // 적합 계절 배열 ['summer'] (빈 배열 = 계절 무관)
   }
 
   /** 브랜드 + 상품명으로 커머스 검색 URL 생성 (원클릭 커머스 연동) */
@@ -96,7 +97,10 @@ class Product {
   }
 }
 
-/* --- 상품 데이터 (커머스 사이트 구조 기반 샘플) --- */
+/* --- 상품 데이터 (샘플) ---
+   tools/fetch-products.cjs 가 네이버 쇼핑 결과로 아래 PRODUCTS 블록을 통째로 교체한다.
+   (PRODUCTS:START ~ PRODUCTS:END 마커 사이를 자동 갱신) */
+/* PRODUCTS:START */
 const PRODUCTS = [
   // ── TOP / 상의 ──
   new Product({
@@ -104,21 +108,21 @@ const PRODUCTS = [
     name: "베이식 코튼 세미오버핏 반팔 티셔츠",
     price: 19900, originalPrice: 29000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.8, reviewCount: 12483, tags: ["무신사 랭킹 1위"],
+    rating: 4.8, reviewCount: 12483, tags: ["무신사 랭킹 1위"], season: ["summer"],
   }),
   new Product({
     id: "top-02", category: "TOP", brand: "스탠다드핏",
     name: "워싱 옥스포드 오버핏 셔츠",
     price: 32900, originalPrice: 49000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.7, reviewCount: 8210, tags: ["BEST"],
+    rating: 4.7, reviewCount: 8210, tags: ["BEST"], season: ["spring", "autumn"],
   }),
   new Product({
     id: "top-03", category: "TOP", brand: "데이라이프",
     name: "헤비웨이트 크루넥 맨투맨",
     price: 28900, originalPrice: 39000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.9, reviewCount: 5677, tags: ["신상"],
+    rating: 4.9, reviewCount: 5677, tags: ["신상"], season: ["autumn", "winter"],
   }),
 
   // ── PANTS / 팬츠 ──
@@ -127,21 +131,21 @@ const PRODUCTS = [
     name: "와이드 코튼 치노 팬츠",
     price: 36900, originalPrice: 52000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.6, reviewCount: 9043, tags: ["단독"],
+    rating: 4.6, reviewCount: 9043, tags: ["단독"], season: ["spring", "summer"],
   }),
   new Product({
     id: "pants-02", category: "PANTS", brand: "노르딕무드",
     name: "원턱 스트레이트 슬랙스",
     price: 39900, originalPrice: 59000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.8, reviewCount: 6321, tags: ["BEST"],
+    rating: 4.8, reviewCount: 6321, tags: ["BEST"], season: ["spring", "autumn", "winter"],
   }),
   new Product({
     id: "pants-03", category: "PANTS", brand: "코튼데이즈",
     name: "세미와이드 워싱 데님 팬츠",
     price: 42900, originalPrice: 58000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.7, reviewCount: 7785, tags: ["무신사 추천"],
+    rating: 4.7, reviewCount: 7785, tags: ["무신사 추천"], season: ["spring", "summer", "autumn", "winter"],
   }),
 
   // ── OUTER / 아우터 ──
@@ -150,43 +154,67 @@ const PRODUCTS = [
     name: "오버핏 발마칸 싱글 코트",
     price: 119000, originalPrice: 169000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.8, reviewCount: 3420, tags: ["FW 신상"],
+    rating: 4.8, reviewCount: 3420, tags: ["FW 신상"], season: ["autumn", "winter"],
   }),
   new Product({
     id: "outer-02", category: "OUTER", brand: "노르딕무드",
     name: "라이트 경량 패딩 자켓",
     price: 79000, originalPrice: 119000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.9, reviewCount: 8932, tags: ["무신사 랭킹"],
+    rating: 4.9, reviewCount: 8932, tags: ["무신사 랭킹"], season: ["winter"],
   }),
   new Product({
     id: "outer-03", category: "OUTER", brand: "어반리프",
     name: "워싱 데님 트러커 자켓",
     price: 58900, originalPrice: 79000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.6, reviewCount: 4517, tags: ["BEST"],
+    rating: 4.6, reviewCount: 4517, tags: ["BEST"], season: ["spring", "summer", "autumn"],
   }),
 ];
+/* PRODUCTS:END */
 
 /** id → 카탈로그 상품 빠른 조회 (코디 추천 → 실제 상품/구매링크 연결용) */
 const productById = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
 
-/* --- 카테고리 → 카드 행 ID 매핑 --- */
-const CATALOG_ROWS = {
-  cardTop: "TOP",
-  cardBottom: "PANTS",
-  cardOuter: "OUTER",
-};
+const CATALOG_INITIAL = 8; // 행마다 처음 보여줄 카드 수 (나머지는 "더보기")
 
-/** 각 카드 행(card-row)에 해당 카테고리 상품 카드를 렌더링 */
+/** 현재 활성 계절 (html 클래스 기준) */
+function currentSeason() {
+  const seasons = (typeof SEASON_QUERY !== "undefined") ? Object.keys(SEASON_QUERY) : ["spring", "summer", "autumn", "winter"];
+  return seasons.find((s) => document.documentElement.classList.contains(s)) || "spring";
+}
+
+/** season 비어있으면 계절 무관(항상), 아니면 현재 계절 포함 여부 */
+function seasonMatch(p, season) {
+  return !p.season || !p.season.length || p.season.includes(season);
+}
+
+/** CATEGORIES × 현재 계절 기준으로 카탈로그 존 동적 생성 */
 function renderCatalog(products = PRODUCTS) {
-  Object.entries(CATALOG_ROWS).forEach(([rowId, category]) => {
-    const row = document.getElementById(rowId);
-    if (!row) return;
-    row.innerHTML = products
-      .filter((p) => p.category === category)
-      .map((p) => p.toCardHTML())
-      .join("");
+  const host = document.getElementById("catalogRows");
+  if (!host || typeof CATEGORIES === "undefined") return;
+  const season = currentSeason();
+
+  host.innerHTML = CATEGORIES.map((cat) => {
+    const items = products.filter((p) => p.category === cat.catalogKey && seasonMatch(p, season));
+    const cards = items.length
+      ? items.map((p) => p.toCardHTML()).join("")
+      : `<p class="card-empty">이 계절 추천 상품이 곧 추가돼요.</p>`;
+    const more = items.length > CATALOG_INITIAL
+      ? `<button type="button" class="more-btn" aria-label="${cat.label} 더보기">더보기 +${items.length - CATALOG_INITIAL}</button>`
+      : "";
+    return `<article class="clothing-zone" data-cat="${cat.id}">
+        <h3 class="zone-title">${cat.eyebrow} <span class="zone-label">${cat.label}</span></h3>
+        <div class="card-row">${cards}</div>
+        ${more}
+      </article>`;
+  }).join("");
+
+  // 처음엔 CATALOG_INITIAL 개만 노출, 나머지는 숨김(더보기로 해제)
+  host.querySelectorAll(".clothing-zone").forEach((zone) => {
+    zone.querySelectorAll(".card").forEach((card, i) => {
+      if (i >= CATALOG_INITIAL) card.hidden = true;
+    });
   });
 }
 

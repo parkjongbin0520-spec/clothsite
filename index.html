@@ -35,6 +35,13 @@
 
       <!-- 프로스티드 글라스 패널 -->
       <div class="hero-glass">
+        <nav class="theme-switch hero-theme-switch" aria-label="계절 테마 선택">
+          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
+          <button type="button" class="season-btn" data-season="summer">여름</button>
+          <button type="button" class="season-btn" data-season="autumn">가을</button>
+          <button type="button" class="season-btn" data-season="winter">겨울</button>
+        </nav>
+
         <div class="s1-hero">
           <span id="s1-icon" class="s1-weather-icon">⛅</span>
           <span id="s1-temp" class="s1-temp-text">--°C</span>
@@ -158,22 +165,8 @@
             </p>
           </header>
 
-          <div class="bottom-content">
-            <article class="clothing-zone">
-              <h3 class="zone-title">TOP <span class="zone-label">상의</span></h3>
-              <div class="card-row" id="cardTop"></div>
-            </article>
-
-            <article class="clothing-zone">
-              <h3 class="zone-title">PANTS <span class="zone-label">하의</span></h3>
-              <div class="card-row" id="cardBottom"></div>
-            </article>
-
-            <article class="clothing-zone">
-              <h3 class="zone-title">OUTER <span class="zone-label">아우터</span></h3>
-              <div class="card-row" id="cardOuter"></div>
-            </article>
-          </div>
+          <!-- 카탈로그 존은 data/catalogConfig.js 기준으로 productData.js 가 동적 생성 -->
+          <div class="bottom-content" id="catalogRows"></div>
         </section>
 
       </main>
@@ -298,6 +291,7 @@
     </div>
 
     <script src="data/coordinateData.js"></script>
+    <script src="data/catalogConfig.js"></script>
     <script src="data/productData.js"></script>
     <script src="js/api.js"></script>
     <script src="js/wishlist.js"></script>
