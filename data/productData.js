@@ -25,7 +25,7 @@ class Product {
     id, category, brand, name, price,
     originalPrice = null, imageUrl,
     rating = 0, reviewCount = 0, tags = [], shopUrl = null,
-    avatarLayer = null,
+    avatarLayer = null, season = [],
   }) {
     this.id = id;
     this.category = category;
@@ -39,6 +39,7 @@ class Product {
     this.tags = tags;
     this.shopUrl = shopUrl || Product.buildSearchUrl(brand, name);
     this.avatarLayer = avatarLayer; // 향후 아바타 옷 입히기용 (기본 null)
+    this.season = season;           // 적합 계절 배열 ['summer'] (빈 배열 = 계절 무관)
   }
 
   /** 브랜드 + 상품명으로 커머스 검색 URL 생성 (원클릭 커머스 연동) */
@@ -107,21 +108,21 @@ const PRODUCTS = [
     name: "베이식 코튼 세미오버핏 반팔 티셔츠",
     price: 19900, originalPrice: 29000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.8, reviewCount: 12483, tags: ["무신사 랭킹 1위"],
+    rating: 4.8, reviewCount: 12483, tags: ["무신사 랭킹 1위"], season: ["summer"],
   }),
   new Product({
     id: "top-02", category: "TOP", brand: "스탠다드핏",
     name: "워싱 옥스포드 오버핏 셔츠",
     price: 32900, originalPrice: 49000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.7, reviewCount: 8210, tags: ["BEST"],
+    rating: 4.7, reviewCount: 8210, tags: ["BEST"], season: ["spring", "autumn"],
   }),
   new Product({
     id: "top-03", category: "TOP", brand: "데이라이프",
     name: "헤비웨이트 크루넥 맨투맨",
     price: 28900, originalPrice: 39000,
     imageUrl: "https://i.ibb.co/W4cthkKL/detail-6357599-17768432610933-big.png",
-    rating: 4.9, reviewCount: 5677, tags: ["신상"],
+    rating: 4.9, reviewCount: 5677, tags: ["신상"], season: ["autumn", "winter"],
   }),
 
   // ── PANTS / 팬츠 ──
@@ -130,21 +131,21 @@ const PRODUCTS = [
     name: "와이드 코튼 치노 팬츠",
     price: 36900, originalPrice: 52000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.6, reviewCount: 9043, tags: ["단독"],
+    rating: 4.6, reviewCount: 9043, tags: ["단독"], season: ["spring", "summer"],
   }),
   new Product({
     id: "pants-02", category: "PANTS", brand: "노르딕무드",
     name: "원턱 스트레이트 슬랙스",
     price: 39900, originalPrice: 59000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.8, reviewCount: 6321, tags: ["BEST"],
+    rating: 4.8, reviewCount: 6321, tags: ["BEST"], season: ["spring", "autumn", "winter"],
   }),
   new Product({
     id: "pants-03", category: "PANTS", brand: "코튼데이즈",
     name: "세미와이드 워싱 데님 팬츠",
     price: 42900, originalPrice: 58000,
     imageUrl: "https://i.ibb.co/MxBd6vY5/6371083-17772584866330-big.png",
-    rating: 4.7, reviewCount: 7785, tags: ["무신사 추천"],
+    rating: 4.7, reviewCount: 7785, tags: ["무신사 추천"], season: ["spring", "summer", "autumn", "winter"],
   }),
 
   // ── OUTER / 아우터 ──
@@ -153,21 +154,21 @@ const PRODUCTS = [
     name: "오버핏 발마칸 싱글 코트",
     price: 119000, originalPrice: 169000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.8, reviewCount: 3420, tags: ["FW 신상"],
+    rating: 4.8, reviewCount: 3420, tags: ["FW 신상"], season: ["autumn", "winter"],
   }),
   new Product({
     id: "outer-02", category: "OUTER", brand: "노르딕무드",
     name: "라이트 경량 패딩 자켓",
     price: 79000, originalPrice: 119000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.9, reviewCount: 8932, tags: ["무신사 랭킹"],
+    rating: 4.9, reviewCount: 8932, tags: ["무신사 랭킹"], season: ["winter"],
   }),
   new Product({
     id: "outer-03", category: "OUTER", brand: "어반리프",
     name: "워싱 데님 트러커 자켓",
     price: 58900, originalPrice: 79000,
     imageUrl: "https://i.ibb.co/GQJ77TSJ/6101998-17739852939208-big.png",
-    rating: 4.6, reviewCount: 4517, tags: ["BEST"],
+    rating: 4.6, reviewCount: 4517, tags: ["BEST"], season: ["spring", "summer", "autumn"],
   }),
 ];
 /* PRODUCTS:END */
@@ -177,14 +178,28 @@ const productById = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
 
 const CATALOG_INITIAL = 8; // 행마다 처음 보여줄 카드 수 (나머지는 "더보기")
 
-/** catalogConfig.CATEGORIES 기준으로 카탈로그 존을 동적 생성 (카테고리/카드 수 확장 자유) */
+/** 현재 활성 계절 (html 클래스 기준) */
+function currentSeason() {
+  const seasons = (typeof SEASON_QUERY !== "undefined") ? Object.keys(SEASON_QUERY) : ["spring", "summer", "autumn", "winter"];
+  return seasons.find((s) => document.documentElement.classList.contains(s)) || "spring";
+}
+
+/** season 비어있으면 계절 무관(항상), 아니면 현재 계절 포함 여부 */
+function seasonMatch(p, season) {
+  return !p.season || !p.season.length || p.season.includes(season);
+}
+
+/** CATEGORIES × 현재 계절 기준으로 카탈로그 존 동적 생성 */
 function renderCatalog(products = PRODUCTS) {
   const host = document.getElementById("catalogRows");
   if (!host || typeof CATEGORIES === "undefined") return;
+  const season = currentSeason();
 
   host.innerHTML = CATEGORIES.map((cat) => {
-    const items = products.filter((p) => p.category === cat.catalogKey);
-    const cards = items.map((p) => p.toCardHTML()).join("");
+    const items = products.filter((p) => p.category === cat.catalogKey && seasonMatch(p, season));
+    const cards = items.length
+      ? items.map((p) => p.toCardHTML()).join("")
+      : `<p class="card-empty">이 계절 추천 상품이 곧 추가돼요.</p>`;
     const more = items.length > CATALOG_INITIAL
       ? `<button type="button" class="more-btn" aria-label="${cat.label} 더보기">더보기 +${items.length - CATALOG_INITIAL}</button>`
       : "";

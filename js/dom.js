@@ -74,6 +74,9 @@ seasonButtons.forEach(button => {
         // mainApp 하위 호환 유지
         mainApp.classList.remove(...SEASONS);
         mainApp.classList.add(selectedSeason);
+        // 계절에 맞춰 카탈로그 카드 재렌더 + 찜 상태 동기화
+        if (typeof renderCatalog === 'function') renderCatalog();
+        if (typeof syncAllWishButtons === 'function') syncAllWishButtons();
     });
 });
 
@@ -181,28 +184,25 @@ const CODI_SLOTS = {
     outer:  { name: 'fitOuter',  thumb: 'outerThumb',  price: 'outerPrice',  link: 'outerLink',  wish: 'outerWish' },
 };
 
-// 추천 가먼트명 키워드 → 실제 카탈로그 상품 id
-const PRODUCT_KEYWORDS = {
-    'top-01': ['티셔츠', '반팔'],
-    'top-02': ['셔츠', '옥스포드'],
-    'top-03': ['맨투맨', '니트', '후드', '후디'],
-    'pants-01': ['치노', '면', '숏', '와이드', '조거', '코튼'],
-    'pants-02': ['슬랙스', '테크'],
-    'pants-03': ['청', '데님'],
-    'outer-01': ['코트', '트렌치'],
-    'outer-02': ['패딩'],
-    'outer-03': ['자켓', '가디건', '레더'],
-};
-
-/** 추천 가먼트 → 가장 잘 맞는 실제 상품 (없으면 같은 카테고리 첫 상품) */
+/** 추천 가먼트 → 현재 계절·카테고리 풀에서 이름이 가장 잘 맞는 실제 상품
+   (계절별 fetch 로 상품 id 가 바뀌어도 동작하도록 이름 토큰 기반) */
 function matchProduct(garment) {
-    if (!garment || typeof productById === 'undefined') return null;
+    if (!garment || typeof PRODUCTS === 'undefined') return null;
     const catalogCat = CAT_TO_CATALOG[garment.category];
-    for (const [pid, kws] of Object.entries(PRODUCT_KEYWORDS)) {
-        const p = productById[pid];
-        if (p && p.category === catalogCat && kws.some((k) => garment.name.includes(k))) return p;
+    const season = (typeof currentSeason === 'function') ? currentSeason() : null;
+    let pool = PRODUCTS.filter((p) =>
+        p.category === catalogCat &&
+        (!season || !p.season || !p.season.length || p.season.includes(season)));
+    if (!pool.length) pool = PRODUCTS.filter((p) => p.category === catalogCat);
+    if (!pool.length) return null;
+
+    const toks = garment.name.split(/[\s·]+/).filter((t) => t.length > 1);
+    let best = null, score = 0;
+    for (const p of pool) {
+        const s = toks.reduce((acc, t) => acc + (p.name.includes(t) ? 1 : 0), 0);
+        if (s > score) { score = s; best = p; }
     }
-    return PRODUCTS.find((p) => p.category === catalogCat) || null;
+    return best || pool[0];
 }
 
 /** 찜 버튼 상태 동기화 */

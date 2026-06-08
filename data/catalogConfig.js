@@ -12,5 +12,9 @@ const CATEGORIES = [
   // 카테고리 추가 예) { id:"shoes", label:"신발", catalogKey:"SHOES", eyebrow:"SHOES", query:"스니커즈", display:20 },
 ];
 
-/* Node(fetch 스크립트)와 데이터 공유. 브라우저에선 무시됨. */
-if (typeof module !== "undefined" && module.exports) module.exports = { CATEGORIES };
+/* 계절별 검색어 접두사 — fetch 시 `${SEASON_QUERY[season]} ${cat.query}` ("여름 셔츠") */
+const SEASON_QUERY = { spring: "봄", summer: "여름", autumn: "가을", winter: "겨울" };
+
+/* Node(fetch 스크립트)와 데이터 공유. 브라우저에선 무시됨.
+   주의: SEASONS 라는 이름은 dom.js 가 이미 const 로 선언하므로 여기선 쓰지 않는다. */
+if (typeof module !== "undefined" && module.exports) module.exports = { CATEGORIES, SEASON_QUERY };

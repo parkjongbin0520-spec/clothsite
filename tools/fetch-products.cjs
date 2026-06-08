@@ -9,7 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
-const { CATEGORIES } = require("../data/catalogConfig.js");
+const { CATEGORIES, SEASON_QUERY } = require("../data/catalogConfig.js");
 
 // --- .env 간단 로더 (의존성 없이) ---
 (() => {
@@ -56,22 +56,26 @@ const clean = (s = "") =>
 
 (async () => {
   const products = [];
-  for (const cat of CATEGORIES) {
-    const items = await search(cat.query, cat.display);
-    items.forEach((it, i) => {
-      products.push({
-        id: `${cat.id}-${String(i + 1).padStart(2, "0")}`,
-        category: cat.catalogKey,
-        brand: clean(it.brand || it.maker || it.mallName),
-        name: clean(it.title),
-        price: Number(it.lprice) || 0,
-        originalPrice: it.hprice ? Number(it.hprice) : null,
-        imageUrl: it.image,
-        shopUrl: it.link, // 실제 상품 페이지 URL
-        rating: 0, reviewCount: 0, tags: [],
+  for (const season of Object.keys(SEASON_QUERY)) {
+    for (const cat of CATEGORIES) {
+      const q = `${SEASON_QUERY[season]} ${cat.query}`; // 예: "여름 셔츠"
+      const items = await search(q, cat.display);
+      items.forEach((it, i) => {
+        products.push({
+          id: `${cat.id}-${season}-${String(i + 1).padStart(2, "0")}`,
+          category: cat.catalogKey,
+          season: [season],
+          brand: clean(it.brand || it.maker || it.mallName),
+          name: clean(it.title),
+          price: Number(it.lprice) || 0,
+          originalPrice: it.hprice ? Number(it.hprice) : null,
+          imageUrl: it.image,
+          shopUrl: it.link, // 실제 상품 페이지 URL
+          rating: 0, reviewCount: 0, tags: [],
+        });
       });
-    });
-    console.log(`  ${cat.label}(${cat.query}): ${items.length}개`);
+      console.log(`  [${season}] ${cat.label}(${q}): ${items.length}개`);
+    }
   }
 
   // productData.js 의 PRODUCTS:START ~ PRODUCTS:END 사이를 교체

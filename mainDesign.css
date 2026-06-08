@@ -448,6 +448,7 @@ a { color: inherit; text-decoration: none; }
   transition: background var(--t-fast);
 }
 .more-btn:hover { background: var(--color-hairline); }
+.card-empty { font-size: var(--fs-body-sm); font-weight: var(--fw-light); padding: var(--space-md) 0; }
 
 /* 커머스 상품 카드 (article) */
 .card {
