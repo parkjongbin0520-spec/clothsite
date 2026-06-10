@@ -173,16 +173,14 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 
-/* 풀블리드 배경 이미지 (dom.js 가 계절별 src 교체) */
 .season-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   z-index: 0;
 }
-
 .top-logo {
   position: absolute;
   top: var(--space-xl);
