@@ -11,7 +11,8 @@
     <script>
       // 모든 스크립트가 공유하는 이모지 → SVG 이미지 변환 헬퍼
       window.parseEmoji = function (el) {
-        if (el && window.twemoji) twemoji.parse(el, { folder: "svg", ext: ".svg" });
+        if (el && window.twemoji)
+          twemoji.parse(el, { folder: "svg", ext: ".svg" });
       };
       window.addEventListener("DOMContentLoaded", function () {
         parseEmoji(document.body); // 정적 이모지(✨ 등) 일괄 변환
@@ -36,16 +37,30 @@
       <!-- 프로스티드 글라스 패널 -->
       <div class="hero-glass">
         <nav class="theme-switch hero-theme-switch" aria-label="계절 테마 선택">
-          <button type="button" class="season-btn active-season" data-season="spring">봄</button>
-          <button type="button" class="season-btn" data-season="summer">여름</button>
-          <button type="button" class="season-btn" data-season="autumn">가을</button>
-          <button type="button" class="season-btn" data-season="winter">겨울</button>
+          <button
+            type="button"
+            class="season-btn active-season"
+            data-season="spring"
+          >
+            봄
+          </button>
+          <button type="button" class="season-btn" data-season="summer">
+            여름
+          </button>
+          <button type="button" class="season-btn" data-season="autumn">
+            가을
+          </button>
+          <button type="button" class="season-btn" data-season="winter">
+            겨울
+          </button>
         </nav>
 
         <div class="s1-hero">
           <span id="s1-icon" class="s1-weather-icon">⛅</span>
           <span id="s1-temp" class="s1-temp-text">--°C</span>
-          <p id="s1-desc" class="s1-desc-text" aria-live="polite">날씨를 불러오는 중입니다…</p>
+          <p id="s1-desc" class="s1-desc-text" aria-live="polite">
+            날씨를 불러오는 중입니다…
+          </p>
         </div>
 
         <div class="s1-briefing">
@@ -88,18 +103,38 @@
           <span class="header-divider" aria-hidden="true"></span>
           <span class="header-weather">
             <span class="header-weather-icon" id="headerIcon">⛅</span>
-            <span class="header-weather-text" id="weather">날씨 불러오는 중…</span>
+            <span class="header-weather-text" id="weather"
+              >날씨 불러오는 중…</span
+            >
           </span>
         </div>
         <div class="header-right">
           <nav class="theme-switch" aria-label="계절 테마 선택">
-            <button type="button" class="season-btn active-season" data-season="spring">봄</button>
-            <button type="button" class="season-btn" data-season="summer">여름</button>
-            <button type="button" class="season-btn" data-season="autumn">가을</button>
-            <button type="button" class="season-btn" data-season="winter">겨울</button>
+            <button
+              type="button"
+              class="season-btn active-season"
+              data-season="spring"
+            >
+              봄
+            </button>
+            <button type="button" class="season-btn" data-season="summer">
+              여름
+            </button>
+            <button type="button" class="season-btn" data-season="autumn">
+              가을
+            </button>
+            <button type="button" class="season-btn" data-season="winter">
+              겨울
+            </button>
           </nav>
-          <button type="button" class="wish-btn" id="wishBtn" aria-label="찜목록 열기">
-            <span aria-hidden="true">♡</span><span class="wish-btn__count" id="wishCount">0</span>
+          <button
+            type="button"
+            class="wish-btn"
+            id="wishBtn"
+            aria-label="찜목록 열기"
+          >
+            <span aria-hidden="true">♡</span
+            ><span class="wish-btn__count" id="wishCount">0</span>
           </button>
         </div>
       </header>
@@ -122,20 +157,44 @@
             <div class="slider-box" id="box">
               <div class="slider" id="slider">
                 <div class="adimage">
-                  <img src="https://lovely-orange-ebdppdfd7q.edgeone.app/9k.png" alt="추천 룩 1" />
+                  <img
+                    src="https://i.ibb.co/SDMdcwM1/2026-06-10-180653.png"
+                    alt="추천 룩 1"
+                  />
                 </div>
                 <div class="adimage">
-                  <img src="https://oral-peach-qcbkbuypef.edgeone.app/9k%E3%85%8F.png" alt="추천 룩 2" />
+                  <img
+                    src="https://i.ibb.co/rRS1rcp7/2026-06-10-180719.png"
+                    alt="추천 룩 2"
+                  />
                 </div>
                 <div class="adimage">
-                  <img src="https://objective-rose-ecp2k6ir6t.edgeone.app/2Q.png" alt="추천 룩 3" />
+                  <img
+                    src="https://i.ibb.co/C3NVMrD2/2026-06-10-180743.png"
+                    alt="추천 룩 3"
+                  />
                 </div>
                 <div class="adimage">
-                  <img src="https://mammoth-amaranth-buzithtol8.edgeone.app/f20560451a4b49a4982de16283a8bddf.png" alt="추천 룩 4" />
+                  <img
+                    src="https://mammoth-amaranth-buzithtol8.edgeone.app/f20560451a4b49a4982de16283a8bddf.png"
+                    alt="추천 룩 4"
+                  />
                 </div>
               </div>
-              <button class="slider-arrow btn-left" id="dlwjsbtn" aria-label="이전 사진">&#10094;</button>
-              <button class="slider-arrow btn-right" id="ekdmabtn" aria-label="다음 사진">&#10095;</button>
+              <button
+                class="slider-arrow btn-left"
+                id="dlwjsbtn"
+                aria-label="이전 사진"
+              >
+                &#10094;
+              </button>
+              <button
+                class="slider-arrow btn-right"
+                id="ekdmabtn"
+                aria-label="다음 사진"
+              >
+                &#10095;
+              </button>
             </div>
 
             <!-- 우: 아바타 코디 진입 패널 (결과는 모달에서) -->
@@ -143,9 +202,14 @@
               <p class="eyebrow">AVATAR CODI</p>
               <h3 class="cta-title">아바타가 대신 입어볼게요</h3>
               <p class="item-desc">
-                버튼을 누르면 지금 기온에 딱 맞는 코디를 아바타가 직접 입은 모습으로 보여드려요.
+                버튼을 누르면 지금 기온에 딱 맞는 코디를 아바타가 직접 입은
+                모습으로 보여드려요.
               </p>
-              <button type="button" id="aiRecommendBtn" class="btn-primary ai-btn">
+              <button
+                type="button"
+                id="aiRecommendBtn"
+                class="btn-primary ai-btn"
+              >
                 ✨ 아바타 코디 받기
               </button>
             </div>
@@ -168,7 +232,6 @@
           <!-- 카탈로그 존은 data/catalogConfig.js 기준으로 productData.js 가 동적 생성 -->
           <div class="bottom-content" id="catalogRows"></div>
         </section>
-
       </main>
     </div>
 
@@ -180,17 +243,57 @@
         <div class="footer-top">
           <span class="footer-logo">입을만해</span>
           <nav class="footer-links" aria-label="사이트 링크">
-            <a href="https://github.com/parkjongbin0520-spec/clothsite" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a
+              href="https://github.com/parkjongbin0520-spec/clothsite"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
           </nav>
         </div>
 
         <div class="footer-credits">
           <p class="eyebrow">CREDITS</p>
           <ul class="footer-credits__list">
-            <li>이모지 — <a href="https://github.com/jdecked/twemoji" target="_blank" rel="noopener noreferrer">Twemoji</a> (CC-BY 4.0)</li>
-            <li>아바타 일러스트 — <a href="https://www.humaaans.com/" target="_blank" rel="noopener noreferrer">Humaaans</a> by Pablo Stanley</li>
-            <li>날씨 데이터 — <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a></li>
-            <li>폰트 — <a href="https://rsms.me/inter/" target="_blank" rel="noopener noreferrer">Inter</a> (OFL) · 빌드 react-humaaans</li>
+            <li>
+              이모지 —
+              <a
+                href="https://github.com/jdecked/twemoji"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Twemoji</a
+              >
+              (CC-BY 4.0)
+            </li>
+            <li>
+              아바타 일러스트 —
+              <a
+                href="https://www.humaaans.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Humaaans</a
+              >
+              by Pablo Stanley
+            </li>
+            <li>
+              날씨 데이터 —
+              <a
+                href="https://openweathermap.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >OpenWeather</a
+              >
+            </li>
+            <li>
+              폰트 —
+              <a
+                href="https://rsms.me/inter/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Inter</a
+              >
+              (OFL) · 빌드 react-humaaans
+            </li>
           </ul>
         </div>
 
@@ -210,7 +313,12 @@
         aria-modal="true"
         aria-labelledby="codiModalTitle"
       >
-        <button type="button" class="codi-modal__close" id="codiClose" aria-label="닫기">
+        <button
+          type="button"
+          class="codi-modal__close"
+          id="codiClose"
+          aria-label="닫기"
+        >
           &times;
         </button>
 
@@ -225,53 +333,114 @@
         <div class="codi-modal__body">
           <div class="codi-avatar">
             <div class="avatar-display">
-              <span class="avatar-gender-label" id="avatarGenderText">여성</span>
-              <img class="avatar-img" id="avatarImg" alt="추천 코디를 입은 아바타" />
+              <span class="avatar-gender-label" id="avatarGenderText"
+                >여성</span
+              >
+              <img
+                class="avatar-img"
+                id="avatarImg"
+                alt="추천 코디를 입은 아바타"
+              />
             </div>
             <div class="gender-selector" role="group" aria-label="아바타 성별">
-              <button type="button" class="gender-btn active-gender" id="btnFemale">여성</button>
-              <button type="button" class="gender-btn" id="btnMale">남성</button>
+              <button
+                type="button"
+                class="gender-btn active-gender"
+                id="btnFemale"
+              >
+                여성
+              </button>
+              <button type="button" class="gender-btn" id="btnMale">
+                남성
+              </button>
             </div>
           </div>
 
           <ul class="codi-cards">
             <li class="codi-card">
               <span class="codi-card__cat">상의</span>
-              <a class="codi-card__thumb-link" id="topLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+              <a
+                class="codi-card__thumb-link"
+                id="topLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="상품 보기"
+              >
                 <img class="codi-card__thumb" id="topThumb" alt="" />
               </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitTop">—</span>
                 <span class="codi-card__price" id="topPrice"></span>
               </div>
-              <button type="button" class="codi-card__wish" id="topWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
+              <button
+                type="button"
+                class="codi-card__wish"
+                id="topWish"
+                aria-label="찜하기"
+                aria-pressed="false"
+                hidden
+              >
+                ♡
+              </button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">하의</span>
-              <a class="codi-card__thumb-link" id="bottomLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+              <a
+                class="codi-card__thumb-link"
+                id="bottomLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="상품 보기"
+              >
                 <img class="codi-card__thumb" id="bottomThumb" alt="" />
               </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitBottom">—</span>
                 <span class="codi-card__price" id="bottomPrice"></span>
               </div>
-              <button type="button" class="codi-card__wish" id="bottomWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
+              <button
+                type="button"
+                class="codi-card__wish"
+                id="bottomWish"
+                aria-label="찜하기"
+                aria-pressed="false"
+                hidden
+              >
+                ♡
+              </button>
             </li>
             <li class="codi-card">
               <span class="codi-card__cat">아우터</span>
-              <a class="codi-card__thumb-link" id="outerLink" target="_blank" rel="noopener noreferrer" aria-label="상품 보기">
+              <a
+                class="codi-card__thumb-link"
+                id="outerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="상품 보기"
+              >
                 <img class="codi-card__thumb" id="outerThumb" alt="" />
               </a>
               <div class="codi-card__info">
                 <span class="codi-card__name" id="fitOuter">—</span>
                 <span class="codi-card__price" id="outerPrice"></span>
               </div>
-              <button type="button" class="codi-card__wish" id="outerWish" aria-label="찜하기" aria-pressed="false" hidden>♡</button>
+              <button
+                type="button"
+                class="codi-card__wish"
+                id="outerWish"
+                aria-label="찜하기"
+                aria-pressed="false"
+                hidden
+              >
+                ♡
+              </button>
             </li>
           </ul>
         </div>
 
-        <button type="button" class="btn-secondary buy-btn">이 코디로 옷장 채우기 →</button>
+        <button type="button" class="btn-secondary buy-btn">
+          이 코디로 옷장 채우기 →
+        </button>
       </div>
     </div>
 
@@ -280,8 +449,20 @@
          ========================================================== -->
     <div class="codi-modal wish-modal" id="wishModal" aria-hidden="true">
       <div class="codi-modal__scrim" id="wishScrim"></div>
-      <div class="codi-modal__panel" role="dialog" aria-modal="true" aria-labelledby="wishModalTitle">
-        <button type="button" class="codi-modal__close" id="wishClose" aria-label="닫기">&times;</button>
+      <div
+        class="codi-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="wishModalTitle"
+      >
+        <button
+          type="button"
+          class="codi-modal__close"
+          id="wishClose"
+          aria-label="닫기"
+        >
+          &times;
+        </button>
         <header class="codi-modal__head">
           <p class="eyebrow">WISHLIST</p>
           <h2 class="section-title" id="wishModalTitle">찜한 상품</h2>
